@@ -1,39 +1,39 @@
 ---
 layout: layout.njk
-title: Building a web app with Parcel
-description: A getting started guide walking through how to setup a project with Parcel.
+title: 使用 Parcel 构建 Web 应用程序
+description: 一个入门指南，逐步了解如何使用Parcel设置一个项目。
 eleventyNavigation:
   key: getting-started-webapp
-  title: 🌐 Web app
+  title: 🌐 web应用程序
   order: 1
 ---
 
-## Installation
+## 安装
 
-Before we get started, you'll need to install Node and Yarn or npm, and create a directory for your project. Then, install Parcel into your app using Yarn:
+在开始之前，您需要安装 Node 和 Yarn 或 npm，并为您的项目创建一个目录。然后，使用 Yarn 将 Parcel 安装到您的应用程序中：
 
 ```shell
 yarn add --dev parcel
 ```
 
-Or when using npm run:
+或者在使用 npm 运行时：
 
 ```shell
 npm install --save-dev parcel
 ```
 
-## Project setup
+## 项目设置
 
-Now that Parcel is installed, let’s create some source files for our app. Parcel accepts any type of file as an entry point, but an HTML file is a good place to start. Parcel will follow all of your dependencies from there to build your app.
+现在已经安装了 Parcel，让我们为我们的应用程序创建一些源文件。Parcel 接受任何类型的文件作为入口点，但 HTML 文件是一个很好的起点。Parcel 将从那里遵循您的所有依赖项来构建您的应用程序。
 
 {% sample %}
 {% samplefile "src/index.html" %}
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <title>My First Parcel App</title>
   </head>
   <body>
@@ -45,21 +45,21 @@ Now that Parcel is installed, let’s create some source files for our app. Parc
 {% endsamplefile %}
 {% endsample %}
 
-Parcel has a development server built in, which will automatically rebuild your app as you make changes. To start it, run the `parcel` CLI pointing to your entry file:
+Parcel 内置了一个开发服务器，它会在您进行更改时自动重建您的应用程序。要启动它，请运行 parcel 指向您的入口文件的 CLI：
 
 ```shell
 yarn parcel src/index.html
 ```
 
-Or when using npm run:
+或者在使用 npm 运行时：
 
 ```shell
 npx parcel src/index.html
 ```
 
-Now open [http://localhost:1234/](http://localhost:1234/) in your browser to see the HTML file you created above.
+现在在浏览器中打开 [http://localhost:1234/](http://localhost:1234/) 以查看您在上面创建的 HTML 文件。
 
-Next, you can start adding dependencies to your HTML file, such as a JavaScript or CSS file. For example, you could create a `styles.css` file and reference it from your `index.html` file with a `<link>` tag, and an `app.js` file referenced with a `<script>` tag.
+接下来，您可以开始将依赖项添加到您的 HTML 文件，例如 JavaScript 或 CSS 文件。您可以创建一个 `styles.css` ，在 `index.html` 使用 `<link>` 标签引用，或者一个 `app.js` 文件使用 `<script>` 标签引入。
 
 {% sample %}
 {% samplefile "src/styles.css" %}
@@ -75,7 +75,7 @@ h1 {
 {% samplefile "src/app.js" %}
 
 ```javascript
-console.log('Hello world!');
+console.log("Hello world!");
 ```
 
 {% endsamplefile %}
@@ -99,13 +99,13 @@ console.log('Hello world!');
 {% endsamplefile %}
 {% endsample %}
 
-As you make changes, you should see your app automatically update in the browser without even refreshing the page!
+当您进行更改时，您应该会在浏览器中看到您的应用程序自动更新，甚至无需刷新页面！
 
-In this example, we’ve shown how to use vanilla HTML, CSS, and JavaScript, but Parcel also works with many common web frameworks and languages like [React](/recipes/react/) and [TypeScript](/languages/typescript/) out of the box. Check out the Recipes and Languages sections of the docs to learn more.
+在这个例子中，我们展示了如何使用普通的 HTML、CSS 和 JavaScript，但 Parcel 也可以与许多常见的 Web 框架和语言一起使用，比如开箱即用的 [React](/recipes/react/) 和 [TypeScript](/languages/typescript/) 。查看文档的语言部分以了解更多信息。
 
-## Package scripts
+## 打包脚本
 
-So far, we’ve been running the `parcel` CLI directly, but it can be useful to create some scripts in your `package.json` file to make this easier. We'll also setup a script to build your app for [production](/features/production/) using the `parcel build` command. Finally, you can also declare your [entries](/features/targets/#entries) in a single place using the `source` field so you don't need to duplicate them in each `parcel` command.
+到目前为止，我们一直在 `parcel` 直接运行 CLI，但在您的 `package.json` 文件中创建一些脚本以简化此操作会很有用。我们还将设置一个脚本来使用该命令构建您的应用程序以进行 [生产环境](/features/production/) 发布。使用 `parcel build` 命令。最后，您还可以使用 `source` 在一个地方声明您的 [入口文件](/features/targets/#entries)，这样您就不需要在每个 `parcel` 命令中重复它们。
 
 {% sample %}
 {% samplefile "package.json" %}
@@ -127,11 +127,11 @@ So far, we’ve been running the `parcel` CLI directly, but it can be useful to 
 {% endsamplefile %}
 {% endsample %}
 
-Now you can run `yarn build` to build your project for production and `yarn start` to start the development server.
+现在您可以运行 `yarn build` 以构建您生产环境的项目，使用 `yarn start` 启动开发环境。
 
-## Declaring browser targets
+## 声明浏览器目标
 
-By default Parcel does not perform any code transpilation. This means that if you write your code using modern language features, that’s what Parcel will output. You can declare your app’s supported browsers using the `browserslist` field. When this field is declared, Parcel will transpile your code accordingly to ensure compatibility with your supported browsers.
+默认情况下，Parcel 不执行任何代码转换。这意味着如果您使用现代语言功能编写代码，这就是 Parcel 将输出的内容。您可以使用 `browserslist` 字段声明您的应用支持的浏览器。声明此字段时，Parcel 将相应地转译您的代码，以确保与您支持的浏览器兼容。
 
 {% sample %}
 {% samplefile "package.json" %}
@@ -154,9 +154,8 @@ By default Parcel does not perform any code transpilation. This means that if yo
 {% endsamplefile %}
 {% endsample %}
 
-You can learn more about targets, as well as Parcel’s automatic support for differential bundling on the [Targets](/features/targets/) page.
+您可以在 [Targets](/features/targets/) 页面上了解有关目标的更多信息，以及 Parcel 对差异捆绑的自动支持。
 
-## Next steps
+## 下一步
 
-Now that you’ve set up your project, you're ready to learn about some more advanced features of Parcel. Check out the documentation about [development](/features/development/) and [production](/features/production/), and see the Recipes and Languages sections for more in-depth guides using popular web frameworks and tools.
-
+现在您已经设置了您的项目，您可以了解 Parcel 的一些更高级的功能。查看有关 [开发环境](/features/development/) 和 [生产环境](/features/production/) 的文档，并查看语言部分，以获得使用流行 Web 框架和工具的更深入的指南。

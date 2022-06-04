@@ -62,14 +62,15 @@
         </a>
       </div>
       <nav class="section-picker">
-        <a {% if not page.url.includes('blog') %}class="selected"{% endif %} href="/docs/">Docs</a>
-        <a {% if page.url.includes('blog') %}class="selected"{% endif %} href="{{ collections.Blog | sortDate | first | pageUrl }}">Blog</a>
+        <a {% if not page.url.includes('blog') %}class="selected"{% endif %} href="/docs/">文档</a>
+        <a {% if page.url.includes('blog') %}class="selected"{% endif %} href="{{ collections.Blog | sortDate | first | pageUrl }}">博客</a>
+        <a href="https://parceljs.org/docs/" target="_blank">英文文档</a>
       </nav>
       <div class="search-container">
         <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
-        <input type="text" id="search-input" aria-label="Search" placeholder="Search..." />
+        <input type="text" id="search-input" aria-label="Search" placeholder="搜索..." />
       </div>
       <div class="social-links">
         <a href="https://github.com/parcel-bundler/parcel" aria-label="GitHub">
@@ -109,7 +110,7 @@
         </li>
         {%- endfor -%}
         <li>
-          <h3 id="external-heading">External Links</h3>
+          <h3 id="external-heading">链接</h3>
           <ul aria-labelledby="external-heading">
             <li>
               <a href="https://v1.parceljs.org" target="_blank" rel="noopener">Parcel v1</a>
@@ -158,8 +159,8 @@
 
         {% if tags and not tags.includes("Blog") and page.url != '/plugin-browser/' %}
         <footer>
-          <a href="https://github.com/parcel-bundler/website/blob/v2/{{ page.inputPath }}">
-            Edit this page on GitHub
+          <a href="https://github.com/passerma/parcel-doc/blob/v2/{{ page.inputPath }}">
+            在GitHub上编辑此页
           </a>
         </footer>
         {% endif %}
@@ -167,7 +168,7 @@
       {% if not tags or not tags.includes("Blog") %}
       {% if content | toc %}
       <aside>
-        <h3>On this page</h3>
+        <h3>目录</h3>
         {{ content | toc | safe }}
       </aside>
       {% endif %}

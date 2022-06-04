@@ -57,7 +57,7 @@ body {
 
   & > div {
     padding: 0.5rem;
-    @apply bg-white bg-opacity-80 dark:bg-black dark:bg-opacity-70 rounded-r-md; 
+    @apply bg-white bg-opacity-80 dark:bg-black dark:bg-opacity-70 rounded-r-md;
     @include transition-background-color;
   }
 
@@ -133,7 +133,7 @@ body {
   &.warning,
   &.error {
     .well {
-      @apply bg-transparent border-none ;
+      @apply bg-transparent border-none;
       .assets {
         @apply bg-opacity-10 rounded-md;
       }
@@ -290,7 +290,7 @@ body {
     .hamburger-button {
       @apply w-6 h-6 mr-4 flex-shrink-0 lg:hidden;
     }
-    
+
     .logo {
       @apply hidden xs:flex sm:mr-16;
       align-items: center;
@@ -318,6 +318,7 @@ body {
 
     a {
       display: block;
+      word-break: keep-all;
 
       @apply transition text-blueGray-400 hover:text-blueGray-200 rounded-full px-2 xs:px-3 sm:px-5 py-1;
       &.selected {
@@ -333,7 +334,8 @@ body {
     padding-left: 1rem;
     white-space: nowrap;
 
-    button, a {
+    button,
+    a {
       color: inherit;
       @apply transition-colors;
 
@@ -413,7 +415,7 @@ body {
   a {
     @apply text-gray-600 hover:text-gray-900 hover:bg-sky-500 hover:bg-opacity-10 dark:text-gray-300 dark:hover:text-gray-100 dark:hover:bg-sky-900 dark:hover:bg-opacity-30 transition-colors rounded-md px-4 py-1 block;
     @media (min-width: 768px) {
-      font-size: .95rem;
+      font-size: 0.95rem;
     }
   }
 
@@ -462,7 +464,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    content: '';
+    content: "";
     z-index: 99;
     @apply bg-gray-900 bg-opacity-80;
     opacity: 0;
@@ -517,7 +519,7 @@ body {
 
     & img {
       height: 1em;
-  }
+    }
   }
 
   h1,
@@ -539,7 +541,7 @@ body {
 
   h2,
   h2 + .header-anchor {
-    @apply text-2xl;  
+    @apply text-2xl;
   }
 
   h2 + .header-anchor {
@@ -556,7 +558,9 @@ body {
     @apply text-lg;
   }
 
-  h2, h3, h4 {
+  h2,
+  h3,
+  h4 {
     @apply mt-8 mb-4;
 
     & + .header-anchor {
@@ -590,7 +594,8 @@ body {
   kbd,
   samp {
     white-space: pre;
-    &, * {
+    &,
+    * {
       @include transition-colors;
     }
   }
@@ -618,12 +623,17 @@ body {
   }
 
   article {
-    p, ul, ol, table {
+    p,
+    ul,
+    ol,
+    table {
       @apply my-4;
     }
 
-    ul, ol {
-      ul, ol {
+    ul,
+    ol {
+      ul,
+      ol {
         @apply my-1;
       }
     }
@@ -683,7 +693,8 @@ body {
     margin: 0 0 0 2em;
   }
 
-  img:not(.inline), video {
+  img:not(.inline),
+  video {
     max-width: 100%;
     border-radius: 6px;
   }
@@ -782,7 +793,7 @@ body {
       }
 
       li {
-        @apply py-1
+        @apply py-1;
       }
 
       a {

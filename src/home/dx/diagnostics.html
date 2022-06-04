@@ -1,8 +1,8 @@
 <div class="grid lg:grid-cols-2 gap-x-4 gap-y-8 lg:gap-12 mt-4 md:mt-8">
   <div class="text-lg lg:text-xl font-medium text-gray-600 dark:text-pink-300">
-    <p class="mb-4">If you make an error in your code or configuration, Parcel displays <strong class="font-semibold text-gray-800 dark:text-pink-200">beautiful diagnostics</strong> in your terminal and in the browser.</p>
-    <p class="mb-4">Every error includes a syntax highlighted code frame pointing to the exact location where the error occurred, along with hints about how to fix the issue.</p>
-    <p>Many diagnostics even include a documentation link where you can learn more.</p>
+    <p class="mb-4">如果您的代码或配置出错，Parcel 会在您的终端和浏览器中显示 <strong class="font-semibold text-gray-800 dark:text-pink-200">漂亮的诊断信息</strong></p>
+    <p class="mb-4">每个错误都包含一个语法突出显示的代码框，指向错误发生的确切位置，以及有关如何解决问题的提示。</p>
+    <p>许多诊断程序甚至包括一个文档链接，您可以在其中了解更多信息。</p>
   </div>
   <div x-data="{shown: false}" x-intersect:enter="shown = true" x-intersect:leave="shown = false" class="overflow-auto bg-gray-50 dark:bg-gray-900 md:h-80 rounded-md pt-4 border-gray-200 dark:border-gray-800 border-solid border shadow-xl justify-self-center max-w-full-screen transition duration-700 ease-out delay-100" :class="{'translate-y-0 opacity-100': shown, 'motion-safe:translate-y-3 opacity-70': !shown}">
     <div class="flex flex-row ml-4">

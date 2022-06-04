@@ -1,6 +1,6 @@
 <div class="flex flex-col">
   <div class="text-lg lg:text-xl font-medium text-gray-600 dark:text-purple-300 mt-4 md:mt-8">
-    <p>When you make a change, Parcel automatically updates your code in the browser – no page reload necessary!</p>
+    <p>当您进行更改时，Parcel 会自动在浏览器中更新您的代码——无需手动重新加载页面！</p>
   </div>
   <div class="relative mt-8 self-center max-w-full-screen" x-data="{shown: false}" x-intersect:enter="shown = true" x-intersect:leave="shown = false">
     <div role="img" aria-label="A browser showing a page that is being edited by a text editor. The text updates to reflect the changes." class="bg-gray-100 dark:bg-gray-900 h-48 md:h-64 text-black dark:text-white rounded-md border-gray-200 dark:border-gray-700 border-solid border shadow-xl overflow-hidden transition duration-700 ease-out delay-100" :class="{'translate-y-0 translate-x-0 opacity-100': shown, 'motion-safe:-translate-y-3 motion-safe:-translate-x-3 opacity-70': !shown}" style="max-width: min(90%, 20rem)">
@@ -72,7 +72,7 @@ export function Greeting() {
     run('Parcel');
   </script>
   <div class="text-xl font-medium text-gray-600 dark:text-purple-300 mt-8">
-    <p class="mb-4 text-base md:text-lg">Parcel also integrates with <strong class="font-semibold text-gray-800 dark:text-purple-100">React Fast Refresh</strong> and the <strong class="font-semibold text-gray-800 dark:text-purple-100">Vue Hot Reloading API</strong> to automatically preserve your application state between updates. This gives you instant feedback as you make changes, without taking you out of context.</p>
-    <a class="block mt-8 text-lg font-medium text-blue-700 dark:text-blue-400 hover:underline" href="/features/development/#hot-reloading">Learn more →</a>
+    <p class="mb-4 text-base md:text-lg">Parcel 也集成了 <strong class="font-semibold text-gray-800 dark:text-purple-100">React Fast Refresh</strong> 和 <strong class="font-semibold text-gray-800 dark:text-purple-100">Vue Hot Reloading API</strong> 以在更新之间自动保留您的应用程序状态。这会在您进行更改时为您提供即时反馈，而不会让您脱离上下文。</p>
+    <a class="block mt-8 text-lg font-medium text-blue-700 dark:text-blue-400 hover:underline" href="/features/development/#hot-reloading">了解更多 →</a>
   </div>  
 </div>

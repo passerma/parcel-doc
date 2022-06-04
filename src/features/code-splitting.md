@@ -1,19 +1,19 @@
 ---
 layout: layout.njk
-title: Code Splitting
+title: 代码拆分
 eleventyNavigation:
   key: features-code-splitting
-  title: ✂️ Code Splitting
+  title: ✂️ 代码拆分
   order: 2
 ---
 
-Parcel supports zero configuration code splitting out of the box. This allows you to split your application code into separate bundles which can be loaded on demand, resulting in smaller initial bundle sizes and faster load times.
+Parcel 支持开箱即用的零配置代码拆分。这允许您将应用程序代码拆分为可以按需加载的单独包，从而减小初始包大小并加快加载时间。
 
-Code splitting is controlled by use of the dynamic `import()` syntax, which works like the normal `import` statement, but returns a Promise. This means that the module can be loaded asynchronously.
+代码拆分是通过使用动态 `import()` 语法来控制的，它的工作方式与普通 `import` 语句类似，但返回一个 Promise。这意味着可以异步加载模块。
 
-## Using dynamic imports
+## 使用动态导入
 
-The following example shows how you might use dynamic imports to load a sub-page of your application on demand.
+以下示例显示了如何使用动态导入按需加载应用程序的子页面。
 
 {% sample %}
 {% samplefile "pages/index.js" %}
@@ -37,7 +37,7 @@ export function render() {
 {% endsamplefile %}
 {% endsample %}
 
-Because `import()` returns a Promise, you can also use async/await syntax.
+因为 `import()` 返回一个 Promise，你也可以使用 async/await 语法。
 
 {% sample %}
 {% samplefile "pages/index.js" %}
@@ -65,11 +65,11 @@ export function render() {
 
 ### Tree shaking
 
-When Parcel can determine which exports of a dynamically imported module you use, it will tree shake the unused exports from that module. This works with static property accesses or destructuring, with either `await` or Promise `.then` syntax.
+当 Parcel 可以确定您使用动态导入模块的哪些导出时，它将对该模块中未使用的导出进行 tree shake。这适用于静态属性访问或解构，使用 `await` 或 Promise `.then` 语法。
 
 {% note %}
 
-**Note:** For the `await` cases, unused exports can unfortunately only be removed when `await` is not transpilied away (i.e. with a modern browserslist config).
+**注意:** 对于这种 `await` 情况，不幸的是，未使用的导出只能在 `await` 未转译时被删除（即使用现代浏览器列表配置）。
 
 {% endnote %}
 
@@ -82,7 +82,6 @@ let { x: y } = await import("./b.js");
 ```
 
 {% endsamplefile %}
-
 
 {% samplefile %}
 
@@ -111,17 +110,17 @@ import("./b.js").then(({ x: y }) => console.log(y));
 
 {% endsample %}
 
-## Shared bundles
+## 共享包
 
-When multiple parts of your application depend on the same common modules, they are automatically deduplicated into a separate bundle. This allows commonly used dependencies to be loaded in parallel with your application code and cached separately by the browser.
+当您的应用程序的多个部分依赖于相同的公共模块时，它们会自动去重到一个单独的包中。这允许常用的依赖项与您的应用程序代码并行加载，并由浏览器单独缓存。
 
-For example, if your application has multiple pages with `<script>` tags that depend on the same common modules, those modules will be split out into a "shared bundle”. This way, if a user navigates from one page to another, they only need to download the new code for that page, and not the common dependencies between the pages.
+例如，如果您的应用程序有多个页面的 `<script>` 标签依赖于相同的公共模块，这些模块将被拆分为“共享包”。这样，如果用户从一个页面导航到另一个页面，他们只需要下载该页面的新代码，而不是页面之间的公共依赖关系。
 
 {% sample %}
 {% samplefile "home.html" %}
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <div id="app"></div>
 <script type="module" src="home.js"></script>
 ```
@@ -130,7 +129,7 @@ For example, if your application has multiple pages with `<script>` tags that de
 {% samplefile "home.js" %}
 
 ```jsx
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 
 ReactDOM.render(<h1>Home</h1>, app);
 ```
@@ -139,7 +138,7 @@ ReactDOM.render(<h1>Home</h1>, app);
 {% samplefile "profile.html" %}
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <div id="app"></div>
 <script type="module" src="profile.js"></script>
 ```
@@ -148,7 +147,7 @@ ReactDOM.render(<h1>Home</h1>, app);
 {% samplefile "profile.js" %}
 
 ```jsx
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 
 ReactDOM.render(<h1>Profile</h1>, app);
 ```
@@ -162,7 +161,7 @@ Compiled HTML:
 {% samplefile "home.html" %}
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <div id="app"></div>
 <script type="module" src="react-dom.23f6d9.js"></script>
 <script type="module" src="home.fac9ed.js"></script>
@@ -172,7 +171,7 @@ Compiled HTML:
 {% samplefile "profile.html" %}
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <div id="app"></div>
 <script type="module" src="react-dom.23f6d9.js"></script>
 <script type="module" src="profile.9fc67e.js"></script>
@@ -181,17 +180,17 @@ Compiled HTML:
 {% endsamplefile %}
 {% endsample %}
 
-In the above example, both `home.js` and `profile.js` depend on `react-dom`, so it is split out into a separate bundle and loaded in parallel by adding an extra `<script>` tag to both HTML pages.
+在上面的示例中，`home.js` 和 `profile.js` 两者都依赖 `react-dom`, 因此它被拆分为一个单独的包，并通过向两个 HTML 页面添加一个额外的标签 `<script>` 来并行加载。
 
-This also works between different sections of an app that have been code split with dynamic `import()`. Common dependencies shared between two dynamic imports will be split out and loaded in parallel with the dynamically imported modules.
+这也适用于已使用动态代码拆分的应用程序的不同部分 `import()`。两个动态导入之间共享的公共依赖项将被拆分并与动态导入的模块并行加载。
 
-### Configuration
+### 配置
 
-By default, Parcel only creates shared bundles when shared modules reach a size threshold. This avoids splitting out very small modules and creating extra HTTP requests, which have overhead even with HTTP/2. If a module is below the threshold, it will be duplicated between pages instead.
+默认情况下，Parcel 仅在共享模块达到大小阈值时创建共享包。这避免了拆分非常小的模块并创建额外的 HTTP 请求，即使使用 HTTP/2 也会产生开销。如果一个模块低于阈值，它将在页面之间复制。
 
-Parcel also has a maximum parallel request limit to avoid overloading the browser with too many requests at once, and will duplicate modules if this limit is reached. Larger modules are prioritized over smaller ones when creating shared bundles.
+Parcel 还具有最大并行请求限制，以避免一次过多的请求使浏览器过载，如果达到此限制，则会复制模块。在创建共享包时，较大的模块优先于较小的模块。
 
-By default, these parameters have been tuned for HTTP/2. However, you can adjust these options to raise or lower them for your application. You can do this by configuring the `@parcel/bundler-default` key in the package.json in your project root.
+默认情况下，这些参数已针对 HTTP/2 进行了调整。但是，您可以调整这些选项以针对您的应用程序提高或降低它们。您可以通过项目根目录中的 package.json 中配置 `@parcel/bundler-default` 来完成此操作。
 
 {% sample %}
 {% samplefile "package.json" %}
@@ -199,36 +198,36 @@ By default, these parameters have been tuned for HTTP/2. However, you can adjust
 ```json5
 {
   "@parcel/bundler-default": {
-    "minBundles": 1,
-    "minBundleSize": 3000,
-    "maxParallelRequests": 20
-  }
+    minBundles: 1,
+    minBundleSize: 3000,
+    maxParallelRequests: 20,
+  },
 }
 ```
 
 {% endsamplefile %}
 {% endsample %}
 
-The available options are:
+可用的选项有：
 
-- **minBundles** – For an asset to be split, it must be used by more than `minBundles` bundles.
-- **minBundleSize** – For a shared bundled to be created, it has to be at least `minBundleSize`bytes big (before minification and tree shaking).
-- **maxParallelRequests** – To prevent overloading the network with too many concurrent requests, this ensures that a maximum of `maxParallelRequests` sibling bundles can be loaded together.
-- **http** – A shorthand for setting the above values to defaults which are optimized for HTTP/1 or HTTP/2. See the table below for these default values.
+- **minBundles** – 对于要拆分的文件，它必须由多个 `minBundles` 包使用.
+- **minBundleSize** – 对于要创建的共享包，它必须比 `minBundleSize` 字节大（在缩小和 tree shaking 之前）。
+- **maxParallelRequests** – 为防止过多并发请求使网络过载，这确保了最多 `maxParallelRequests` 可以同时加载同级包。
+- **http** – 将上述值设置为针对 HTTP/1 或 HTTP/2 优化的默认值的简写。有关这些默认值，请参见下表。
 
-| `http`                 | `minBundles` | `minBundleSize` | `maxParallelRequests` |
-| ---------------------- | ------------ | --------------- | --------------------- |
-| 1                      | 1            | 30000           | 6                     |
-| 2 (default)            | 1            | 20000           | 25                    |
+| `http`      | `minBundles` | `minBundleSize` | `maxParallelRequests` |
+| ----------- | ------------ | --------------- | --------------------- |
+| 1           | 1            | 30000           | 6                     |
+| 2 (default) | 1            | 20000           | 25                    |
 
-You can read more about this topic on [web.dev](https://web.dev/granular-chunking-nextjs/).
+您可以在 [web.dev](https://web.dev/granular-chunking-nextjs/) 上阅读有关此主题的更多信息。
 
-## Internalized async bundles
+## 内部化（internalized）的异步包
 
-If a module is imported both synchronously and asynchronously from within the same bundle, rather than splitting it out into a separate bundle, the async dependency will be “internalized”. This means it will be kept within the same bundle as the dynamic import to avoid duplication, but wrapped in a `Promise` to preserve semantics.
+如果一个模块从同一个包中同步和异步导入，而不是将其拆分到一个单独的包中，异步依赖将被“内部化（internalized）”。这意味着它将与动态导入保存在同一个包中以避免重复，但包装在 `Promise` 中以保留语义。
 
-For this reason, dynamic import is merely a *hint* that a dependency is not needed synchronously, not a guarantee that a new bundle will be created.
+出于这个原因，动态导入只是暗示不需要同步依赖，而不是保证会创建一个新的包。
 
-## Deduplication
+## 重复数据删除
 
-If a dynamically imported module has a dependency that is already available in all of its possible ancestries, it will be deduplicated. For example, if a page imports a library which is also used by a dynamically imported module, the library will only be included in the parent since it will already be on the page at runtime.
+如果动态导入的模块具有在其所有可能的祖先中已经可用的依赖项，则将对其进行重复数据删除。例如，如果页面导入了一个动态导入模块也使用的库，则该库将仅包含在父级中，因为它在运行时已经在页面上。

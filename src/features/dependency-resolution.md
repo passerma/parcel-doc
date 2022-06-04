@@ -1,143 +1,143 @@
 ---
 layout: layout.njk
-title: Dependency resolution
+title: 依赖解析
 eleventyNavigation:
   key: features-dependency-resolution
-  title: 📔 Dependency resolution
+  title: 📔 依赖解析
   order: 3
 ---
 
-As Parcel builds your source code, it discovers **dependencies**, which allow code to be broken into separate files and reused in multiple places. Dependencies describe where to find the file containing the code you rely on, as well as metadata about how to build it.
+当 Parcel 构建您的源代码时，它会发现**依赖项**，这允许将代码分解为单独的文件并在多个地方重用。依赖项描述了在哪里可以找到包含您所依赖的代码的文件，以及有关如何构建它的元数据。
 
-## Dependency specifiers
+## 依赖说明符
 
-A **dependency specifier** is a string that describes the location of a dependency relative to the file that imports it. For example, in JavaScript the `import` statement or `require` function may be used to create dependencies. In CSS, `@import` and `url()` may be used. Typically, these dependencies do not specify a full absolute path, but rather a shorter specifier that is resolved to an absolute path by Parcel and other tools.
+依赖项说明符是一个字符串，它描述了依赖项相对于导入它的文件的位置。例如，在 JavaScript 中，`import`语句或`require`函数可用于创建依赖关系。在 CSS 中，`@import`和`url()`可以使用。通常，这些依赖项不指定完整的绝对路径，而是指定一个较短的说明符，由 Parcel 和其他工具解析为绝对路径。
 
-Parcel implements an enhanced version of the [Node module resolution algorithm](https://nodejs.org/api/modules.html#modules_all_together). It is responsible for turning a dependency specifier into an absolute path that can be loaded from the file system. In addition to the standard dependency specifiers supported across many tools, Parcel also supports some additional specifier types and features.
+Parcel 实现了 [Node module resolution algorithm](https://nodejs.org/api/modules.html#modules_all_together)的增强版本。它负责将依赖说明符转换为可以从文件系统加载的绝对路径。除了许多工具支持的标准依赖说明符外，Parcel 还支持一些附加说明符类型和功能。
 
-### Relative specifiers
+### 相对说明符
 
-Relative specifiers start with `.` or `..`, and resolve a file relative to the importing file.
-
-{% sample %}
-{% samplefile "/path/to/project/src/client.js" %}
-
-```javascript
-import './utils.js';
-import '../constants.js';
-```
-
-{% endsamplefile %}
-{% endsample %}
-
-In the above example, the first import would resolve to `/path/to/project/src/utils.js` and the second would resolve to `/path/to/project/constants.js`.
-
-#### File extensions
-
-It is recommended to include the full file extension in all import specifiers. This both improves dependency resolution performance and reduces ambiguity.
-
-That said, for compatibility with CommonJS in Node, and with TypeScript, Parcel allows the file extension to be omitted for certain file types. The file extensions that may be omitted include `.ts`, `.tsx`, `.js`, `.jsx`, and `.json`. A file extension is required to import all other file types.
-
-The following example resolves to the same files as above.
+相对说明符以`.`或`..`开头，并解析相对于导入文件的文件。
 
 {% sample %}
 {% samplefile "/path/to/project/src/client.js" %}
 
 ```javascript
-import './utils';
-import '../constants';
+import "./utils.js";
+import "../constants.js";
 ```
 
 {% endsamplefile %}
 {% endsample %}
 
-Note that these may only be omitted when importing from a JavaScript or TypeScript file. File extensions are always required for dependencies defined in other file types like HTML and CSS.
+在上面的示例中，第一个导入将解析为 `/path/to/project/src/utils.js`，第二个将解析为 `/path/to/project/constants.js`。
 
-#### Directory index files
+#### 文件扩展名
 
-In JavaScript, Typescript, and other JS-based languages, dependency specifiers may resolve to a directory rather than a file. If the directory contains a `package.json` file, the main entry will be resolved as described in the [Package entries](#package-entries) section. If no `package.json` is present, it will attempt to resolve to an index file within the directory, such as `index.js` or `index.ts`. All extensions listed above are supported for index files.
+建议在所有导入说明符中包含完整的文件扩展名。这既提高了依赖性解析性能，又减少了歧义。
+
+也就是说，为了与 Node 中的 CommonJS 和 TypeScript 兼容，Parcel 允许为某些文件类型省略文件扩展名。可以省略的文件扩展名包括 `.ts`, `.tsx`, `.js`, `.jsx`, 和 `.json`。导入所有其他文件类型需要文件扩展名。
+
+以下示例解析为与上述相同的文件。
+
+{% sample %}
+{% samplefile "/path/to/project/src/client.js" %}
+
+```javascript
+import "./utils";
+import "../constants";
+```
+
+{% endsamplefile %}
+{% endsample %}
+
+请注意，只有在从 JavaScript 或 TypeScript 文件导入时，才能省略这些。在 HTML 和 CSS 等其他文件类型中定义的依赖项始终需要文件扩展名。
+
+#### 目录索引文件
+
+在 JavaScript、Typescript 和其他基于 JS 的语言中，依赖说明符可能会解析为目录而不是文件。如果目录包含一个`package.json`文件，主条目将按照[Package entries](#package-entries)部分中的说明进行解析。如果`package.json`不存在, 它将尝试解析到目录中的索引文件，例如`index.js` 或`index.ts`。索引文件支持上面列出的所有扩展名。
 
 {% sample %}
 {% samplefile "/path/to/project/src/app.js" %}
 
 ```javascript
-import './client';
+import "./client";
 ```
 
 {% endsamplefile %}
 {% endsample %}
 
-For example, if `/path/to/project/src/client` were a directory, the above specifier could resolve to `/path/to/project/src/client/index.js`.
+例如，如果`/path/to/project/src/client`是目录，则上述说明符可以解析为`/path/to/project/src/client/index.js`。
 
-### Bare specifiers
+### 裸说明符
 
-Bare specifiers start with any character except `.`, `/`, or `~`. In JavaScript, TypeScript, and other JS-based languages, they resolve to a package in `node_modules`. For other types of files, such as HTML and CSS, bare specifiers are treated the same way as [relative specifiers](#relative-specifiers).
+裸说明符以除`.`, `/`, or `~`之外的任何字符开头。 在 JavaScript、TypeScript 和其他基于 JS 的语言中，它们解析为`node_modules`。对于其他类型的文件，例如 HTML 和 CSS，裸说明符的处理方式与[relative specifiers](#relative-specifiers)相同。
 
 {% sample %}
 {% samplefile "/path/to/project/src/client/index.js" %}
 
 ```javascript
-import 'react';
+import "react";
 ```
 
 {% endsamplefile %}
 {% endsample %}
 
-In the above example, `react` may resolve to something like `/path/to/project/node_modules/react/index.js`. The exact location will depend on the location of the `node_modules` directory, as well as configuration within the package.
+在上面的示例中，`react`可能会解析为`/path/to/project/node_modules/react/index.js`。确切的位置将取决于`node_modules`目录的位置以及包内的配置。
 
-`node_modules` directories are searched upwards from the importing file. The search stops at the project root directory. For example, if the importing file was at `/path/to/project/src/client/index.js` the following locations would be searched:
+`node_modules`从导入文件向上搜索目录。搜索在项目根目录处停止。例如，如果导入文件位于`/path/to/project/src/client/index.js`以下位置，则将被搜索：
 
 - `/path/to/project/src/client/node_modules/react`
 - `/path/to/project/src/node_modules/react`
 - `/path/to/project/node_modules/react`
 
-Once a module directory is found, the package entry is resolved. See [Package entries](#package-entries) for more details on this process.
+一旦找到模块目录，就解析了包条目。有关此过程的更多详细信息，请参阅[Package entries](#package-entries)。
 
-#### Package sub-paths
+#### 子路径包
 
-Bare specifiers may also specify a sub-path within a package. For example, a package may publish multiple entry points rather than only a single one.
-
-```javascript
-import 'lodash/clone';
-```
-
-The above example resolves `lodash` within a `node_modules` directory as described above, and then resolves the `clone` module within the package rather than its main entrypoint. This could be a `node_modules/lodash/clone.js` file, for example.
-
-#### Builtin modules
-
-Parcel includes shims for many builtin Node.js modules, e.g. `path` and `url`. When a dependency specifier references one of these module names, the builtin module is preferred over any module installed in `node_modules` with the same name. When building for a node environment, builtin modules are excluded from the bundle, otherwise a shim is included. See the [Node docs](https://nodejs.org/dist/latest-v16.x/docs/api/) for a full list of builtin modules.
-
-When building for an Electron environment, the `electron` module is also considered a builtin and excluded from the bundle.
-
-### Absolute specifiers
-
-Absolute specifiers start with `/`, and resolve a file relative to the project root. The **project root** is the base directory of your project, which would typically contain a package manager lock file (e.g. `yarn.lock` or `package-lock.json`), or a source control directory (e.g. `.git`). Absolute specifiers could be useful to avoid very long relative paths in deeply nested hierarchies.
+裸说明符也可以指定包内的子路径。例如，一个包可能会发布多个入口点，而不仅仅是一个入口点。
 
 ```javascript
-import '/src/client.js';
+import "lodash/clone";
 ```
 
-The above example could be placed in any file, at any point in your project’s directory structure, and will always resolve to `/path/to/project/src/client.js`.
+上面的示例`lodash`在如上所述的`node_modules`目录中解析，然后`clone`在包中解析模块而不是其主入口点。例如，这可能是一个`node_modules/lodash/clone.js`文件。
 
-### Tilde specifiers
+#### 内置模块
 
-Tilde specifiers start with `~`, and resolve relative to the nearest package root from the importing file. A **package root** is a directory with a `package.json` file, which would typically be found in `node_modules`, or as the root of a package in a monorepo. Tilde specifiers are useful for similar purposes as absolute specifiers, but are more useful when you have more than one package.
+Parcel 包括许多内置 Node.js 模块的垫片，例如`path`和`url`。当依赖说明符引用这些模块名称之一时，内置模块优先于任何安装的`node_modules` 具有相同名称的模块。在为节点环境构建时，内置模块会从包中排除，否则会包含一个 shim。有关内置模块的完整列表，请参阅[Node docs](https://nodejs.org/dist/latest-v16.x/docs/api/)文档。
+
+在为 Electron 环境构建时，该`electron`模块也被视为内置模块并从包中排除。
+
+### 绝对路径
+
+绝对路径以`/`开头, 并解析相对于项目根目录的文件。项目根目录是项目的基本目录，通常包含包管理器锁定文件（例如`yarn.lock`或`package-lock.json`）或源代码控制目录（例如`.git`）。绝对说明符对于避免深度嵌套层次结构中非常长的相对路径可能很有用。
+
+```javascript
+import "/src/client.js";
+```
+
+上面的示例可以放在项目目录结构中的任何位置的任何文件中，并且始终解析`/path/to/project/src/client.js`。
+
+### 波浪符说明符
+
+波浪符说明符以`~`开头，并相对于导入文件中最近的项目根目录进行解析。项目根目录是一个包含文件`package.json`的目录，通常可以在改目录中找到`node_modules`，波浪符说明符可用于与绝对说明符类似的目的，但当您拥有多个包时更有用。
 
 {% sample %}
 {% samplefile "/path/to/project/packages/frontend/src/client/index.js" %}
 
 ```javascript
-import '~/src/utils.js';
+import "~/src/utils.js";
 ```
 
 {% endsamplefile %}
 {% endsample %}
 
-The above example would resolve to `/path/to/project/packages/frontend/src/utils.js`.
+上面的示例将解析为`/path/to/project/packages/frontend/src/utils.js`。
 
-### Query parameters
+### 查询参数
 
-Dependency specifiers may also include query parameters, which specify transformation options for the resolved file. For example, you can specify the width and height to resize an image when loading it.
+依赖说明符还可以包括查询参数，这些参数指定解析文件的转换选项。例如，您可以指定宽度和高度以在加载图像时调整图像大小。
 
 ```css
 .logo {
@@ -145,30 +145,30 @@ Dependency specifiers may also include query parameters, which specify transform
 }
 ```
 
-See the [Image transformer](/recipes/image/) docs for more details on images. You can also use query parameters in custom [Transformer](/plugin-system/transformer/) plugins.
+有关图像的更多详细信息，请参阅[Image transformer](/recipes/image/)图片转换器文档。您还可以在自定义[Transformer](/plugin-system/transformer/)插件中使用查询参数。
 
 {% note %}
 
-**Note**: Query parameters are not supported for CommonJS specifiers (created by the `require` function).
+**注意**: CommonJS 说明符（由`require`函数创建）不支持查询参数。
 
 {% endnote %}
 
-### URL schemes
+### URL 方案
 
-Dependency specifiers may use URL schemes to target [Named pipelines](/features/plugins/#named-pipelines). These allow you to specify a different pipeline to compile a file with than the default one. For example, the `bundle-text:` scheme can be used to inline a compiled bundle as text. See [Bundle inlining](/features/bundle-inlining/) for more details.
+依赖说明符可以使用 URL 方案来定位[Named pipelines](/features/plugins/#named-pipelines)。这些允许您指定不同的管道来编译文件，而不是默认管道。例如，该`bundle-text:`方案可用于将已编译的捆绑包内联为文本。有关更多详细信息，请参阅[Bundle inlining](/features/bundle-inlining/)。
 
-There are a few reserved URL schemes that may not be used for named pipelines, and have builtin behavior.
+有一些保留的 URL 方案可能不会用于命名管道，并且具有内置行为。
 
-- `node:` – an alternative way of specifying a builtin Node module. See [Builtin modules](#builtin-modules).
-- `npm:` – a way for URL dependencies (e.g. in HTML, CSS, or web workers) to import files from a `node_modules` package.
-- `http:` and `https:` – a fully qualified URL dependency. These are resolved at runtime, and left untouched by Parcel.
-- `data:` – A [data URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) including the dependency source code inline. Currently not implemented by Parcel, but reserved for future use.
-- `file:` – A [file URL](https://datatracker.ietf.org/doc/html/rfc8089). Reserved for future use.
-- `mailto:` and `tel:` - Commonly used URL schemes. These are left untouched by Parcel.
+- `node:` – 指定内置节点模块的另一种方法。请参阅[Builtin modules](#builtin-modules)。
+- `npm:` – URL 依赖项（例如在 HTML、CSS 或网络工作者中）从`node_modules`包中导入文件的一种方式。
+- `http:`和`https:` – 完全限定的 URL 依赖项。这些在运行时解决，并且不被 Parcel 处理。
+- `data:` – 包含内联依赖源代码的[数据 data URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)目前尚未由 Parcel 实施，但保留供将来使用。
+- `file:` – [文件 file URL](https://datatracker.ietf.org/doc/html/rfc8089)。保留供将来使用。
+- `mailto:`和`tel:` - 常用的 URL 方案。这些都没有被 parcel 所触及。
 
-### Glob specifiers
+### 全局说明符
 
-Parcel supports importing multiple files at once via globs, however, since glob imports are non-standard, they are not included in the default Parcel config. To enable them, add `@parcel/resolver-glob` to your `.parcelrc`.
+Parcel 支持通过 glob 一次导入多个文件，但是，由于 glob 导入是非标准的，因此它们不包含在默认 Parcel 配置中。要启用它们，请添加`@parcel/resolver-glob`到您的`.parcelrc`。
 
 {% sample %}
 {% samplefile ".parcelrc" %}
@@ -183,36 +183,36 @@ Parcel supports importing multiple files at once via globs, however, since glob 
 {% endsamplefile %}
 {% endsample %}
 
-Once enabled, you can import multiple files using a specifier like `./files/*.js`. This returns an object with keys corresponding to the files names.
+启用后，您可以使用诸如`./files/*.js`。这将返回一个对象，其键对应于文件名。
 
 ```javascript
-import * as files from './files/*.js';
+import * as files from "./files/*.js";
 ```
 
-is equivalent to:
+相当于：
 
 ```javascript
-import * as foo from './files/foo.js';
-import * as bar from './files/bar.js';
+import * as foo from "./files/foo.js";
+import * as bar from "./files/bar.js";
 
 let files = {
   foo,
-  bar
+  bar,
 };
 ```
 
-Specifically, the dynamic parts of the glob pattern become keys of the object. If there are multiple dynamic parts, a nested object will be returned. For example, if a `pages/profile/index.js` file existed, the following would match it.
+具体来说，glob 模式的动态部分成为对象的键。如果有多个动态部分，将返回一个嵌套对象。例如，如果`pages/profile/index.js`文件存在，则以下内容将匹配它。
 
 ```javascript
-import * as pages from './pages/*/*.js';
+import * as pages from "./pages/*/*.js";
 
 console.log(pages.profile.index);
 ```
 
-This also works with URL schemes like `bundle-text:`, as well as with dynamic import. When using dynamic import, the resulting object will include a mapping of filenames to functions. Each function can be called to load the resolved module. This means that each file is loaded on demand rather than all up-front.
+这也适用于 URL 方案`bundle-text:`，如 ，以及动态导入。使用动态导入时，生成的对象将包括文件名到函数的映射。可以调用每个函数来加载已解析的模块。这意味着每个文件都是按需加载的，而不是全部预先加载的。
 
 ```javascript
-let files = import('./files/*.js');
+let files = import("./files/*.js");
 
 async function doSomething() {
   let foo = await files.foo();
@@ -221,47 +221,47 @@ async function doSomething() {
 }
 ```
 
-Globs may also be used to import files from npm packages:
+Globs 也可用于从 npm 包中导入文件：
 
 ```js
-import * as locales from '@company/pkg/i18n/*.js';
+import * as locales from "@company/pkg/i18n/*.js";
 
 console.log(locales.en.message);
 ```
 
-Glob imports also work with CSS:
+Glob 导入也适用于 CSS：
 
 ```css
 @import "./components/*.css";
 ```
 
-is equivalent to:
+相当于：
 
 ```css
 @import "./components/button.css";
 @import "./components/dropdown.css";
 ```
 
-## Package entries
+## 包目录
 
-When resolving a package directory, the `package.json` file is consulted to determine the package entry. Parcel checks the following fields (in order):
+解析包目录时，`package.json`会查阅该文件以确定包条目。Parcel 检查以下字段（按顺序）：
 
-- `source` – If the module is behind a symlink (e.g. in a monorepo, or via `npm link`), then Parcel uses the `source` field to compile the module from source. The `source` field can also be used as an alias mapping if a package has multiple entry points – see [Aliases](#aliases) below for details.
-- `browser` – A browser-specific version of a package. If building for a [browser environment](/features/targets/#environments), the browser field overrides other fields. The `browser` field can also be used as an alias mapping if a package has multiple entry points – see [Aliases](#aliases) below for details.
-- `module` – An ES module version of the package.
-- `main` – A CommonJS version of the package.
+- `source` – 如果模块位于符号链接后面（例如在 monorepo 或 via 中`npm link`），则 Parcel 使用该`source`字段从源代码编译模块。如果包有多个入口点，该`source`字段也可以用作别名映射 - 有关详细信息，请参阅下面的[Aliases](#aliases)。
+- `browser` – 特定于浏览器的包版本。如果为[浏览器环境（browser environment）](/features/targets/#environments)构建，浏览器字段会覆盖其他字段。如果包有多个入口点，该`browser`字段也可以用作别名映射 - 有关详细信息，请参阅下面的[Aliases](#aliases)。
+- `module` – 包的 ES 模块版本。
+- `main` – 包的 CommonJS 版本。
 
-If none of these fields are set, or the files they point to do not exist, then resolution falls back to an index file. See [Directory index files](#directory-index-files) for more details.
+如果这些字段均未设置，或者它们指向的文件不存在，则解析回退到索引文件。有关详细信息，请参阅[目录索引文件（Directory index files）](#directory-index-files)。
 
-## Aliases
+## 别名 Aliases
 
-An alias can be used to override the normal resolution of a dependency. For example, you may want to override a module with a different but API-compatible replacement, or map a dependency to a global variable defined by a library loaded from a CDN.
+别名可用于覆盖依赖项的正常解析。例如，您可能希望使用不同但与 API 兼容的替换来覆盖模块，或者将依赖项映射到由从 CDN 加载的库定义的全局变量。
 
-Aliases are defined via the `alias` field in package.json. They can be defined either locally in the nearest `package.json` to the source file containing the dependency, or globally in the `package.json` in the project root directory. Global aliases apply to all files and packages in the project, including those in `node_modules`.
+别名是通过 package.json 中的`alias`定义的。它们可以在最接近`package.json`包含依赖项的源文件中本地定义，也可以`package.json`在项目根目录中全局定义。全局别名适用于项目中的所有文件和包，包括`node_modules`。
 
-### Package aliases
+### 包别名
 
-Package aliases map a `node_modules` dependency to a different package, or to a local file within your project. For example, to replace `react` and `react-dom` with Preact across both files in your project as well as any other libraries in `node_modules`, you could define a global alias in the `package.json` in your project root directory.
+包别名将`node_modules`依赖项映射到不同的包或项目中的本地文件。例如，要在项目中将`react`和`react-dom` 替换为 Preact 您可以在项目根目录`package.json`中定义全局别名。
 
 {% sample %}
 {% samplefile "package.json" %}
@@ -278,7 +278,7 @@ Package aliases map a `node_modules` dependency to a different package, or to a 
 {% endsamplefile %}
 {% endsample %}
 
-You can also map a module to a file within your project by using a relative path from the `package.json` in which the alias is defined.
+您还可以使用定义别名的相对路径将模块映射到项目中的`package.json`文件。
 
 {% sample %}
 {% samplefile "package.json" %}
@@ -294,7 +294,7 @@ You can also map a module to a file within your project by using a relative path
 {% endsamplefile %}
 {% endsample %}
 
-Aliasing only certain [sub-paths](#package-sub-paths) of a module is also supported. This example will alias `lodash/clone` to `tiny-clone`. Other imports within the `lodash` package will be unaffected.
+也支持仅对模块的某些[子路径 sub-paths](#package-sub-paths)进行别名。此示例将别名`lodash/clone`为`tiny-clone`。`lodash`包中的其他导入将不受影响。
 
 {% sample %}
 {% samplefile "package.json" %}
@@ -310,13 +310,13 @@ Aliasing only certain [sub-paths](#package-sub-paths) of a module is also suppor
 {% endsamplefile %}
 {% endsample %}
 
-This also works the other way: if an entire module is aliased, then any sub-path imports of that package will be resolved within the aliased module. For example, if you aliased `lodash` to `my-lodash` and imported `lodash/clone`, this would resolve to `my-lodash/clone`.
+这也适用于另一种方式：如果整个模块有别名，则该包的任何子路径导入都将在别名模块中解析。例如，如果您使用别名将`lodash`为`my-lodash`，并且导入`lodash/clone`，这将解析为`my-lodash/clone`。
 
-### File aliases
+### 文件别名
 
-Aliases can also be defined as relative paths to replace a specific file within a package with a different file. This can be done using the `alias` field to replace the file unconditionally, or with the `source` or `browser` fields to do conditionally. See [Package entries](#package-entries) above for details about these fields.
+别名也可以定义为相对路径，以用不同的文件替换包中的特定文件。这可以使用`alias`字段来无条件地替换文件，或者使用`source`或`browser`字段来有条件地完成。有关这些字段的详细信息，请参阅上面[包目录](#package-entries)。
 
-For example, to replace a certain file with a browser-specific version, you could use the `browser` field.
+例如，要将某个文件替换为特定于浏览器的版本，您可以使用该`browser`字段。
 
 {% sample %}
 {% samplefile "package.json" %}
@@ -332,13 +332,13 @@ For example, to replace a certain file with a browser-specific version, you coul
 {% endsamplefile %}
 {% endsample %}
 
-Now, if `my-module/fs.js` is imported in a browser environment, they'll actually get `my-module/fs-browser.js`. This applies both to imports from outside (e.g. [package sub-paths](#package-sub-paths)), as well as internally within the module.
+现在，如果`my-module/fs.js`在浏览器环境中导入，它们实际上会得到`my-module/fs-browser.js`. 这既适用于从外部（例如[子路径 package sub-paths](#package-sub-paths)）的导入，也适用于模块内部的导入。
 
-### Glob aliases
+### 全局别名
 
-File aliases can also be defined using globs, which allows replacing many files using a single pattern.  The replacement can include patterns such as `$1` to access the captured glob matches. This can be done using the `alias` field to replace files unconditionally, or with the `source` or `browser` fields to do conditionally. See [Package entries](#package-entries) above for details about these fields.
+文件别名也可以使用 glob 定义，它允许使用单个模式替换许多文件。替换可以包括诸如`$1`访问捕获的全局匹配的模式。这可以使用`alias`字段来无条件地替换文件，或者使用`source`或`browser`字段来有条件地完成。有关这些字段的详细信息，请参阅上面的[包目录 Package entries](#package-entries)。
 
-For example, you could use the `source` field to provide a mapping between compiled code in a package and the original source code. When the module is symlinked, or within a monorepo, this will allow Parcel to compile the module from source rather than use the pre-compiled version.
+例如，您可以使用`source`字段来提供包中已编译代码与原始源代码之间的映射。当模块被符号链接时，或者在 monorepo 中，这将允许 Parcel 从源代码编译模块，而不是使用预编译版本。
 
 {% sample %}
 {% samplefile "package.json" %}
@@ -354,11 +354,11 @@ For example, you could use the `source` field to provide a mapping between compi
 {% endsamplefile %}
 {% endsample %}
 
-Now, any time a file in the `dist` directory is imported, the corresponding file in the `src` folder will be loaded instead.
+现在，每次导入目录中的`src`文件时，都会加载文件夹 dist 中的相应文件。
 
-### Shim aliases
+### 垫片别名
 
-Files or packages can be aliased to `false` to be excluded from the build, and replaced with an empty module. This could be useful to exclude certain modules from browser builds that only work in Node.js, for example.
+文件或包可以别名为`false`从构建中排除，并替换为空模块。例如，这对于从仅在 Node.js 中工作的浏览器构建中排除某些模块可能很有用。
 
 {% sample %}
 {% samplefile "package.json" %}
@@ -374,11 +374,11 @@ Files or packages can be aliased to `false` to be excluded from the build, and r
 {% endsamplefile %}
 {% endsample %}
 
-### Global aliases
+### 全局别名
 
-Files or packages may also be aliased to global variables that will be defined at runtime. For example, a particular library may be loaded from a CDN. Rather than bundling it, any time a dependency on that library is resolved, it will be replaced with a reference to that global variable instead of being bundled.
+文件或包也可以别名为将在运行时定义的全局变量。例如，可以从 CDN 加载特定库。而不是捆绑它，只要解决了对该库的依赖关系，它将被替换为对该全局变量的引用，而不是被捆绑。
 
-This can be done by creating an alias to an object with a `global` property. The following example aliases the `jquery` dependency specifier to the global variable `$`.
+这可以通过为具有`global`属性的对象创建别名来完成。以下示例将`jquery`依赖说明符别名为全局变量`$`。
 
 {% sample %}
 {% samplefile "package.json" %}
@@ -396,15 +396,15 @@ This can be done by creating an alias to an object with a `global` property. The
 {% endsamplefile %}
 {% endsample %}
 
-## Configuring other tools
+## 配置其他工具
 
-This section covers how to configure other tools to work with Parcel’s extensions to the Node resolution algorithm.
+本节介绍如何配置其他工具以使用 Parcel 对节点解析算法的扩展。
 
 ### TypeScript
 
-TypeScript will need to be configured to support Parcel features like absolute and tilde dependency specifiers, and aliases. This can be done using the `paths` option in `tsconfig.json`. See the [TypeScript Module Resolution docs](https://www.typescriptlang.org/docs/handbook/module-resolution.html) for more information.
+需要将 TypeScript 配置为支持 Parcel 功能，例如绝对和波浪号依赖说明符以及别名。这可以使用 中的`paths`选项来完成`tsconfig.json`。有关更多信息，请参阅[TypeScript 模块解析](https://www.typescriptlang.org/docs/handbook/module-resolution.html)文档。
 
-For example, to map tilde paths to the root directory, this configuration could be used:
+例如，要将波浪号路径映射到根目录，可以使用以下配置：
 
 {% sample %}
 {% samplefile "tsconfig.json" %}
@@ -423,13 +423,13 @@ For example, to map tilde paths to the root directory, this configuration could 
 {% endsamplefile %}
 {% endsample %}
 
-Support for [URL schemes](#url-schemes) can also be enabled by creating an [ambient module](https://www.typescriptlang.org/docs/handbook/modules.html#ambient-modules) declaration in your project. For example, to map dependencies loaded with the `bundle-text:` scheme to a string, you could use the following declaration. This can be placed in a file such as `parcel.d.ts` anywhere in your project.
+启用对[URL schemes](#url-schemes)的支持，可以通过在项目中创建[ambient module](https://www.typescriptlang.org/docs/handbook/modules.html#ambient-modules) 例如，要将随方案加载的依赖项映射到字符串，您可以使用以下声明。这可以放置在文件`parcel.d.ts`中，例如项目中的任何位置。
 
 {% sample %}
 {% samplefile "parcel.d.ts" %}
 
 ```typescript
-declare module 'bundle-text:*' {
+declare module "bundle-text:*" {
   const value: string;
   export default value;
 }
@@ -440,9 +440,9 @@ declare module 'bundle-text:*' {
 
 ### Flow
 
-Flow needs to be configured to support absolute and tilde specifiers, and aliases. This can be done using the [module.name_mapper](https://flow.org/en/docs/config/options/#toc-module-name-mapper-regex-string) feature in your `.flowconfig`.
+Flow 需要配置为支持绝对和波浪符说明符以及别名。这可以使用您[module.name_mapper](https://flow.org/en/docs/config/options/#toc-module-name-mapper-regex-string)的`.flowconfig`.
 
-For example, to map absolute specifiers to resolve from the project root, this configuration could be used:
+例如，要映射绝对说明符以从项目根目录解析，可以使用此配置：
 
 {% sample %}
 {% samplefile ".flowconfig" %}
@@ -455,7 +455,7 @@ module.name_mapper='^\/\(.*\)$' -> '<PROJECT_ROOT>/\1'
 {% endsamplefile %}
 {% endsample %}
 
-To enable [URL schemes](#url-schemes), you'll need to create a mapping to a `.flow` [declaration file](https://flow.org/en/docs/declarations/) which exports the expected type. For example, to map dependencies loaded with the `bundle-text:` scheme to a string, you could create a file called `bundle-text.js.flow` and map all dependencies referencing the scheme to it.
+要启用[url 方案 URL schemes](#url-schemes)您需要创建到导出预期类型的`.flow`[描述文件 declaration file](https://flow.org/en/docs/declarations/)。例如，要将随`bundle-text:`方案加载的依赖项映射到字符串，您可以创建一个名为的文件`bundle-text.js.flow`，并将引用该方案的所有依赖项映射到它。
 
 {% sample %}
 {% samplefile "bundle-text.js.flow" %}

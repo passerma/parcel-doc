@@ -1,31 +1,31 @@
 ---
 layout: layout.njk
-title: Development
+title: 开发
 eleventyNavigation:
   key: features-development
-  title: 🧑‍💻 Development
+  title: 🧑‍💻 开发
   order: 1
 ---
 
-Parcel includes a development server out of the box supporting hot reloading, HTTPS, an API proxy, and more.
+Parcel 包括一个开箱即用的开发服务器，支持热重载、HTTPS、API 代理等。
 
 ## Dev server
 
-Parcel’s builtin dev server is automatically started when you run the default `parcel` command, which is a shortcut for `parcel serve`. By default, it starts a server at [http://localhost:1234](http://localhost:1234). If port `1234` is already in use, then a fallback port will be used. After Parcel starts, the location where the dev server is listening will be printed to the terminal.
+Parcel 的内置开发服务器会在您运行默认命令 `parcel` 时自动启动，该命令是 `parcel serve` 的缩写。 默认情况下，他启动在 [http://localhost:1234](http://localhost:1234). 如果端口 `1234` 已在使用中，则将使用备用端口。Parcel 启动后，开发服务器正在监听的位置将打印到终端。
 
-The dev server supports several options, which you can specify via CLI options:
+开发服务器支持多个选项，您可以通过 CLI 选项指定：
 
-- `-p`, `--port` – Overrides the default port. The `PORT` environment variable can also be used to set the port.
-- `--host` – By default, the dev server accepts connections on all interfaces. You can override this to specify that only connections from certain hosts should be accepted.
-- `--open` – Automatically opens the entry in your default browser after Parcel starts. You can also pass a browser name to open a different browser, e.g. `--open safari`.
+- `-p`, `--port` – 覆盖默认端口。 `PORT` 环境变量也可以用来设置端口。
+- `--host` – 默认情况下，开发服务器接受所有接口上的连接。您可以覆盖它以指定仅应接受来自某些主机的连接。
+- `--open` – Parcel 启动后自动在默认浏览器中打开。您还可以传递浏览器名称来打开不同的浏览器，例如 `--open safari`.
 
-## Hot reloading
+## 热重载
 
-As you make changes to your code, Parcel automatically rebuilds the changed files and updates your app in the browser. By default, Parcel fully reloads the page, but in some cases it may perform Hot Module Replacement (HMR). HMR improves the development experience by updating modules in the browser at runtime without needing a whole page refresh. This means that application state can be retained as you change small things in your code.
+当您更改代码时，Parcel 会自动重建更改的文件并在浏览器中更新您的应用程序。默认情况下，Parcel 会完全重新加载页面，但在某些情况下，它可能会执行热模块更换 (HMR)。HMR 通过在运行时更新浏览器中的模块来改善开发体验，而无需刷新整个页面。这意味着当您更改代码中的小事情时，可以保留应用程序状态。
 
-CSS changes are automatically applied via HMR with no page reload necessary. This is also true when using a framework with HMR support built in, like React (via Fast Refresh), and Vue.
+CSS 更改通过 HMR 自动应用，无需重新加载页面。在使用内置 HMR 支持的框架时也是如此，例如 React（通过快速刷新）和 Vue。
 
-If you’re not using a framework, you can opt into HMR using the `module.hot` API. This will prevent the page from being reloaded, and instead apply the update in-place. `module.hot` is only available in development, so you'll need to check that it exists before using it.
+如果您不使用框架，则可以使用 `module.hot` API 选择加入 HMR。这将防止页面重新加载，而是就地应用更新。`module.hot` 仅在开发中可用，因此您需要在使用之前检查它是否存在。
 
 ```javascript
 if (module.hot) {
@@ -33,11 +33,11 @@ if (module.hot) {
 }
 ```
 
-HMR works by replacing the code for a module, and then re-evaluating it and along with all of its parents. If you need to customize this process, you can hook into it using the `module.hot.accept` and `module.hot.dispose` methods. These let you save and restore state inside the new version of the module.
+HMR 的工作原理是替换模块的代码，然后重新评估它以及它的所有父模块。如果你需要自定义这个过程，你可以使用 `module.hot.accept` 和 `module.hot.dispose` 方法来挂钩它。这些使您可以在新版本的模块中保存和恢复状态。
 
-`module.hot.dispose` accepts a callback which is called when that module is about to be replaced. Use it to save any state to restore in the new version of the module in the provided `data` object, or cleanup things like timers that will be re-created in the new version.
+`module.hot.dispose` 接受一个回调，该回调在该模块即将被替换时调用。使用它来保存任何状态以在提供的对象中恢复模块的新版本 `data` ，或清理将在新版本中重新创建的计时器等内容。
 
-`module.hot.accept` accepts a callback function which is executed when that module or any of its dependencies are updated. You can use this to restore state from the old version of the module using the data stored in `module.hot.data`.
+`module.hot.accept` 接受一个回调函数，该函数在该模块或其任何依赖项更新时执行。您可以使用它来使用存储在 `module.hot.data`.
 
 ```javascript
 if (module.hot) {
@@ -55,57 +55,57 @@ if (module.hot) {
 }
 ```
 
-## Development target
+## 开发目标
 
-When using the dev server, only a single target can be built at once. By default, Parcel uses a development target that supports modern browsers. This means that transpilation of modern JavaScript syntax for older browsers is disabled.
+使用开发服务器时，一次只能构建一个目标。默认情况下，Parcel 使用支持现代浏览器的开发目标。这意味着旧浏览器的现代 JavaScript 语法转换被禁用。
 
-If you need to test in a older browser, you can provide the `--target` CLI option to choose which of your targets to build. For example, to build the "legacy" target defined in your package.json, use `--target legacy`. If you don't have any explicit targets defined, and only have a `browserslist` in your package.json, you can use the implicit default target with `--target default`. This will result in your source code being transpiled just as it would be in production.
+如果您需要在旧版浏览器中进行测试，您可以提供 `--target` CLI 选项来选择要构建的目标。例如，要构建 package.json 中定义的“legacy”目标，请使用 `--target legacy`。如果您没有定义任何显式目标，并且 `browserslist` 在您的 package.json 中只有一个，您可以将隐式默认目标与 `--target default`。这将导致您的源代码被编译，就像它在生产中一样。
 
-See the [Targets](/features/targets/) documentation for more information.
+有关详细信息，请参阅 [Targets](/features/targets/) 文档。
 
-## Lazy mode
+## 懒加载模式
 
-In development, it can be frustrating to wait for your entire app to build before the dev server starts up. This is especially true when working on large apps with many pages. If you’re only working on one feature, you shouldn’t need to wait for all of the others to build unless you navigate to them.
+在开发中，在开发服务器启动之前等待整个应用程序构建可能会令人沮丧。在处理具有许多页面的大型应用程序时尤其如此。如果您只开发一项功能，则无需等待所有其他功能构建完成，除非您导航到它们。
 
-You can use the `--lazy` CLI flag to tell Parcel to defer building files until they are requested in the browser, which can significantly reduce development build times. The server starts quickly, and when you navigate to a page for the first time, Parcel builds only the files necessary for that page. When you navigate to another page, that page will be built on demand. If you navigate back to a page that was previously built, it loads instantly.
+您可以使用 `--lazy` CLI 标志告诉 Parcel 将构建文件推迟到浏览器中请求它们之前，这可以显着减少开发构建时间。服务器启动很快，当您第一次导航到某个页面时，Parcel 仅构建该页面所需的文件。当您导航到另一个页面时，该页面将按需构建。如果您导航回之前构建的页面，它会立即加载。
 
 ```shell
 parcel 'pages/*.html' --lazy
 ```
 
-This also works with dynamic `import()`, not just separate entries. So if you have a page with a dynamically loaded feature, that feature will not be built until it is activated. When it is requested, Parcel eagerly builds all of the dependencies as well, without waiting for them to be requested.
+这也适用于动态 `import()`，而不仅仅是单独的某个入口。因此，如果您的页面具有动态加载的功能，则该功能在被激活之前不会被构建。当它被请求时，Parcel 也会急切地构建所有依赖项，而无需等待它们被请求。
 
-## Caching
+## 缓存
 
-Parcel caches everything it builds to disk. If you restart the dev server, Parcel will only rebuild files that have changed since the last time it ran. Parcel automatically tracks all of the files, configuration, plugins, and dev dependencies that are involved in your build, and granularly invalidates the cache when something changes. For example, if you change a configuration file, all of the source files that rely on that configuration will be rebuilt.
+Parcel 将它构建的所有内容缓存到磁盘。如果您重新启动开发服务器，Parcel 将仅重建自上次运行以来已更改的文件。Parcel 会自动跟踪构建中涉及的所有文件、配置、插件和开发依赖项，并在发生更改时精细地使缓存无效。例如，如果您更改配置文件，所有依赖该配置的源文件都将重新构建。
 
-By default, the cache is stored in the `.parcel-cache` folder inside your project. You should add this folder to your `.gitignore` (or equivalent) so that it is not committed in your repo. You can also override the location of the cache using the `--cache-dir` CLI option.
+默认情况下，缓存存储在项目内的文件夹 `.parcel-cache` 中。您应该将此文件夹添加到您的 `.gitignore` （或其他的配置）中，以便它不会在您的存储库中提交。您还可以使用 `--cache-dir` CLI 选项覆盖缓存的位置。
 
-Caching can also be disabled using the `--no-cache` flag. Note that this only disables *reading* from the cache – a `.parcel-cache` folder will still be created.
+也可以使用标志 `--no-cache` 禁用缓存。请注意，这只会禁用从缓存中读取.parcel-cache-仍将创建一个文件夹。
 
 ## HTTPS
 
-Sometimes, you may need to use HTTPS during development. For example, you may need to use a certain hostname for authentication cookies, or debug mixed content issues. Parcel’s dev server supports HTTPS out of the box. You can either use an automatically generated certificate, or provide your own.
+有时，您可能需要在开发过程中使用 HTTPS。例如，您可能需要使用某个主机名进行身份验证 cookie，或调试混合内容问题。Parcel 的开发服务器支持开箱即用的 HTTPS。您可以使用自动生成的证书，也可以提供自己的证书。
 
-To use an automatically generated self-signed certificate, use the `--https` CLI flag. The first time you load the page, you may need to manually trust this certificate in your browser.
+要使用自动生成的自签名证书，请使用 `--https` CLI 标志。首次加载页面时，您可能需要在浏览器中手动信任此证书。
 
 ```shell
 parcel src/index.html --https
 ```
 
-To use a custom certificate, you’ll need to use the `--cert` and `--key` CLI options to specify the certificate file and private key respectively.
+要使用自定义证书，您需要使用 `--cert` 和 `--key` CLI 选项分别指定证书文件和私钥。
 
 ```shell
 parcel src/index.html --cert certificate.cert --key private.key
 ```
 
-## API proxy
+## API 代理
 
-To better emulate the actual production environment when developing web apps, you can specify paths that should be proxied to another server (e.g. your real API server or a local testing server) in a `.proxyrc`, `.proxyrc.json` or `.proxyrc.js` file.
+为了在开发 Web 应用程序时更好地模拟实际生产环境，您可以在 `.proxyrc.json` 或 `.proxyrc` 或 `.proxyrc.js` 文件中指定应该代理到另一台服务器（例如您的真实 API 服务器或本地测试服务器）的路径。
 
 ### `.proxyrc` / `.proxyrc.json`
 
-In this JSON file, you specify an object where every key is a pattern against which the URL is matched and the value is a [`http-proxy-middleware` options](https://github.com/chimurai/http-proxy-middleware#options) object:
+在此 JSON 文件中，您指定一个对象，其中每个键都是匹配 URL 的模式，值是 [`http-proxy-middleware`对象](https://github.com/chimurai/http-proxy-middleware#options):
 
 {% sample %}
 {% samplefile ".proxyrc" %}
@@ -125,11 +125,11 @@ In this JSON file, you specify an object where every key is a pattern against wh
 {% endsamplefile %}
 {% endsample %}
 
-This example would cause `http://localhost:1234/api/endpoint` to be proxied to `http://localhost:8000/endpoint`.
+此示例将使 `http://localhost:1234/api/endpoint` 被代理到 `http://localhost:8000/endpoint`.
 
 ### `.proxyrc.js`
 
-For more complex configurations, a `.proxyrc.js` file allows you to attach any [connect](https://github.com/senchalabs/connect)-compatible middleware. First, make sure you install `http-proxy-middleware` into your project. This example has the same behaviour as the `.proxyrc` version above.
+对于更复杂的配置， `.proxyrc.js` 文件允许您附加任何与 [connect](https://github.com/senchalabs/connect)兼容的中间件。首先，确保您的项目安装了 `http-proxy-middleware`。此示例具有与上述 `.proxyrc` 相同的功能 。
 
 {% sample %}
 {% samplefile ".proxyrc.js" %}
@@ -152,29 +152,29 @@ module.exports = function (app) {
 {% endsamplefile %}
 {% endsample %}
 
-### File watcher
+### 文件监听
 
-To support an optimal caching and development experience Parcel utilizes a very fast watcher written in C++ that integrates with low-level file watching functionality of each operating system. Using this watcher Parcel watches every file in your project root (including all `node_modules`). Based on events and metadata from these files, Parcel determines which files need to be rebuilt.
+为了支持最佳的缓存和开发体验，Parcel 使用了一个用 C++ 编写的非常快的观察器，它集成了每个操作系统的低级文件观察功能。使用这个观察者 Parcel 观察项目根目录中的每个文件（包括所有 `node_modules`）。根据这些文件中的事件和元数据，Parcel 确定需要重建哪些文件。
 
-#### Known issues with file watching
+#### 文件监听的一些问题
 
-##### Safe Write
+##### 安全写入（safe write）
 
-Some text editors and IDE's have a feature called "safe write" that prevents data loss by taking a copy of the file and renaming it when saved. However, this feature can prevent automatic detection of file updates.
+一些文本编辑器和 IDE 具有称为“安全写入（safe write）”的功能，通过获取文件副本并在保存时重命名它来防止数据丢失。但是，此功能可以防止自动检测文件更新。
 
-To disable safe write, use the options provided below:
+要禁用安全写入，请使用以下提供的选项：
 
-- Sublime Text 3: add `atomic_save: "false"` to your user preferences.
-- IntelliJ: use search in the preferences to find "safe write" and disable it.
-- Vim: add `:set backupcopy=yes` to your settings.
-- WebStorm: uncheck `Use "safe write"` in Preferences > Appearance & Behavior > System Settings.
-- vis: add `:set savemethod inplace` to your settings.
+- Sublime Text 3：添加 `atomic_save: "false"` 到您的用户偏好中。
+- IntelliJ：在首选项中使用搜索来查找“safe write”并禁用它。
+- Vim: 添加 `:set backupcopy=yes` 到您的设置中。
+- WebStorm: 在 Preferences > Appearance & Behavior > System Settings 中取消选中 `Use "safe write"`
+- vis: add 添加 `:set savemethod inplace` 到您的设置中。
 
-##### Linux: No space left on device
+##### Linux: 设备上没有剩余空间
 
-Depending on the size of your project, and your operating system's watcher limit, this error might pop up when you're running Parcel on Linux. To resolve this issue, change the `sysctl`configuration for `fs.inotify` to have a higher value for `max_user_watches`.
+根据项目的大小和操作系统的观察者限制，在 Linux 上运行 Parcel 时可能会弹出此错误。要解决此问题，请将 `sysctl` 的配置更改为 `fs.inotify` 让 `max_user_watches` 具有更高的值.
 
-You can do this by adding or changing the following lines in `/etc/sysctl.conf`:
+您可以通过添加或更改 `/etc/sysctl.conf`: 文件的以下行来执行此操作
 
 ```
 fs.inotify.max_queued_events = 16384
@@ -182,20 +182,20 @@ fs.inotify.max_user_instances = 128
 fs.inotify.max_user_watches = 16384
 ```
 
-If this error persists you can try increasing the values even more.
+如果此错误仍然存 ​​ 在，您可以尝试进一步增加值。
 
-##### Using Dropbox, Google Drive or other cloud storage solutions
+##### 使用 Dropbox、Google Drive 或其他云存储解决方案
 
-It is best practice to not place a Parcel project in a folder that is synced to the cloud using something like Dropbox or Google Drive. These solutions create a lot of file system events that can mess with our watcher and cause unnecessary rebuilds.
+最好不要将 Parcel 项目放在使用 Dropbox 或 Google Drive 等同步到云的文件夹中。这些解决方案会创建大量文件系统事件，这些事件可能会干扰我们的观察程序并导致不必要的重建。
 
-## Auto install
+## 自动安装
 
-When you use a language or plugin that isn’t included by default, Parcel will automatically install the necessary dependencies into your project for you. For example, if you include a `.sass` file, Parcel will install the `@parcel/transformer-sass` plugin. When this happens, you'll see a message in the terminal, and the new dependency will be added to the `devDependencies` in your package.json.
+当您使用默认不包含的语言或插件时，Parcel 会自动为您将必要的依赖项安装到您的项目中。例如，如果您包含一个.sass 文件，Parcel 将安装该 `@parcel/transformer-sass` 插件。发生这种情况时，您将在终端中看到一条消息，并且新的依赖项将添加到您的 `package.json` 的 `devDependencies` 中。
 
-Parcel automatically detects which package manager you use in your project based on the lock file. For example, if `yarn.lock` is found, then Yarn will be used to install packages. If no lock file is found, then the package manager is chosen based on what is installed on your system. The following package managers are currently supported, listed in priority order:
+Parcel 会根据锁定文件自动检测您在项目中使用的包管理器。例如，如果 `yarn.lock` 存在，则将用 Yarn 安装包。如果未找到锁定文件，则根据系统上安装的内容选择包管理器。当前支持以下包管理器，按优先级顺序列出：
 
 - [Yarn](https://yarnpkg.com)
 - [Pnpm](https://pnpm.io)
 - [Npm](https://www.npmjs.com)
 
-Auto install only occurs during development by default. During production builds, if a dependency is missing, the build will fail. You can also disable auto install during development using the `--no-autoinstall` CLI flag.
+默认情况下，自动安装仅在开发期间发生。在生产构建期间，如果缺少依赖项，则构建将失败。您还可以在开发期间使用 `--no-autoinstall` CLI 标志禁用自动安装。

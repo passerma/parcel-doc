@@ -1,7 +1,7 @@
 ---
 layout: layout.njk
 title: 使用 Parcel 构建JavaScript库
-description: A getting started guide walking through how to setup a library with Parcel, including output of an ES module, CommonJS, and TypeScript definitions.
+description: 一个入门指南，介绍如何用 Parcel构建一个javascript库，包括一个 ES 模块、 CommonJS 和 TypeScript 定义的输出。
 eleventyNavigation:
   key: getting-started-library
   title: 📔 JavaScript库

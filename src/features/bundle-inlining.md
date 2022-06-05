@@ -1,34 +1,34 @@
 ---
 layout: layout.njk
-title: Bundle inlining
+title: 打包内联
 eleventyNavigation:
   key: features-bundle-inlining
-  title: 🪆 Bundle inlining
+  title: 🪆 打包内联(Bundle inlining)
   order: 4
 ---
 
-Parcel includes several ways to inline the compiled contents of one bundle inside another bundle.
+Parcel 包含多种将一个包的已编译内容内联到另一个包中的方法。
 
-## Inlining a bundle as text
+## 将包内联为文本
 
-The `bundle-text:` scheme can be used to inline the contents of a bundle as plain text. Parcel will compile the resolved file as normal, including bundling all dependencies, and then inline the result as a string into the parent bundle.
+`bundle-text:`方案可用于将打包的内容作为纯文本内联。Parcel 将正常编译解析的文件，包括打包所有依赖项，然后将结果作为字符串内联到父包中。
 
-This could be used in many ways. For example, you could inline a compiled CSS bundle and use the result to inject a style tag at runtime. This might be useful in cases where you need to control where the style tag is inserted, e.g. into a Shadow DOM root.
+这可以以多种方式使用。例如，您可以内联已编译的 CSS 包并使用结果在运行时注入样式标签。这在您需要控制样式标签插入位置的情况下可能很有用，例如插入到 shadowRoot 中。
 
 ```javascript
-import cssText from 'bundle-text:./test.css';
+import cssText from "bundle-text:./test.css";
 
 // inject <style> tag
-let style = document.createElement('style');
+let style = document.createElement("style");
 style.textContent = cssText;
 shadowRoot.appendChild(style);
 ```
 
-## Inlining as a data URL
+## 内联作为数据 URL
 
-The `data-url:` scheme allows inlining a bundle as a data URL. The resolved file will be compiled, including all dependencies, and converted to a data URL. If the file is in a binary format, it will be encoded as base 64, otherwise as a URI.
+`data-url:`方案允许将打包内联为数据 URL。解析的文件将被编译，包括所有依赖项，并转换为数据 URL。如果文件是二进制格式，它将被编码为 base 64，否则为 URI。
 
-One example where this could be useful is inlining small images inside a CSS file.
+这可能有用的一个示例是在 CSS 文件中内联小图像。
 
 ```css
 .foo {
@@ -36,11 +36,11 @@ One example where this could be useful is inlining small images inside a CSS fil
 }
 ```
 
-## Under the hood
+## 底层实现
 
-`bundle-text:` and `data-url:` are implemented in the default Parcel config using [Named pipelines](/features/plugins/#named-pipelines). The `@parcel/transformer-inline-string` [Transformer](/plugin-system/transformer/) plugin marks the compiled asset as inline, which tells Parcel not to write the bundle to disk and instead inline it into the parent bundle. To implement data URLs, the `@parcel/optimizer-data-url` [Optimizer](/plugin-system/optimizer/) plugin is used to convert the compiled bundle to a data url.
+`bundle-text:`和`data-url:`使用[Named pipelines](/features/plugins/#named-pipelines)在默认 Parcel 配置中实现。`@parcel/transformer-inline-string`[Transformer](/plugin-system/transformer/)插件将编译后的资产标记为内联，这告诉 Parcel 不要将包写入磁盘，而是将其内联到父包中。为了实现数据 URL，`@parcel/optimizer-data-url` [Optimizer](/plugin-system/optimizer/)插件用于将编译的包转换为数据 URL。
 
-In the Parcel config, it looks like the following. The `"..."` in each pipeline tells Parcel to run the normal transformers that match the file first, and then run `@parcel/transformer-inline-string`.
+在 Parcel 配置中，它如下所示。每个`"..."`管道中的 告诉 Parcel 先运行与文件匹配的常用转换器，然后运行`@parcel/transformer-inline-string`。
 
 {% sample %}
 {% samplefile "@parcel/config-default" %}
@@ -60,33 +60,33 @@ In the Parcel config, it looks like the following. The `"..."` in each pipeline 
 {% endsamplefile %}
 {% endsample %}
 
-You can create your own named pipelines to customize inlining however you’d like, reusing the above plugins or creating custom ones. See [Parcel configuration](/features/plugins/) for more details.
+您可以创建自己的命名管道来自定义内联，但您可以重用上述插件或创建自定义插件。有关详细信息，请参阅[Parcel configuration](/features/plugins/)。
 
-Another Parcel plugin that might be useful is `@parcel/transformer-inline`. Like `@parcel/transformer-inline-string`, it marks assets as inline, but the result is not encoded as a string. This means if the inline bundle contains code, it will be *executed* in the parent bundle rather than returning a string to the user. This could be useful if you have a custom plugin that wraps the bundle somehow and needs to decode it at runtime.
+另一个可能有用的 Parcel 插件是`@parcel/transformer-inline`。像`@parcel/transformer-inline-string`一样，它将资产标记为内联，但结果未编码为字符串。这意味着如果内联包包含代码，它将在父包中执行，而不是向用户返回字符串。如果您有一个以某种方式包装打包并需要在运行时对其进行解码的自定义插件，这可能会很有用。
 
-For example, maybe you’d like to inline a file as an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer), or some other custom encoding. That could be implemented using a custom Optimizer plugin, which post-processes the output of a bundle.
+例如，您可能希望将文件内联为[ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)或其他一些自定义编码。这可以使用自定义优化器插件来实现，该插件对包的输出进行后处理。
 
 ```javascript
-import {Optimizer} from '@parcel/plugin';
-import {blobToBuffer} from '@parcel/utils';
+import { Optimizer } from "@parcel/plugin";
+import { blobToBuffer } from "@parcel/utils";
 
 export default new Optimizer({
-  async optimize({contents}) {
+  async optimize({ contents }) {
     let buffer = await blobToBuffer(contents);
     return {
-      contents: `new Uint8Array(${JSON.stringify(Array.from(buffer))}).buffer`
+      contents: `new Uint8Array(${JSON.stringify(Array.from(buffer))}).buffer`,
     };
-  }
+  },
 });
 ```
 
-Now you could define a named pipeline using your new plugin, and import compiled files as array buffers.
+现在您可以使用新插件定义命名管道，并将编译后的文件作为数组缓冲区导入。
 
-See the [Plugin system](/plugin-system/overview/) docs for more details on writing custom plugins, and the [Parcel Configuration](/features/plugins/) docs for more information about named pipelines.
+有关编写自定义插件的更多详细信息，请参阅[插件系统 Plugin system](/plugin-system/overview/)和[parcel 配置 Parcel Configuration](/features/plugins/)。
 
-## Inlining as a blob URL
+## 内联为 blob URL
 
-You may want to inline the contents of a bundle as a [blob URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL), which can be passed to many web APIs in the browser. The `@parcel/optimizer-blob-url` plugin can be used to do this, in combination `@parcel/transformer-inline`. A named pipeline for these is not included by default, so you'll need to create one in your `.parcelrc`.
+您可能希望将包的内容内联为[blob URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL)，它可以传递给浏览器中的许多 Web API。该`@parcel/optimizer-blob-url`插件可用于执行此操作，组合`@parcel/transformer-inline`。默认情况下不包含这些命名管道，因此您需要定义在`.parcelrc`。
 
 {% sample %}
 {% samplefile ".parcelrc" %}
@@ -106,18 +106,18 @@ You may want to inline the contents of a bundle as a [blob URL](https://develope
 {% endsamplefile %}
 {% endsample %}
 
-## Inlining without transforming
+## 内联而不转换
 
-In JavaScript, it’s possible to inline the contents of a file without running it through Parcel transformers first. This can be done using the `fs` Node module, which Parcel statically analyzes. It can be inlined as a string in a number of different encodings, or as a [Buffer](https://nodejs.org/api/buffer.html). See the [Node emulation](/features/node-emulation/) docs for more details.
+在 JavaScript 中，可以在不首先通过 Parcel 转换器运行文件的情况下内联文件的内容。这可以使用`fs`Parcel 静态分析的 Node 模块来完成。它可以内联为多种不同编码的字符串，也可以内联为[Buffer](https://nodejs.org/api/buffer.html)。有关更多详细信息，请参阅[Node emulation](/features/node-emulation/)。
 
 ```javascript
-import fs from 'fs';
+import fs from "fs";
 
-const sourceCode = fs.readFileSync(__dirname + '/foo.js', 'utf8');
+const sourceCode = fs.readFileSync(__dirname + "/foo.js", "utf8");
 ```
 
-In the above example, the `sourceCode` variable would be the contents of `foo.js` *without* being compiled, i.e. the original source code rather than the bundled result.
+在上面的例子中，`sourceCode`变量将是`foo.js`未经编译的内容，即原始源代码而不是打包后的结果。
 
-## Integration with other tools
+## 与其他工具集成
 
-Since bundle inlining is a Parcel-specific feature, you’ll need to configure other tools such as TypeScript or Flow to support it. See the [Configuring other tools](/features/dependency-resolution/#configuring-other-tools) section in the dependency resolution docs for details on how to do this.
+由于包内联是 Parcel 特有的功能，因此您需要配置其他工具（例如 TypeScript 或 Flow）来支持它。有关如何执行此操作的详细信息，请参阅依赖项解析文档中的[配置其他工具部分 Configuring other tools](/features/dependency-resolution/#configuring-other-tools)。

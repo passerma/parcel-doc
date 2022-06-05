@@ -1,37 +1,37 @@
 ---
 layout: layout.njk
-title: Targets
+title: 目标(Targets)
 eleventyNavigation:
   key: features-targets
-  title: 🎯 Targets
+  title: 🎯 目标(Targets)
   order: 5
 ---
 
-Parcel can compile your source code in multiple different ways simultaneously. These are called **targets**. For example, you could have a “modern” target that targets newer browsers and a “legacy” target for older browsers.
+Parcel 可以同时以多种不同的方式编译您的源代码。这些被称为**目标**。例如，您可以有一个针对较新浏览器的“现代”目标和一个针对旧浏览器的“旧版”目标。
 
-## Entries
+## 入口 Entries
 
-“Entries” are the files that Parcel starts at when building your source code. They can be specified on the CLI, or using the `source` field in package.json.
+“入口 Entries”是 Parcel 在构建源代码时开始的文件。它们可以在 CLI 上指定，或者使用 package.json 中的`source`字段。
 
 ### `$ parcel <entries>`
 
-One or more entry files can be specified on the CLI to any Parcel command.
+可以在 CLI 上为任何 Parcel 命令指定一个或多个入口文件。
 
 ```shell
 $ parcel src/a.html src/b.html
 ```
 
-Entries may be specified as globs to match more than one file at a time. Be sure to wrap the glob in single quotes to ensure that the glob is not resolved by your shell and is passed to Parcel directly. This ensures that Parcel can automatically pick up newly created files matching the glob without needing to restart.
+入口可以指定为 glob 以一次匹配多个文件。请务必将 glob 用单引号括起来，以确保 glob 不会被您的 shell 解析并直接传递给 Parcel。这确保 Parcel 可以自动拾取与 glob 匹配的新创建的文件，而无需重新启动。
 
 ```shell
 $ parcel './src/*.html'
 ```
 
-Entries may also be directories, in which case a `package.json` file containing a `source` field must be present. See below for details.
+入口也可以是目录，在这种情况下，必须在`package.json`中包含`source`字段的文件，详情见下文。
 
 ### `package.json#source`
 
-The `source` field in package.json can specify one or more entry files.
+package.json 中的`source`字段可以指定一个或多个入口文件。
 
 ```json
 {
@@ -47,7 +47,7 @@ The `source` field in package.json can specify one or more entry files.
 
 ### `package.json#targets.*.source`
 
-The `source` field within any target declared in package.json can specify one or more entry files that are specific to that target. For example, you could build your frontend and backend simultaneously, or your desktop and mobile apps. See below for details about configuring targets.
+package.json 中声明的任何目标中的`source`字段可以指定一个或多个特定于该目标的入口文件。例如，您可以同时构建前端和后端，或者您的桌面和移动应用程序。有关配置目标的详细信息，请参见下文。
 
 ```json
 {
@@ -62,17 +62,17 @@ The `source` field within any target declared in package.json can specify one or
 }
 ```
 
-## Targets
+## 目标 Targets
 
-Parcel follows the dependencies in each resolved entry to build your source code for one or more targets. Targets specify the output directory or file path, as well as information about how your code should be compiled.
+Parcel 遵循每个已解析目标中的依赖关系，为一个或多个目标构建源代码。目标指定输出目录或文件路径，以及有关如何编译代码的信息。
 
-By default, Parcel includes a single implicit target which outputs into the `dist` folder. This can be overridden using the `--dist-dir` CLI option.
+默认情况下，Parcel 包含一个输出到`dist`件夹的隐式目标。这可以使用`--dist-dir`CLI 选项覆盖。
 
 ```shell
 $ parcel build src/index.html --dist-dir output
 ```
 
-The output directory can also be specified in package.json using the `targets` field. This will override the `--dist-dir` CLI option.
+也可以在 package.json 中使用`targets`字段指定输出目录。这将覆盖`--dist-dir`CLI 选项。
 
 ```json
 {
@@ -84,13 +84,13 @@ The output directory can also be specified in package.json using the `targets` f
 }
 ```
 
-### Environments
+### 环境
 
-In addition to the output location, targets specify information about the “environment” your code will run in. They tell Parcel what type of environment to build for (e.g. a browser or Node.js), as well as what versions of each engine you support. This influences how Parcel compiles your code, including what syntax to transpile.
+除了输出位置之外，目标还指定了有关代码将在其中运行的“环境”的信息。它们告诉 Parcel 要构建的环境类型（例如浏览器或 Node.js），以及每个引擎的版本支持。这会影响 Parcel 编译代码的方式，包括要转换的语法。
 
 #### `package.json#browserslist`
 
-For browser targets, the `browserslist` field in package.json can be used to specify which browsers you support. You can query by usage statistics or by version ranges of specific browsers. See the [browserslist docs](https://github.com/browserslist/browserslist#full-list) for more information.
+对于浏览器目标，ackage.json 中的`browserslist`字段可用于指定您支持的浏览器。您可以通过使用统计或特定浏览器的版本范围进行查询。有关更多信息，请参阅[browserslist 文档](https://github.com/browserslist/browserslist#full-list)。
 
 ```json
 {
@@ -100,7 +100,7 @@ For browser targets, the `browserslist` field in package.json can be used to spe
 
 #### `package.json#engines`
 
-For Node.js and other targets, the `engines` field in package.json can be used to specify which versions you support. Engines are specified using a semver range.
+对于 Node.js 和其他目标，package.json 中的`engines`字段可用于指定您支持的版本。使用 semver 范围指定引擎。
 
 ```json
 {
@@ -110,38 +110,38 @@ For Node.js and other targets, the `engines` field in package.json can be used t
 }
 ```
 
-### Implicit environments
+### 隐式环境
 
-When one file depends on another, the environment is inherited from its parent. But how you depend on the asset can change some properties of the environment. For example, when depending on a service worker, the environment is automatically changed into a service worker context so that the code is compiled appropriately.
+当一个文件依赖于另一个文件时，环境是从其父文件继承的。但是您对资产的依赖方式可能会改变环境的某些属性。例如，当依赖于 Service Worker 时，环境会自动更改为 Service Worker 上下文，以便适当地编译代码。
 
 ```javascript
-navigator.serviceWorker.register(new URL('service-worker.js', import.meta.url));
+navigator.serviceWorker.register(new URL("service-worker.js", import.meta.url));
 ```
 
-### Differential bundling
+### 差分打包
 
-“Differential bundling” is the idea of shipping multiple versions of your code for different targets, and allowing the browser to choose the most optimal one to download. When you use a `<script type="module">` element in an HTML file, and some of the browsers specified by the environment do not support ES modules natively, Parcel will automatically generate a `<script nomodule>` fallback as well.
+“差分打包”是指为不同的目标发布多个版本的代码，并允许浏览器选择最优化的版本进行下载。当您在 HTML 文件中使用`<script type="module">`元素时，并且环境指定的某些浏览器本身不支持 ES 模块时，Parcel 也会自动生成`<script nomodule>`回退。
 
 ```html
 <script type="module" src="app.js"></script>
 ```
 
-is compiled to:
+编译为：
 
 ```html
 <script type="module" src="app.c9a6fe.js"></script>
 <script nomodule src="app.f7d631.js"></script>
 ```
 
-This allows modern browsers that support ES modules to download a much smaller bundle, while legacy browsers are still supported using a fallback. This can significantly reduce bundle sizes and improve load times by avoiding transpilation of modern JavaScript syntax like classes, arrow functions, async/await, and more.
+这允许支持 ES 模块的现代浏览器下载更小的包，而使用后备仍然支持旧版浏览器。这可以通过避免转换现代 JavaScript 语法（如类、箭头函数、异步/等待等）来显着减少包大小并缩短加载时间。
 
-This happens automatically based on your browser targets, as declared in the `"browserslist"` field in your package.json. If no `browserslist` is declared, or all browser targets support ES modules natively, then a `nomodule` fallback will not be generated.
+这会根据您的浏览器目标自动发生，正如您在 package.json 中的`"browserslist"`中的字段中所声明的那样。如果没有`browserslist`或者所有浏览器目标都原生支持 ES 模块，则`nomodule`不会生成回退。
 
-## Multiple targets
+## 多个目标 Multiple targets
 
-You may have multiple targets in order to build your source code for multiple different environments simultaneously. For example, you could have “modern” and “legacy” targets for an app, or ES module and CommonJS targets for a library ([see below](#library-targets)).
+您可能有多个目标，以便同时为多个不同的环境构建源代码。例如，您可以为应用程序设置“现代”和“传统”目标，或者为库设置 ES 模块和 CommonJS 目标（[见下文](#library-targets)）。
 
-Targets are configured using the `targets` field in package.json. Each target has a name, specified as a key under the `target` field, and an associated configuration object. For example, the `engines` field within each target can be used to customize the environment it is compiled for.
+使用 package.json 中的字段配置`targets`字段。每个目标都有一个名称，指定为`target`字段下的键，以及一个关联的配置对象。例如，`engines`每个目标中的字段可用于自定义编译它的环境。
 
 ```json
 {
@@ -160,7 +160,7 @@ Targets are configured using the `targets` field in package.json. Each target ha
 }
 ```
 
-When multiple targets are specified, the outputs will be written to `dist/${targetName}` by default (e.g. `dist/modern` and `dist/legacy` in the above example). This can be customized using the `distDir` field in each target. Alternatively, if the target has only a single entry, an exact file name can be specified for the output using a top-level package.json field corresponding to the target name.
+当指定多个目标时，默认情况下将写入输出`dist/${targetName}`（例如`dist/modern`，`dist/legacy`在上面的示例中）。这可以使用`distDir`每个目标中的字段进行自定义。或者，如果目标只有一个入口，则可以使用与目标名称对应的顶级 package.json 字段为输出指定准确的文件名。
 
 ```json
 {
@@ -181,9 +181,9 @@ When multiple targets are specified, the outputs will be written to `dist/${targ
 }
 ```
 
-## Library targets
+## 库目标 Library targets
 
-Parcel includes some builtin targets for building libraries. These include the `main`, `module`, `browser`, and `types` fields.
+Parcel 包含一些用于构建库的内置目标。其中包括`main`, `module`, `browser`, 和 `types`字段。
 
 ```json
 {
@@ -196,17 +196,17 @@ Parcel includes some builtin targets for building libraries. These include the `
 }
 ```
 
-Library targets do not bundle dependencies from `node_modules` by default. In addition, minification is disabled by default for libraries. These can be overridden using the appropriate option in the `targets` field (see below). Scope hoisting cannot be disabled for library targets.
+默认情况下，库目标不打包`node_modules`依赖项。此外，库默认禁用缩小。可以使用目标字段中的适当选项重写这些内容(见下文)。Scope hoisting 不能被禁用为库的目标。
 
-Library targets automatically output either native ES modules or CommonJS depending on the target.
+库目标会根据目标自动输出原生 ES 模块或 CommonJS。
 
-- **`main`** – by default, outputs CommonJS. If the `.mjs` extension is used, or the `"type": "module"` field is specified, then an ES module is output instead.
-- **`module`** – outputs an ES module.
-- **`browser`** – a browser-specific override of the `main` field. Outputs CommonJS.
+- **`main`** – 默认情况下，输出 CommonJS。如果`.mjs`使用了扩展名，或者`"type": "module"`指定了字段，则改为输出 ES 模块。
+- **`module`** – 输出一个 ES 模块。
+- **`browser`** – 特定于浏览器的`main`字段覆盖。输出 CommonJS。
 
-`main` and `module` are compiled for a Node environment by default if there is also a `browser` target available, or if `engines.node` is specified and no browser targets are specified. Otherwise, they are compiled for a browser environment by default. This can be overridden using the `context` option in the target config (see below).
+`main`和`module`如果还有可用的目标，或者如果指定了但未指定浏览器目标，则默认为 Node 环境,`browser`编译`engines.node`。否则，它们默认为浏览器环境编译。这可以使用`context`目标配置中的选项覆盖（见下文）。
 
-To make Parcel ignore one of these fields, specify `false` in the `targets` field.
+要使 Parcel 忽略这些字段之一，请在`targets`字段中指定`false`。
 
 ```json
 {
@@ -217,58 +217,64 @@ To make Parcel ignore one of these fields, specify `false` in the `targets` fiel
 }
 ```
 
-See [Building a library with Parcel](/getting-started/library/) for an intro to building libraries with Parcel.
+有关[Building a library with Parcel](/getting-started/library/)构建库的介绍，请参阅使用 Parcel 构建库。
 
-## Target options
+## 目标选项
 
 ### `context`
 
 ```javascript
-'node' | 'browser' | 'web-worker' | 'service-worker' | 'worklet' | 'electron-main' | 'electron-renderer'
+"node" |
+  "browser" |
+  "web-worker" |
+  "service-worker" |
+  "worklet" |
+  "electron-main" |
+  "electron-renderer";
 ```
 
-The `context` property defines what type of environment to build for. This tells Parcel what environment-specific APIs are available, e.g. the DOM, Node filesystem APIs, etc.
+`context`属性定义了要构建的环境类型。这告诉 Parcel 有哪些特定于环境的 API 可用，例如 DOM、Node 文件系统 API 等。
 
-For builtin library targets (e.g. `main` and `module`), the `context` is automatically inferred. See [Library targets](#library-targets) above for more details.
+对于内置库目标（例如`main`和`module`)），`context`会自动推断 。有关更多详细信息，请参阅上面的[Library targets](#library-targets)。
 
 ### `engines`
 
-Overrides the engines defined in the top-level `package.json#engines` and `browserslist` fields for this target. The `engines.browsers` field within a target can be used just like `browserslist`. See [Environments](#environments) and [Multiple targets](#multiple-targets) above for more information.
+覆盖此目标的顶级`package.json#engines`和`browserslist`段中定义的引擎。目标中的`engines.browsers`字段可以像`browserslist`。有关详细信息，请参阅上面的[环境 Environments](#environments)和[多目标 Multiple targets](#multiple-targets)。
 
 ### `outputFormat`
 
 ```javascript
-'global' | 'esmodule' | 'commonjs'
+"global" | "esmodule" | "commonjs";
 ```
 
-Defines what type of module to output.
+定义要输出的模块类型。
 
-- `global` – a classic script that could be loaded in a `<script>` tag in the browser. Not supported for library targets.
-- `esmodule` – an ES module using `import` and `export` statements. Could be loaded in a `<script type="module">` tag in the browser, or loaded by Node.js or another bundler.
-- `commonjs` – a CommonJS module using `require` and `module.exports`. Could be loaded by Node.js or another bundler.
+- `global` – 可以在浏览器的`<script>`标签中加载的经典脚本。库目标不支持。
+- `esmodule` – 一个使用`import`和`export`语句的 ES 模块。可以`<script type="module">`在浏览器的标签中加载，或者由 Node.js 或其他捆绑程序加载。
+- `commonjs` – 一个使用`require`和`module.exports`的 CommonJS 模块。可以由 Node.js 或其他捆绑程序加载。
 
-For builtin library targets (e.g. `main` and `module`), the `outputFormat` is automatically inferred. The file extension defined in the target's top-level package.json field may also influence the output format. See [Library targets](#library-targets) above for more details.
+对于内置库目标（例如`main`和`module`），`outputFormat`会自动推断 。在目标的顶级 package.json 字段中定义的文件扩展名也可能影响输出格式。有关更多详细信息，请参阅上面的[库目标 Library targets](#library-targets)。
 
 ### `scopeHoist`
 
-Enables or disables scope hoisting. By default, scope hoisting is enabled for production builds. The `--no-scope-hoist` CLI flag can be used to disable scope hoisting when running `parcel build`. Scope hoisting may also be disabled by setting the `scopeHoist` option in the target config.
+启用或禁用 scope hoisting。默认情况下，为生产构建启用 scope hoisting。`--no-scope-hoist`CLI 标志可用于在运行`parcel build`时禁用 scope hoisting。Scope hoisting 也可以通过在目标配置中设置`scopeHoist`选项来禁用。
 
 ### `isLibrary`
 
-When set to `true`, the target is treated as a library that would be published to npm and consumed by another tool rather than used directly in a browser or other target environment. When `true`, the `outputFormat` option must be either `esmodule` or `commonjs` and `scopeHoist` must not be set to `false`.
+当设置为`true`,时，目标被视为将发布到 npm 并由另一个工具使用的库，而不是直接在浏览器或其他目标环境中使用。当为`true`，该`outputFormat`选项必须是`esmodule`或`commonjs`并且`scopeHoist`不能设置为`false`。
 
-For builtin library targets (e.g. `main` and `module`), this is automatically set to `true`. See [Library targets](#library-targets) above for more details.
+对于内置库目标（例如`main`和`module`），它会自动设置为`true`。有关更多详细信息，请参阅上面的[库目标 Library targets](#library-targets)。
 
 ### `optimize`
 
-Enables or disables optimization (e.g. minification). Exact behavior is determined by plugins. By default, optimization is enabled during production builds (`parcel build`), except for library targets. This can be overridden using the `--no-optimize` CLI flag or the `optimize` option in the target config.
+E 启用或禁用优化（例如缩小）。确切的行为由插件决定。默认情况下，在生产构建期间启用优化 (`parcel build`)，库目标除外。这可以使用`--no-optimize`CLI 标志或目标配置中的选项`optimize`覆盖。
 
 ### `includeNodeModules`
 
-Determines whether to bundle `node_modules` or treat them as external. The default is `true` for browser targets, and `false` for library targets. Possible values are:
+确定是打包`node_modules`还是将它们视为外部。用于浏览器目标默认是`true`，库目标默认是`false`。可能的值为：
 
-- **`false`** – does not include any files in `node_modules`.
-- **an array** – a list of packages names to include. In the following example, *only* `react` is bundled. All other files in `node_modules` are excluded.
+- **`false`** – 不包括`node_modules`。
+- **an array** – 要包含的包名称列表。在以下示例中，*仅*打包`react`。所有其他文件`node_modules`都被排除在外。
 
   ```json
   {
@@ -280,7 +286,7 @@ Determines whether to bundle `node_modules` or treat them as external. The defau
   }
   ```
 
-- **an object** – a mapping of package names to booleans. If a package is not listed, it is included. In the following example, all `node_modules` *except* react are bundled.
+- **an object** – 包名到布尔值的映射。如果未列出软件包，则将其包括在内。在以下示例中，`node_modules` _除了_ react 之外的所有内容都捆绑在一起。
 
   ```json
   {
@@ -296,27 +302,26 @@ Determines whether to bundle `node_modules` or treat them as external. The defau
 
 ### `sourceMap`
 
-Enables or disables source maps, and sets source map options. By default, source maps are enabled. This can be overridden using the `--no-source-maps` CLI flag, or by setting the `sourceMap` option in the target config to `false`.
+启用或禁用 sourceMap，并设置源映射选项。默认情况下，源映射已启用。这可以使用`--no-source-maps`CLI 标志覆盖，或者通过目标配置中的选项将`sourceMap`设置为`false`。
 
-The `sourceMap` option also accepts an object with the following options.
+`sourceMap`选项还接受具有以下选项的对象。
 
-- `inline` – Whether to inline the source map as a data URL into the bundle rather than link to it as a separate output file.
-- `inlineSources` – Whether to inline the original source code into the source map rather than load them from the `sourceRoot`. This is set to `true` by default when building browser targets for production.
-- `sourceRoot` – The URL at which to load the original source code. This is set automatically in development when using the builtin Parcel dev server. Otherwise, it defaults to a relative path to the bundle from the project root.
+- `inline` – 是否将源映射作为数据 URL 内联到包中，而不是作为单独的输出文件链接到它。
+- `inlineSources` – 是否将原始源代码内联到源映射中，而不是从`sourceRoot`，在为生产构建浏览器目标时，默认情况下设置为`true`。
+- `sourceRoot` – 加载原始源代码的 URL。这是在使用内置 Parcel 开发服务器时在开发中自动设置的。否则，它默认为从项目根目录到包的相对路径。
 
 ### `source`
 
-Overrides the top-level `source` field in package.json for a target. This allows for each target to have different entries. See [package.json#targets.*.source](#package.json%23targets.*.source) for more details.
+覆盖目标根目录的 package.json 中的`source`字段。这允许每个目标具有不同的条目。有关更多详细信息，请参阅[package.json#targets.\*.source](#package.json%23targets.*.source)。
 
 ### `distDir`
 
-Sets the location where compiled bundles in this target will be written. By default, this is `dist` if only a single target is given, or `dist/${targetName}` for multiple targets. See [Targets](#targets) for more details.
+设置将写入此目标中的已编译包的位置。默认情况下，`dist`如果只给出一个目标，或者`dist/${targetName}`多个目标。有关详细信息，请参阅[目标 Targets](#targets)。
 
 ### `publicUrl`
 
-Sets the base URL at which this bundle will be loaded at runtime. The bundle's relative path from the `distDir` will be automatically appended. `publicUrl` can be either a fully qualified URL (e.g. `https://some-cdn.com/` or an absolute path (e.g. `/public`) if bundles are loaded from the same domain as your website.
+设置在运行时将加载此捆绑包的基本 URL。打包的相对路径`distDir`将自动附加。如果捆绑包是从与您的网站相同的域加载的，则`publicUrl`可以是完全限定的 URL（例如，也可以`https://some-cdn.com/`绝对路径（例如`/public`)。
 
-By default the `publicUrl` is `/`. This is a good default if your HTML files and other assets are deployed to the same location. If you deploy assets to a different location, you'll likely need to set `publicUrl`. The public URL can also be set using the `--public-url` CLI option.
+默认情况下`publicUrl`是`/`。如果您的 HTML 文件和其他资产部署到同一位置，这是一个很好的默认设置。如果您将资产部署到不同的位置，您可能需要设置`publicUrl`。 也可以使用`--public-url`CLI 选项设置公共 URL。
 
-In most cases, bundles are loaded using a relative path from the parent bundle to the child bundle. This allows the deployment to be moved to a new location without re-building (e.g. promoting a staging build to production). The `publicUrl` is used when relative paths are not possible (e.g. in HTML).
-
+在大多数情况下，使用从父捆绑包到子捆绑包的相对路径加载捆绑包。这允许将部署移动到新位置而无需重新构建（例如，将暂存构建提升到生产环境）。当`publicUrl`相对路径不可能时使用（例如在 HTML 中）。

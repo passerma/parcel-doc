@@ -1,78 +1,83 @@
 ---
 layout: layout.njk
-title: Production
+title: 生产环境
 eleventyNavigation:
   key: features-production
-  title: 🚀 Production
+  title: 🚀 生产环境(Production)
   order: 6
 ---
 
-Parcel’s production mode automatically bundles and optimizes your application for production. It can be run using the `parcel build` command:
+Parcel 的生产环境会自动捆绑和优化您的生产应用程序。它可以使用以下命令`parcel build`运行：
 
 ```shell
 parcel build src/index.html
 ```
 
-## Size optimization
+## 尺寸优化
 
-Parcel includes many optimizations designed to reduce bundle sizes, including automatic minification, tree shaking, image optimization, and more.
+Parcel 包含许多旨在减少包大小的优化，包括自动缩小、tree shaking，图像优化等。
 
-### Minification
+### 缩小
 
-Parcel includes minifiers for JavaScript, CSS, HTML, and SVG out of the box. Minification reduces the file size of your output bundles by removing whitespace, renaming variables to shorter names, and many other optimizations.
+Parcel 包括开箱即用的 JavaScript、CSS、HTML 和 SVG 缩小器。缩小通过删除空格、将变量重命名为更短的名称以及许多其他优化来减小输出包的文件大小。
 
-By default, minification is enabled when using the `parcel build` command. You can use the `--no-optimize` CLI flag to disable minification and other optimizations if needed.
+默认情况下，使用`parcel build`命令时会启用缩小。如果需要，您可以使用`--no-optimize`CLI 标志来禁用缩小和其他优化。
 
-Parcel uses [terser](https://github.com/fabiosantoscode/terser) to minify JavaScript, [@parcel/css](https://github.com/parcel-bundler/parcel-css) for CSS, [htmlnano](https://github.com/posthtml/htmlnano) for HTML, and [svgo](https://github.com/svg/svgo) for SVG. If needed, you can configure these tools using a `.terserrc`, `.htmlnanorc`, or `svgo.config.json` config file. See the docs for [JavaScript](/languages/javascript/), [CSS](/languages/css/), [HTML](/languages/html), and [SVG](/languages/svg/) for more details.
+Parcel 使用[terser](https://github.com/fabiosantoscode/terser)来缩小 JavaScript，[@parcel/css](https://github.com/parcel-bundler/parcel-css)用于 CSS，[htmlnano](https://github.com/posthtml/htmlnano)用于 HTML，[svgo](https://github.com/svg/svgo)用于 SVG。如果需要，您可以使用`.terserrc`、`.htmlnanorc`或`svgo.config.json`config 文件配置。有关更多详细信息，请参阅[JavaScript](/languages/javascript/), [CSS](/languages/css/), [HTML](/languages/html), 和 [SVG](/languages/svg/)。
 
 ### Tree shaking
 
-In production builds, Parcel statically analyzes the imports and exports of each module, and removes everything that isn't used. This is called "tree shaking" or "dead code elimination". Tree shaking is supported for both static and dynamic `import()`, CommonJS and ES modules, and even across languages with CSS modules.
+在生产构建中，Parcel 静态分析每个模块的导入和导出，并删除所有未使用的内容。这称为"tree shaking"或"dead code elimination"。静态和动态`import()`,、CommonJS 和 ES 模块甚至跨语言与 CSS 模块都支持 tree shaking。
 
-Parcel also concatenates modules into a single scope when possible, rather than wrapping each module in a separate function. This is called “scope hoisting”. This helps make minification more effective, and also improves runtime performance by making references between modules static rather than dynamic object lookups.
+Parcel 还尽可能将模块连接到单个作用域中，而不是将每个模块包装在单独的函数中。这称为“scope hoisting”。这有助于使缩小更有效，并通过使模块之间的引用静态而不是动态对象查找来提高运行时性能。
 
-See the [Scope hoisting](/features/scope-hoisting/) docs for tips to make tree shaking more effective.
+有关 tree shaking 更有效的提示，请参阅[Scope hoisting](/features/scope-hoisting/)。
 
-### Development branch removal
+### 开发分支移除
 
-`parcel build` automatically sets the `NODE_ENV` environment variable to `production`. This environment variable is often used in libraries to enable development-only debugging features that can be stripped in production builds to reduce bundle size. Parcel inlines this environment variable and optimizes comparisons to remove dead branches.
+`parcel build`自动将`NODE_ENV`环境变量设置为`production`。此环境变量通常在库中用于启用仅开发调试功能，可以在生产构建中剥离这些功能以减少包大小。Parcel 内联此环境变量并优化比较以删除死分支。
 
-You can take advantage of this feature in your own code as well. For example, you could use an if statement to check the `NODE_ENV` environment variable.
+您也可以在自己的代码中利用此功能。例如，您可以使用 if 语句来检查`NODE_ENV`环境变量。
 
 ```javascript
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   // Only runs in development and will be stripped in production builds.
 }
 ```
 
-See the [Node emulation docs](/features/node-emulation/) for more details on environment variable inlining.
+有关环境变量内联的更多详细信息，请参阅[节点仿真 Node emulation docs](/features/node-emulation/)。
 
-### Image optimization
+### 图像优化
 
-Parcel supports resizing, converting, and optimizing images. You can use query parameters when referencing an image in HTML, CSS, or JavaScript to specify which format and size the image should be converted to. You can request multiple sizes or formats from the same source image, which helps support different types of devices or browsers efficiently.
+Parcel 支持调整图像大小、转换和优化图像。在 HTML、CSS 或 JavaScript 中引用图像时，您可以使用查询参数来指定图像应转换为的格式和大小。您可以从同一源图像请求多种尺寸或格式，这有助于有效地支持不同类型的设备或浏览器。
 
 ```html
 <picture>
-  <source type="image/webp" srcset="image.jpg?as=webp&width=400, image.jpg?as=webp&width=800 2x">
-  <source type="image/jpeg" srcset="image.jpg?width=400, image.jpg?width=800 2x">
-  <img src="image.jpg?width=400" width="400">
+  <source
+    type="image/webp"
+    srcset="image.jpg?as=webp&width=400, image.jpg?as=webp&width=800 2x"
+  />
+  <source
+    type="image/jpeg"
+    srcset="image.jpg?width=400, image.jpg?width=800 2x"
+  />
+  <img src="image.jpg?width=400" width="400" />
 </picture>
 ```
 
-Resizing and converting images occurs both in development and production mode, so you can test with the correct image dimensions and formats as well. See the [Image transformer](/recipes/image/) docs for more details.
+调整图像大小和转换图像在开发和生产模式下都会发生，因此您也可以使用正确的图像尺寸和格式进行测试。有关更多详细信息，请参阅[图像转换 Image transformer](/recipes/image/)文档。
 
-Parcel also includes lossless image optimization for JPEGs and PNGs by default in production mode, which reduces the size of images without affecting their quality. This does not require any query parameters or configuration to use. However, since the optimization is lossless, the size reduction possible may be less than if you use the `quality` query param, or use a modern format such as WebP or AVIF.
+arcel 还包括在生产模式下默认对 JPEG 和 PNG 进行无损图像优化，这可以在不影响图像质量的情况下减小图像的大小。这不需要使用任何查询参数或配置。但是，由于优化是无损的，因此与使用查询参数`quality`或使用 WebP 或 AVIF 等现代格式相比，可能减少的大小可能更少。
 
-### Differential bundling
+### 差分打包
 
-Parcel automatically produces a `<script type="module">` with modern JavaScript syntax, as well as a fallback `<script nomodule>` for older browsers when necessary. This reduces bundle sizes for a majority of users by avoiding transpilation of features like classes, async/await, and more. See [Differential bundling](/features/targets/#differential-bundling) in the Targets documentation for more details.
+Parcel 会自动生成`<script type="module">`现代 JavaScript 语法，并`<script nomodule>`在必要时为旧版浏览器提供备用。通过避免转换类、异步/等待等功能，这为大多数用户减少了包大小。有关更多详细信息，请参阅 Targets 文档中的[差异捆绑 Differential bundling](/features/targets/#differential-bundling)。
 
-### Compression
+### 压缩
 
+Parcel 支持使用[Gzip](https://en.wikipedia.org/wiki/Gzip)和[Brotli](https://en.wikipedia.org/wiki/Brotli)压缩包。虽然许多服务器即时压缩数据，但其他服务器要求您提前上传预压缩的有效负载。这也可能允许更好的压缩，这对于每个网络请求来说都太慢了。
 
-Parcel supports compressing bundles using [Gzip](https://en.wikipedia.org/wiki/Gzip) and [Brotli](https://en.wikipedia.org/wiki/Brotli). While many servers compress data on the fly, others require you to upload pre-compressed payloads ahead of time. This may also allow for better compression, which would be too slow to do on every network request.
-
-Because not everyone needs it, compression is not enabled by default. To enable it, add `@parcel/compressor-gzip` and/or `@parcel/compressor-brotli` to your `.parcelrc`.
+因为不是每个人都需要它，所以默认情况下不启用压缩。要启用它，请将`@parcel/compressor-gzip`或`@parcel/compressor-brotli`添加到您的`.parcelrc`。
 
 ```shell
 yarn add @parcel/compressor-gzip @parcel/compressor-brotli --dev
@@ -96,9 +101,9 @@ yarn add @parcel/compressor-gzip @parcel/compressor-brotli --dev
 {% endsamplefile %}
 {% endsample %}
 
-Now you’ll get a `.gz` and a `.br` file along side the original uncompressed bundle. If you have more text-based file types than listed in the above example, you'll need to extend the glob accordingly.
+现在，您将在原始未压缩包旁边获得一个`.gz`和`.br`文件。如果基于文本的文件类型比上面示例中列出的要多，则需要相应地扩展 glob。
 
-If you don’t need the uncompressed bundle, you can also remove the `"..."` from the above example to *only* output compressed files. For example, to only output a `.gz` file, you could use the following config:
+如果您不需要未压缩的包，您也可以从上面的示例中删除`"..."`以*仅*输出压缩文件。例如，要仅输出一个`.gz`文件，您可以使用以下配置：
 
 {% sample %}
 {% samplefile ".parcelrc" %}
@@ -114,47 +119,47 @@ If you don’t need the uncompressed bundle, you can also remove the `"..."` fro
 {% endsamplefile %}
 {% endsample %}
 
-## Cache optimization
+## 缓存优化
 
-Parcel includes several optimizations related to browser and CDN caching, including content hashing, bundle manifests, and shared bundles.
+Parcel 包含与浏览器和 CDN 缓存相关的多项优化，包括内容散列、打包清单和共享打包。
 
-### Content hashing
+### 内容散列
 
-Parcel automatically includes content hashes in the names of all output files, which enables long-term browser caching. Whenever the contents of a bundle changes, the hash included in the filename will be updated, triggering invalidation of CDN and browser caches.
+Parcel 会自动在所有输出文件的名称中包含内容哈希，从而实现长期浏览器缓存。每当包的内容发生变化时，文件名中包含的哈希值就会更新，从而触发 CDN 和浏览器缓存的失效。
 
-By default, all bundles include a content hash except entries and certain dependency types that require names to be stable. For example, service workers require a stable file name to work properly, and `<a>` tags in HTML reference user readable URLs.
+默认情况下，所有捆绑包都包含内容哈希，但条目和某些需要名称稳定的依赖类型除外。例如，服务工作者需要一个稳定的文件名才能正常工作，并且 HTML 中的`<a>`标签引用用户可读的 URL。
 
-You can also disable content hashing using the `--no-content-hash` CLI flag. Note that the name will still include a hash, but it will not change on each build. You can customize bundle naming completely using [Namer](/plugin-system/namer/) plugins.
+您还可以使用`--no-content-hash`CLI 标志禁用内容散列。请注意，名称仍将包含哈希，但不会在每次构建时更改。您可以使用[Namer](/plugin-system/namer/)插件完全自定义包命名。
 
-### Cascading invalidation
+### 级联失效 Cascading invalidation
 
-Parcel uses a manifest in each entry bundle to avoid the [cascading invalidation](https://philipwalton.com/articles/cascading-cache-invalidation/) problem in many cases. This manifest includes a mapping of stable bundle ids to final content hashed filenames. When one bundle needs to reference another, it uses the bundle id rather than the content hashed name. This means that when a bundle updates, only that bundle and the entry will need to be invalidated in the browser cache and intermediary bundles will not change. This improves the cache hit rate across deployments.
+Parcel 在每个条目包中使用清单来避免在许多情况下[cascading invalidation](https://philipwalton.com/articles/cascading-cache-invalidation/)问题。此清单包括稳定包 ID 到最终内容散列文件名的映射。当一个包需要引用另一个包时，它使用包 id 而不是内容散列名称。这意味着当一个包更新时，只有那个包和条目需要在浏览器缓存中失效，中间包不会改变。这提高了跨部署的缓存命中率。
 
-### Shared bundles
+### 共享打包
 
-In production builds, Parcel automatically optimizes the bundle graph in your application to reduce duplication and improve cacheability. When multiple parts of your application depend on the same common modules, they are automatically deduplicated into a separate bundle. This allows commonly used dependencies to be loaded in parallel with your application code and cached separately by the browser.
+在生产构建中，Parcel 会自动优化应用程序中的打包图，以减少重复并提高可缓存性。当您的应用程序的多个部分依赖于相同的公共模块时，它们会自动去重到一个单独的包中。这允许常用的依赖项与您的应用程序代码并行加载，并由浏览器单独缓存。
 
-For example, if multiple pages in your app depend on `react` and `lodash`, they might be moved into a separate bundle rather than duplicated in each page. This way, when a user navigates from one page to another, they only need to download the additional code for that page rather than re-downloading those libraries which are already cached.
+例如，如果您的应用程序中的多个页面依赖于`react`和`lodash`，它们可能会被移动到一个单独的包中，而不是在每个页面中重复。这样，当用户从一个页面导航到另一个页面时，他们只需要下载该页面的附加代码，而不是重新下载那些已经缓存的库。
 
-See the [Code splitting](/features/code-splitting/) docs for more details on how to configure this.
+有关如何配置的更多详细信息，请参阅[代码拆分 Code splitting](/features/code-splitting/)。
 
-## Analyzing bundle sizes
+## 分析打包大小
 
-Parcel includes some tools to help you analyze bundle sizes.
+Parcel 包含一些工具来帮助您分析打包的大小。
 
-### Detailed report
+### 详细报告
 
-By default, Parcel outputs a bundle report in the terminal when building for production. It includes the size and build time for each output bundle. To see more details about what files make up each bundle, you can use the `--detailed-report` CLI option. By default, it shows up to 10 files in each bundle, sorted by size. You can also pass a number to increase this, e.g. `--detailed-report 20`.
+默认情况下，Parcel 在为生产构建时会在终端中输出打包报告。它包括每个输出包的大小和构建时间。要查看有关组成每个包的文件的更多详细信息，您可以使用`--detailed-report`CLI 选项。默认情况下，每个包中最多显示 10 个文件，按大小排序。您也可以传递一个数字来增加它，例如`--detailed-report 20`。
 
-### Bundle analyzer
+### 打包分析器
 
-The `@parcel/reporter-bundle-analyzer` plugin can be used to generate an HTML file containing a tree map that shows the relative size of each asset in every bundle visually. You can run it using the `--reporter` CLI option.
+`@parcel/reporter-bundle-analyzer`插件可用于生成包含树形图的 HTML 文件，该树形图直观地显示每个包中每个资产的相对大小。您可以使用`--reporter`CLI 选项运行它。
 
 ```shell
 parcel build src/index.html --reporter @parcel/reporter-bundle-analyzer
 ```
 
-This generates a folder `parcel-bundle-reports` in your project root with an HTML file for every target:
+这会在您的项目根目录中生成一个文件夹`parcel-bundle-reports`，其中包含每个目标的 HTML 文件：
 
 <div style="border: 1px solid black">
 
@@ -162,17 +167,17 @@ This generates a folder `parcel-bundle-reports` in your project root with an HTM
 
 </div>
 
-You can also add it to `"reporters"` in your `.parcelrc` file if you want to run the bundle analyzer on every build automatically.
+如果您想在每个构建中自动运行打包分析器，您也可以将`"reporters"`添加到`.parcelrc`文件中。
 
 ### Bundle Buddy
 
-The `@parcel/reporter-bundle-buddy` plugin can be used to generate a report that is compatible with [Bundle Buddy](https://bundle-buddy.com). You can run it using the `--reporter` CLI option.
+`@parcel/reporter-bundle-buddy`插件可用于生成与[Bundle Buddy](https://bundle-buddy.com)兼容的报告。您可以使用`--reporter`CLI 选项运行它。
 
 ```shell
 parcel build src/index.html --reporter @parcel/reporter-bundle-buddy
 ```
 
-Now upload the files in the `dist` directory to the [Bundle Buddy website](https://bundle-buddy.com/parcel).
+现在将`dist`录中的文件上传到[Bundle Buddy website](https://bundle-buddy.com/parcel).
 
 <div style="border: 1px solid black">
 

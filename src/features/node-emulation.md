@@ -1,41 +1,41 @@
 ---
 layout: layout.njk
-title: Node Emulation
+title: Node模拟
 eleventyNavigation:
   key: features-node-emulation
-  title: 🐢 Node Emulation
+  title: 🐢 Node模拟
   order: 8
 ---
 
-Parcel includes several features that emulate the Node.js API. This allows many modules on npm that were originally written for Node to also work in the browser. In addition, many browser modules have also adopted Node.js-based APIs for things like environment variables.
+Parcel 包含几个模拟 Node.js API 的功能。这允许 npm 上最初为 Node 编写的许多模块也可以在浏览器中工作。此外，许多浏览器模块也采用了基于 Node.js 的 API 来处理环境变量等问题。
 
-## Environment Variables
+## 环境变量
 
-Parcel supports inlining environment variables in JavaScript. This can be used to determine the build environment (e.g. development, staging, production), inject API keys, etc.
+Parcel 支持 JavaScript 中的内联环境变量。这可用于确定构建环境（例如开发、登台、生产）、注入 API 密钥等。
 
-To access an environment variable, read the corresponding property from the `process.env` object.
+要访问环境变量，请从对象中读取相应的属性`process.env`。
 
 ```js
-if (process.env.NODE_ENV === 'development') {
-  console.log('Happy developing!');
+if (process.env.NODE_ENV === "development") {
+  console.log("Happy developing!");
 }
 ```
 
-You can also use destructuring syntax to access multiple properties at once.
+您还可以使用解构语法一次访问多个属性。
 
 ```js
-let {NODE_ENV, API_TOKEN} = process.env;
+let { NODE_ENV, API_TOKEN } = process.env;
 ```
 
-Accessing `process.env` in any non-static ways (e.g. dynamic property lookups) is not supported.
+`process.env`不支持以任何非静态方式（例如动态属性查找）进行访问。
 
 ### `NODE_ENV`
 
-The `NODE_ENV` environment variable is automatically set by Parcel depending on the mode. When running `parcel build`, `NODE_ENV` is set to `production` by default, otherwise it is set to `development`. This can be overridden by setting `NODE_ENV` yourself (e.g. in your shell).
+Parcel 会根据`NODE_ENV`模式自动设置环境变量。运行`parcel build`时, `NODE_ENV`默认设置为`production`，否则设置为`development`。。这可以通过设置`NODE_ENV`（例如在 shell 中）来覆盖。
 
-### `.env` files
+### `.env`文件
 
-Parcel supports loading environment variables defined in `.env` files in your project root. This supports `NAME=value` pairs separated by newlines. Lines starting with `#` are treated as comments. See [dotenv](https://github.com/motdotla/dotenv) for more details.
+Parcel 支持加载在项目根目录中的`.env`件中定义的环境变量。这支持由换行符分隔的`NAME=value`对。以`#`开头的行被视为注释。有关更多详细信息，请参见[dotenv](https://github.com/motdotla/dotenv)。
 
 {% sample %}
 {% samplefile ".env" %}
@@ -48,50 +48,53 @@ API_KEY=12345
 {% endsamplefile %}
 {% endsample %}
 
-In addition to `.env`, environment-specific overrides such as `.env.production` and `.env.development` can also be created. These are applied based on the `NODE_ENV` environment variable (including when automatically set by Parcel). Any variables that are not set in environment-specific overrides fall back to the values defined in the base `.env` file.
+除了`.env`，还可以创建例如`.env.production`和`.env.development`这些是基于`NODE_ENV`环境变量应用的（包括由 Parcel 自动设置时）。未在特定于环境的覆盖中设置的任何变量都回退到基本`.env`文件中定义的值。
 
-The `.env.local` file is also supported for local overrides of environment variables, however, it is not used when `NODE_ENV=test` so that tests produce the same result for everyone. This is also supported for environment-specific overrides, such as `.env.production.local`.
+`.env.local`文件还支持环境变量的本地覆盖，但是，当`NODE_ENV=test`测试为每个人产生相同的结果时，不使用它。这也支持特定于环境的覆盖，例如`.env.production.local`.
 
 ## Polyfilling & Excluding Builtin Node Modules
 
-When targetting the browser and your code, or more likely a dependency, imports builtin Node modules such as `crypto`, `fs` or `process`, Parcel will automatically use one of the following polyfills. If no polyfill is available, then an empty module will be used instead. You can also use [aliases](/features/dependency-resolution/#aliases) to override these.
+填充和排除内置节点模块
 
-| native module | npm replacement            | native module  | npm replacement      |
-| ------------- | -------------------------- | -------------- | -------------------- |
-| assert        | `assert`                   | process        | `process/browser.js` |
-| buffer        | `buffer`                   | punycode       | `punycode`           |
-| console       | `console-browserify`       | querystring    | `querystring-es3`    |
-| constants     | `constants-browserify`     | stream         | `stream-browserify`    |
-| crypto        | `crypto-browserify`        | string_decoder | `string_decoder`     |
-| domain        | `domain-browser`           | sys            | `util/util.js`       |
-| events        | `events`                   | timers         | `timers-browserify`  |
-| http          | `stream-http`              | tty            | `tty-browserify`     |
-| https         | `https-browserify`         | url            | `url`                |
-| os            | `os-browserify/browser.js` | util           | `util/util.js`       |
-| path          | `path-browserify`          | vm             | `vm-browserify`      |
-| zlib          | `browserify-zlib`          |
+当针对浏览器和您的代码，或者更可能是依赖项时，导入内置 Node 模块，例如`crypto`、`fs`或`process`，Parcel 将自动使用以下 polyfill 之一。如果没有可用的 polyfill，则将使用空模块。您还可以使用[aliases](/features/dependency-resolution/#aliases)来覆盖这些。
+
+| 本机模块  | npm 替换                   | 本机模块       | npm 替换             |
+| --------- | -------------------------- | -------------- | -------------------- |
+| assert    | `assert`                   | process        | `process/browser.js` |
+| buffer    | `buffer`                   | punycode       | `punycode`           |
+| console   | `console-browserify`       | querystring    | `querystring-es3`    |
+| constants | `constants-browserify`     | stream         | `stream-browserify`  |
+| crypto    | `crypto-browserify`        | string_decoder | `string_decoder`     |
+| domain    | `domain-browser`           | sys            | `util/util.js`       |
+| events    | `events`                   | timers         | `timers-browserify`  |
+| http      | `stream-http`              | tty            | `tty-browserify`     |
+| https     | `https-browserify`         | url            | `url`                |
+| os        | `os-browserify/browser.js` | util           | `util/util.js`       |
+| path      | `path-browserify`          | vm             | `vm-browserify`      |
+| zlib      | `browserify-zlib`          |
 
 ## Shimming Builtin Node Globals
 
-When targetting the browser, usages of global variables that are available in Node are replaced to not break code written for Node:
+填充内置节点全局变量
 
-- `process` is imported automatically from the `process` module, unless it's part of a `process.browser` or `process.env.FOO` expression which is replaced by a boolean or the value of the environment variable.
+以浏览器为目标时，Node 中可用的全局变量的用法被替换为不破坏为 Node 编写的代码：
 
-- `Buffer` is imported automatically from the `buffer` module.
+- `process` 从`process`模块中自动导入，除非它是由布尔值或环境变量值替换的`process.browser`或`process.env.FOO`表达式的一部分。
 
-- `__filename` and `dirname` are replaced by string literals of the asset's filepath (or the parent folder) relative to the project root.
+- `Buffer`从`buffer`模块中自动导入的。
 
-- `global` is replaced with a reference to the global variable (behaving like the newer `globalThis`).
+- `__filename`和`dirname`替换为相对于项目根目录的资产文件路径（或父文件夹）的字符串文字。
 
+- `global`替换为对全局变量的引用（表现得像 newer`globalThis`）。
 
-## Inlining fs.readFileSync
+## 内联 fs.readFileSync
 
-Calls to `fs.readFileSync` are replaced with the file's contents if the filepath is statically determinable and inside the project root.
+如果文件路径是静态可确定的并且在项目根目录内，则调用将`fs.readFileSync`替换为文件的内容。
 
-- `fs.readFileSync(__dirname + "/file", "utf8")` – the contents of the file as a string. The "utf8", "utf-8", "hex", and "base64" encodings are supported.
-- `fs.readFileSync(__dirname + "/file")` – a [Buffer](https://nodejs.org/dist/latest-v16.x/docs/api/buffer.html) object. Note that the Buffer polyfill is quite large so this may be undesired.
+- `fs.readFileSync(__dirname + "/file", "utf8")` – 文件内容为字符串。支持“utf8”、“utf-8”、“hex”和“base64”编码。
+- `fs.readFileSync(__dirname + "/file")` – 一个[Buffer](https://nodejs.org/dist/latest-v16.x/docs/api/buffer.html)对象。请注意，Buffer polyfill 非常大，因此这可能是不受欢迎的。
 
-The `__dirname` and `__filename` variables can be used in the filename argument. String concatenation via the `+` operator and the `path.join` function may be used. Other functions, variables, or dynamic computations are not supported. Computed paths should always be absolute, and not rely on the current working directory.
+`__dirname`和`__filename`变量可以在文件名参数中使用。可以使用通过运算符`+`和函数`path.join`的字符串连接。不支持其他函数、变量或动态计算。计算路径应该始终是绝对的，并且不依赖于当前工作目录。
 
 {% sample %}
 {% samplefile "index.js" %}
@@ -116,9 +119,9 @@ console.log(data);
 {% endsamplefile %}
 {% endsample %}
 
-## Disabling These Features
+## 禁用这些功能
 
-Inlining of [environment variables](#environment-variables) and [`readFileSync` calls](#inlining-fs.readfilesync) can be disabled by creating a `@parcel/transformer-js` key in `package.json`.
+可以通过在`package.json`中创建`@parcel/transformer-js`键来禁用[environment variables](#environment-variables)和[`readFileSync` calls](#inlining-fs.readfilesync)。
 
 {% sample %}
 {% samplefile "package.json" %}
@@ -139,7 +142,7 @@ Inlining of [environment variables](#environment-variables) and [`readFileSync` 
 {% endsamplefile %}
 {% endsample %}
 
-`inlineEnvironment` can also be an array of glob strings, which allows you to filter the allowed environment variables. This is a good idea to ensure security, since third party code in node_modules can also read environment variables.
+`inlineEnvironment`也可以是一个 glob 字符串数组，它允许您过滤允许的环境变量。这是确保安全的好主意，因为 node_modules 中的第三方代码也可以读取环境变量。
 
 ```json5
 {

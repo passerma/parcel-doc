@@ -1,17 +1,17 @@
 ---
 layout: layout.njk
-title: Debugging
+title: 调试 Debugging
 eleventyNavigation:
   key: recipes-debugging
-  title: 🛠️ Debugging
+  title: 🛠️ 调试 Debugging
   order: 1
 ---
 
-As Parcel automatically generates sourcemaps by default, setting up debugging with Parcel involves minimal effort for the most part.
+由于 Parcel 在默认情况下会自动生成源映射，因此使用 Parcel 设置调试在大多数情况下只需要很少的工作量。
 
-## Chrome Developer Tools
+## Chrome 开发者工具
 
-Assuming that source maps are enabled, no extra configuration is required. For example, suppose you had a folder structure like the following:
+假设启用了源映射，则不需要额外的配置。例如，假设您的文件夹结构如下：
 
 {% sample %}
 {% samplefile "src/index.html" %}
@@ -41,13 +41,13 @@ document.getElementById("greeting").innerHTML = variable;
 {% endsamplefile %}
 {% endsample %}
 
-With this setup, you can run `parcel src/index.html` and set breakpoints in the source code, as seen below:
+通过此设置，您可以运行`parcel src/index.html`在源代码中设置断点，如下所示：
 
 ![Example Chrome Breakpoints](../debugging1.png)
 
 ## Visual Studio Code
 
-Assuming a folder/file structure similar to the one shown above for Chrome developer tools, the following `launch.json` can be used with the [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) extension:
+假设文件夹/文件结构类似于上面为 Chrome 开发者工具显示的结构，以下内容`launch.json`可以与[Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)扩展一起使用：
 
 {% sample %}
 {% samplefile "launch.json" %}
@@ -77,12 +77,12 @@ Assuming a folder/file structure similar to the one shown above for Chrome devel
 {% endsamplefile %}
 {% endsample %}
 
-Next, you will need to start the parcel dev server with your entry point, which here is `index.html`:
+接下来，您需要使用您的入口点启动 parcel dev 服务器，这里是`index.html`：
 
 ```
 $ parcel src/index.html
 ```
 
-The last step here is to actually start the debugging process by clicking Green arrow in the debug panel. You should now be able to set breakpoints in your code. The final result will look similar to the following:
+这里的最后一步是通过单击调试面板中的绿色箭头实际开始调试过程。您现在应该能够在代码中设置断点。最终结果将类似于以下内容：
 
 ![Example Chrome Breakpoints](../debugging2.png)

@@ -7,17 +7,17 @@ eleventyNavigation:
   order: 3
 ---
 
-Parcel works great for building single or multi-page React applications. It includes a first-class development experience with Fast Refresh, and supports JSX, TypeScript, Flow, and many styling methodologies out of the box.
+Parcel 非常适合构建单页或多页 React 应用程序。它包括一流的快速刷新开发体验，并支持 JSX、TypeScript、Flow 和许多开箱即用的样式方法。
 
-## Getting started
+## 入门
 
-First, install `react` and `react-dom` into your project:
+首先，安装`react`和`react-dom`进入您的项目：
 
 ```shell
 yarn add react react-dom
 ```
 
-Most Parcel apps start with an HTML file. Parcel follows the dependencies (such as a `<script>` tag) from there to build your app.
+大多数 Parcel 应用程序都以 HTML 文件开头。Parcel 从那里遵循依赖项（例如`<script>`标签）来构建您的应用程序。
 
 {% sample %}
 {% samplefile "src/index.html" %}
@@ -59,60 +59,60 @@ export function App() {
 {% endsamplefile %}
 {% endsample %}
 
-As you can see, we’ve referenced `index.js` from a `<script>` element in our HTML file. This imported `react-dom` and used it to render our `App` component into the `<div id="app">` element in our page.
+正如你所看到的，我们已经从 HTML 文件中的`<script>`元素中引用了`index.js`。这个导入的`react-dom`并用它将我们的`App`组件渲染到我们页面中的`<div id="app">`元素中。
 
-See [Building a web app with Parcel](/getting-started/webapp/) for more details on getting started with a new project.
+有关开始使用新项目的更多详细信息，请参阅[Building a web app with Parcel](/getting-started/webapp/)。
 
 ## JSX
 
-Parcel supports JSX automatically when it detects you are using React. If you’re using React 17 or later, it also automatically enables the [modern JSX transform](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html), which means you don't even need to import React for JSX to work, as you can see in `App.js` in the above example.
+Parcel 在检测到您正在使用 React 时会自动支持 JSX。如果您使用的是 React 17 或更高版本，它还会自动启用[modern JSX transform](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)，这意味着您甚至不需要导入 React 即可使 JSX 工作，正如您 App.js 在上面的示例中所见。
 
-To learn more about JSX, see [Introducing JSX](https://reactjs.org/docs/introducing-jsx.html) and [JSX In Depth](https://reactjs.org/docs/jsx-in-depth.html) in the React docs, and the [JSX](/languages/javascript/#jsx) section from Parcel's JavaScript docs for details on how you can configure some details of how it's handled.
+要了解有关 JSX 的更多信息，请参阅 React 文档中的[Introducing JSX](https://reactjs.org/docs/introducing-jsx.html)，[JSX In Depth](https://reactjs.org/docs/jsx-in-depth.html)以及 Parcel 的 JavaScript 文档[JSX](/languages/javascript/#jsx)部分，以获取有关如何配置其处理方式的一些详细信息的详细信息。
 
-## Fast Refresh
+## 快速刷新
 
-Parcel has first-class support for [React Fast Refresh](https://reactnative.dev/docs/fast-refresh), which gives you quick feedback as you edit your code without needing to reload the page. In most cases, it can preserve component state as code is edited, even if you make an error. See the [Hot reloading](/features/development#hot-reloading) docs for details on how this works.
+Parcel 对[React Fast Refresh](https://reactnative.dev/docs/fast-refresh)有一流的支持，在编辑代码时不需要重新加载页面就可以得到快速反馈。在大多数情况下，它可以在编辑代码时保留组件状态，即使您出错。参见[Hot reloading](/features/development#hot-reloading)文档了解详细的工作原理。
 
-### Tips
+### 提示
 
-- **Avoid class components** – Fast Refresh only works with function components (and Hooks).
-- **Export only React components** – If a file exports a mix of React components and other types of values, its state will be reset whenever it changes. To preserve state, only export React components and move other exports to a different file if possible.
-- **Avoid unnamed default exports** – Declaring components using a default exported arrow function will cause state to be reset when it is changed. Use a named function, or assign the arrow function to a variable instead.
-- **Keep entry components in their own files** – Entry components should be in a separate file from the one that calls `ReactDOM.render` or they will be remounted on every change.
+- **避免类组件** – 快速刷新仅适用于函数组件（和 Hooks）。
+- **仅导出 React 组件** – 如果一个文件混合了 React 组件和其他类型的值，则其状态将在其更改时重置。要保留状态，请仅导出 React 组件并尽可能将其他导出移动到不同的文件。
+- **避免未命名的默认导出** – 使用默认导出箭头函数声明组件将导致状态在更改时被重置。使用命名函数，或将箭头函数分配给变量。
+- **将入口组件保存在它们自己的文件中** – 入口组件应该与调用`ReactDOM.render`的文件分开放置，否则每次更改都会重新挂载它们。
 
-For more tips, see the official [React Fast Refresh docs](https://reactnative.dev/docs/fast-refresh).
+有关更多提示，请参阅官方[React Fast Refresh docs](https://reactnative.dev/docs/fast-refresh)。
 
 ## TypeScript
 
-[TypeScript](https://www.typescriptlang.org/) is supported out of the box. You can reference a `.ts` or `.tsx` file from your HTML page, and Parcel will compile it as you'd expect.
+[TypeScript](https://www.typescriptlang.org/)支持开箱即用。您可以从您的 HTML 页面引用`.ts`或`.tsx`文件，Parcel 将按照您的预期编译它。
 
-To add TypeScript definitions for React, install the following packages into your project:
+要为 React 添加 TypeScript 定义，请将以下包安装到您的项目中：
 
 ```shell
 yarn add @types/react @types/react-dom --dev
 ```
 
-See the [TypeScript](/languages/typescript/) docs for more details on using TypeScript with Parcel.
+有关将 TypeScript 与 Parcel 一起使用的更多详细信息，请参阅[TypeScript](/languages/typescript/)。
 
 ## Flow
 
-[Flow](https://flow.org/) is supported automatically when it is installed. To add it to an existing project, first install `flow-bin` as a dependency:
+安装时自动支持[Flow](https://flow.org/)。要将其添加到现有项目，首先安装`flow-bin`为依赖项：
 
 ```shell
 yarn add flow-bin --dev
 ```
 
-Then, use the `// @flow` directive at the top of the files you'd like to type check. This also signals to Parcel which files can have Flow types that should be stripped when compiling for the browser.
+然后，使用`// @flow`您要输入检查的文件顶部的指令。这也向 Parcel 发出信号，哪些文件可以具有在为浏览器编译时应该剥离的 Flow 类型。
 
-See the [Flow](/languages/javascript/#flow) docs for more details on using Flow with Parcel.
+有关将 Flow 与 Parcel 一起使用的更多详细信息，请参阅[Flow](/languages/javascript/#flow)。
 
 ## Styling
 
-Parcel supports many different ways of styling applications written with React.
+Parcel 支持多种使用 React 编写的样式应用程序的不同方式。
 
 ### CSS
 
-You can import a CSS file into a JavaScript or TypeScript file to load it along with a component.
+您可以将 CSS 文件导入 JavaScript 或 TypeScript 文件以将其与组件一起加载。
 
 {% sample %}
 {% samplefile "Button.js" %}
@@ -141,17 +141,17 @@ export function Button({ children }) {
 {% endsamplefile %}
 {% endsample %}
 
-You can also load CSS using a standard `<link rel="stylesheet">` element in your HTML file, but referencing CSS from your components helps make it clear which components depend on which CSS. This can also help with code splitting because only the CSS necessary for the components that you render will be loaded.
+您还可以使用`<link rel="stylesheet">`HTML 文件中的标准元素加载 CSS，但从组件中引用 CSS 有助于明确哪些组件依赖于哪些 CSS。这也有助于代码拆分，因为只会加载您呈现的组件所需的 CSS。
 
-Parcel also supports CSS languages like [SASS](/languages/sass/), [Less](/languages/less/), and [Stylus](/languages/stylus/). See [CSS](/languages/css/) for more details on how CSS is processed by Parcel.
+Parcel 还支持 CSS 语言，如[SASS](/languages/sass/), [Less](/languages/less/), 和[Stylus](/languages/stylus/)。有关 Parcel 如何处理，请参阅 CSS。[CSS](/languages/css/)。
 
 ### CSS modules
 
-By default, CSS imported from JavaScript is global. If two CSS files define the same class names, they will potentially clash and overwrite each other. To solve this, Parcel supports [CSS modules](https://github.com/css-modules/css-modules).
+默认情况下，从 JavaScript 导入的 CSS 是全局的。如果两个 CSS 文件定义了相同的类名，它们可能会发生冲突并相互覆盖。为了解决这个问题，Parcel 支持[CSS modules](https://github.com/css-modules/css-modules)。
 
-CSS modules treat the classes defined in each file as unique. Each class name is renamed to include a unique hash, and a map is exported to JavaScript to allow referencing these renamed class names.
+CSS modules 将每个文件中定义的类视为唯一的。每个类名都被重命名以包含唯一的哈希，并且映射被导出到 JavaScript 以允许引用这些重命名的类名。
 
-To use CSS modules, create a file with the `.module.css` extension, and import it from a JavaScript file with a [namespace import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#import_an_entire_modules_contents). Then, you can use the exports of the CSS module when rendering elements in JSX.
+要使用 CSS modules，请创建一个带有`.module.css`扩展名的文件，然后从带有[namespace import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#import_an_entire_modules_contents)的 JavaScript 文件中导入它。然后，您可以在 JSX 中渲染元素时使用 CSS 模块的导出。
 
 {% sample %}
 {% samplefile "Button.js" %}
@@ -180,13 +180,13 @@ export function Button({ children }) {
 {% endsamplefile %}
 {% endsample %}
 
-See [CSS modules](/languages/css/#css-modules) to learn more about how Parcel handles CSS modules.
+请参阅[CSS modules](/languages/css/#css-modules)以了解有关 Parcel 如何处理 CSS 模块的更多信息。
 
 ### CSS-in-JS
 
-CSS-in-JS libraries like [Styled Components](https://styled-components.com), [Emotion](https://emotion.sh/docs/introduction), and many others work well with Parcel. Some may require build configuration, such as a [Babel](/languages/javascript/#babel) plugin. To enable it, create a Babel configuration in your project and Parcel will pick it up automatically.
+CSS-in-JS 库，如[Styled Components](https://styled-components.com), [Emotion](https://emotion.sh/docs/introduction)和许多其他库都可以很好地与 Parcel 配合使用。有些可能需要构建配置，例如[Babel](/languages/javascript/#babel)插件。要启用它，请在您的项目中创建一个 Babel 配置，Parcel 会自动选择它。
 
-For example, to use Emotion, install the Babel plugin and create a `.babelrc` in your project:
+例如，要使用 Emotion，请安装 Babel 插件并在您的项目中创建一个：`.babelrc`：
 
 ```shell
 yarn add @emotion/babel-plugin --dev
@@ -205,7 +205,7 @@ yarn add @emotion/react
 {% endsamplefile %}
 {% endsample %}
 
-You’ll also need to set the `jsxImportSource` option in a `tsconfig.json` or `jsconfig.json` so that Emotion's JSX pragma is used instead of the default one. This enables the `css` prop to work.
+您还需要在`tsconfig.json`或`jsxImportSource`中设置`jsxImportSource`选项，这样就可以使用 Emotion 的 JSX 杂注来代替默认值。这使得 css 的道具能够正常工作。
 
 {% sample %}
 {% samplefile "jsconfig.json" %}
@@ -221,7 +221,7 @@ You’ll also need to set the `jsxImportSource` option in a `tsconfig.json` or `
 {% endsamplefile %}
 {% endsample %}
 
-Now, you can render elements with CSS-in-JS:
+现在，您可以使用 CSS-in-JS 渲染元素：
 
 {% sample %}
 {% samplefile "Button.js" %}
@@ -250,15 +250,15 @@ export function Button({ children }) {
 
 ### Tailwind CSS
 
-[Tailwind CSS](https://tailwindcss.com) is a popular utility-first CSS framework. It uses [PostCSS](/languages/css/#postcss) to build a CSS file containing only the classes you use in your code.
+[Tailwind CSS](https://tailwindcss.com)是一个流行的实用程序优先 CSS 框架。它使用[PostCSS](/languages/css/#postcss)构建一个 CSS 文件，其中仅包含您在代码中使用的类。
 
-To use it, first, install the necessary dependencies:
+要使用它，首先，安装必要的依赖项：
 
 ```shell
 yarn add tailwindcss postcss autoprefixer --dev
 ```
 
-Next, create the config files needed for PostCSS and Tailwind. This example will use Tailwind’s [JIT mode](https://tailwindcss.com/docs/just-in-time-mode) to speed up builds by only compiling the classes you use. Make sure you modify the glob passed to the `content` option so it matches all of the source files where you'll use Tailwind classes.
+接下来，创建 PostCSS 和 Tailwind 所需的配置文件。此示例将使用 Tailwind 的[JIT mode](https://tailwindcss.com/docs/just-in-time-mode)通过仅编译您使用的类来加速构建。确保修改传递给`content`选项的 glob，使其与您将使用 Tailwind 类的所有源文件匹配。
 
 {% sample %}
 {% samplefile ".postcssrc" %}
@@ -288,7 +288,7 @@ module.exports = {
 {% endsamplefile %}
 {% endsample %}
 
-Finally, you can reference Tailwind classes from any files that match the `content` glob listed in `tailwind.config.js`.
+最后，你可以从任何匹配`tailwind.config.js`中列出的`content`glob 文件中引用 Tailwind 类。
 
 {% sample %}
 {% samplefile "Button.js" %}
@@ -306,9 +306,9 @@ export function Button({ children }) {
 {% endsamplefile %}
 {% endsample %}
 
-## Images
+## 图片 Images
 
-You can reference external images from JSX using the `URL` constructor. Parcel also supports using [query parameters](/features/dependency-resolution/#query-parameters) to resize and convert images to a different format. It also handles image optimization, and includes a [content hash](/features/production/#content-hashing) in output filenames for long term browser caching.
+您可以使用`URL`构造函数引用 JSX 的外部图像。Parcel 还支持使用[query parameters](/features/dependency-resolution/#query-parameters)调整图像大小并将其转换为不同的格式。它还处理图像优化，并在输出文件名中包含一个[content hash](/features/production/#content-hashing)，用于长期的浏览器缓存。
 
 {% sample %}
 {% samplefile "Logo.js" %}
@@ -324,13 +324,13 @@ export function Logo() {
 {% endsamplefile %}
 {% endsample %}
 
-See [URL dependencies](/languages/javascript/#url-dependencies) in the JavaScript docs for more details about this syntax, and the [Image](/recipes/image/) docs for more information about how Parcel handles images.
+请参阅 JavaScript 文档中的[URL dependencies](/languages/javascript/#url-dependencies)了解更多关于这种语法的细节，参阅[Image](/recipes/image/)文档了解更多关于 Parcel 如何处理图像的信息。
 
 ### SVG
 
-External SVG files can be referenced as described above. You can also import SVGs as React components which can be rendered directly in JSX.
+可以如上所述引用外部 SVG 文件。您还可以将 SVG 作为 React 组件导入，这些组件可以直接在 JSX 中呈现。
 
-First, install the `@parcel/transformer-svg-react` plugin and add it to your `.parcelrc`:
+首先，安装 `@parcel/transformer-svg-react` 插件并将其添加到您的 `.parcelrc` 中：
 
 ```shell
 yarn add @parcel/transformer-svg-react --dev
@@ -351,7 +351,7 @@ yarn add @parcel/transformer-svg-react --dev
 {% endsamplefile %}
 {% endsample %}
 
-Now, you can import SVGs from your component files and render them just like any other component.
+现在，您可以从组件文件中导入 SVG 并像任何其他组件一样渲染它们。
 
 {% sample %}
 {% samplefile "AddButton.js" %}
@@ -371,23 +371,23 @@ export function AddButton() {
 {% endsamplefile %}
 {% endsample %}
 
-The above example showed how to convert every SVG file to JSX, but you may want to be more selective in some cases. See [Importing as a React component](/languages/svg/#importing-as-a-react-component) in the SVG docs for more details.
+上面的示例展示了如何将每个 SVG 文件转换为 JSX，但在某些情况下您可能希望更具选择性。有关详细信息，请参阅 SVG 文档中的 [Importing as a React component](/languages/svg/#importing-as-a-react-component)。
 
-See the [SVG](/languages/svg/) docs for more about how Parcel transforms and optimizes SVG files.
+有关 Parcel 如何转换和优化 SVG 文件的更多信息，请参阅 [SVG](/languages/svg/) 文档。
 
-## Code splitting
+## 代码拆分 Code splitting
 
-Code splitting helps reduce initial page load size by lazily loading sections of your app. This can be accomplished by using the dynamic `import()` syntax, along with [`React.lazy`](https://reactjs.org/docs/code-splitting.html#reactlazy).
+代码拆分通过延迟加载应用程序的各个部分来帮助减少初始页面加载大小。这可以通过使用动态 `import()` 语法以及 [`React.lazy`](https://reactjs.org/docs/code-splitting.html#reactlazy) 来完成。
 
-This example lazily loads a `Profile` component when a user clicks a button. When it sees the dynamic `import()`, Parcel moves the `Profile` component into a separate bundle from the `Home` component and loads it on demand. `React.lazy` handles turning this into a component, and `Suspense` handles rendering a fallback while it is loading.
+此示例在用户单击按钮时延迟加载“配置文件”组件。当它看到动态的 `import()` 时，Parcel 将 `Profile` 组件移动到与 `Home` 组件分开的包中，并按需加载它。`React.lazy` 处理将其转换为组件，而 `Suspense` 处理在加载时呈现回退。
 
 {% sample %}
 {% samplefile "Home.js" %}
 
 ```jsx
-import React, {Suspense} from 'react';
+import React, { Suspense } from "react";
 
-const Profile = React.lazy(() => import('./Profile'));
+const Profile = React.lazy(() => import("./Profile"));
 
 export function Home() {
   let [showProfile, setShowProfile] = React.useState(false);
@@ -395,14 +395,12 @@ export function Home() {
   return (
     <main>
       <h1>Home</h1>
-      <button onClick={() => setShowProfile(true)}>
-        Show Profile
-      </button>
-      {showProfile &&
+      <button onClick={() => setShowProfile(true)}>Show Profile</button>
+      {showProfile && (
         <Suspense fallback={<div>Loading...</div>}>
           <Profile />
         </Suspense>
-      }
+      )}
     </main>
   );
 }
@@ -420,4 +418,4 @@ export default function Profile() {
 {% endsamplefile %}
 {% endsample %}
 
-See the [Code Splitting](/features/code-splitting/) docs for more details about code splitting in Parcel, and [Code Splitting](https://reactjs.org/docs/code-splitting.html) in the React docs for more about `Suspense` and `React.lazy`.
+有关 Parcel 中代码拆分的更多详细信息，请参阅 [代码拆分 Code Splitting](/features/code-splitting/) 文档，以及 React 中的 [代码拆分 Code Splitting](https://reactjs.org/docs/code-splitting.html)更多关于 `Suspense` 和 `React.lazy` 的文档。

@@ -1,24 +1,23 @@
 ---
 layout: layout.njk
-title: Web Extension
+title: Web 扩展 Web Extension
 eleventyNavigation:
   key: recipes-webext
-  title: <img class="dark-invert" src="/assets/lang-icons/webext.svg" alt=""/> Web Extension
+  title: <img class="dark-invert" src="/assets/lang-icons/webext.svg" alt=""/> Web 扩展 Web Extension
   order: 7
 ---
 
-[Web Extensions](https://developer.chrome.com/docs/extensions/) are a set of APIs for building browser extensions that work across many browsers. Parcel supports building Web Extensions using `@parcel/config-webextension`.
+[Web 扩展 Web Extensions](https://developer.chrome.com/docs/extensions/) 是一组 API，用于构建可跨多种浏览器运行的浏览器扩展。 Parcel 支持使用 `@parcel/config-webextension` 构建 Web 扩展。
 
-## Getting started
+## 入门
 
-First, install `@parcel/config-webextension` into your project:
+首先，将 `@parcel/config-webextension` 安装到您的项目中：
 
 ```shell
 yarn add @parcel/config-webextension --dev
 ```
 
-Next, you'll need a [manifest.json](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json) file, which will be the entry point of your extension. See [this guide](https://developer.chrome.com/docs/extensions/mv3/getstarted/) for details on how to set it up. Both Manifest V2 and V3 are supported. You can use [TypeScript](</languages/typescript>), [Vue](</languages/vue>), and any other languages supported by Parcel within your web extension code.
-
+接下来，您需要一个 [manifest.json](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json) 文件，它是你的分机。有关如何设置的详细信息，请参阅 [本指南](https://developer.chrome.com/docs/extensions/mv3/getstarted/)。支持清单 V2 和 V3。您可以在 Web 扩展代码中使用 [TypeScript](/languages/typescript)、[Vue](/languages/vue) 以及 Parcel 支持的任何其他语言。
 
 {% sample %}
 {% samplefile "manifest.json" %}
@@ -32,23 +31,25 @@ Next, you'll need a [manifest.json](https://developer.mozilla.org/en-US/docs/Moz
     "service_worker": "background.ts",
     "type": "module"
   },
-  "content_scripts": [{
-    "matches": ["*://github.com/parcel-bundler/*"],
-    "js": ["parcel-content-script.ts"]
-  }]
+  "content_scripts": [
+    {
+      "matches": ["*://github.com/parcel-bundler/*"],
+      "js": ["parcel-content-script.ts"]
+    }
+  ]
 }
 ```
 
 {% endsamplefile %}
 {% endsample %}
 
-To build your extension, run Parcel using your `manifest.json` as an entry, and `@parcel/config-webextension` as the config:
+要构建您的扩展程序，请使用您的 `manifest.json` 作为入口运行 Parcel，并使用 `@parcel/config-webextension` 作为配置：
 
 ```shell
 parcel build manifest.json --config @parcel/config-webextension
 ```
 
-You can also create a `.parcelrc` file in your project extending `@parcel/config-webextension`. This way you don't need to pass the `--config` option to the Parcel CLI every time.
+你也可以在你的项目中创建一个扩展 `@parcel/config-webextension` 的 `.parcelrc` 文件。这样您就不需要每次都将 `--config` 选项传递给 Parcel CLI。
 
 {% sample %}
 {% samplefile ".parcelrc" %}
@@ -64,9 +65,9 @@ You can also create a `.parcelrc` file in your project extending `@parcel/config
 
 ## HMR
 
-Due to [restrictions on Content Security Policy](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/#content-security-policy) in MV3, HMR is not supported, but updating your code will cause the extension to reload. For MV2, HMR is fully supported by default. Reloading pages with content scripts will reload the extension in both versions.
+由于 MV3 中的[内容安全政策限制 restrictions on Content Security Policy](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/#content-security-policy)，不支持 HMR，但更新您的代码将导致扩展重新加载。对于 MV2，默认情况下完全支持 HMR。使用内容脚本重新加载页面将在两个版本中重新加载扩展。
 
-For the best developer experience, use `--host localhost` for development builds (this is sometimes necessary for content script reloading). You can copy the following configuration:
+为了获得最佳的开发人员体验，请使用 `--host localhost` 进行开发构建（这有时是重新加载内容脚本所必需的）。您可以复制以下配置：
 
 {% sample %}
 {% samplefile "package.json" %}
@@ -83,23 +84,23 @@ For the best developer experience, use `--host localhost` for development builds
 {% endsamplefile %}
 {% endsample %}
 
-Running `yarn start` or `npm start` will start the development server. Source maps and HMR will work for background scripts, the popup page, and the options page. For MV2, HMR will usually also work on content scripts.
+运行 `yarn start` 或 `npm start` 将启动开发服务器。Source maps 和 HMR 将适用于后台脚本、弹出页面和选项页面。对于 MV2，HMR 通常也适用于内容脚本。
 
-To add the extension to your browser, load Parcel's output folder unpacked. For example, in Chrome, [click "Load Unpacked"](https://developer.chrome.com/extensions/getstarted#manifest) in the `chrome://extensions` page and select `path/to/project/dist`.
+要将扩展添加到您的浏览器，请解压加载 Parcel 的输出文件夹。例如，在 Chrome 中，在 `chrome://extensions` 页面中[单击“Load Unpacked”](https://developer.chrome.com/extensions/getstarted#manifest) 并选择 `path/to/project/dist `。
 
-Running `yarn build` or `npm run build` will give you the final web extension package, ready to be published. After zipping the output directory, you should be able to upload your file to your platform of choice, such as the Chrome Web Store.
+运行 `yarn build` 或 `npm run build` 将为您提供最终的 Web 扩展包，准备发布。压缩输出目录后，您应该能够将文件上传到您选择的平台，例如 Chrome 网上应用店。
 
-## Special Considerations
+## 特别注意事项
 
-### Unexpected messages
+### 意外消息 Unexpected messages
 
-In development mode, your background scripts will receive a message event with the content `{ __parcel_hmr_reload__: true }` whenever a content script page is reloaded. Parcel will use this automatically to refresh the extension when necessary. Therefore, you'll want to ensure any messages your background scripts receive do not have the `__parcel_hmr_reload__` property before handling them.
+在开发模式下，每当重新加载内容脚本页面时，您的后台脚本都会收到内容为 `{ __parcel_hmr_reload__: true }` 的消息事件。 Parcel 将在必要时自动使用它来刷新扩展。因此，您需要确保后台脚本收到的任何消息在处理它们之前不具有 `__parcel_hmr_reload__` 属性。
 
 ### Styling
 
-Any styles imported in a content script will be injected into the `css` property of that content script and will thus apply to the entire page. Usually this is what you want, but if not you can always use [CSS modules](</languages/css#css-modules>) to prevent the styles from applying to the original site.
+在内容脚本中导入的任何样式都将被注入到该内容脚本的“css”属性中，因此将应用于整个页面。通常这是您想要的，但如果不是，您始终可以使用 [CSS modules](/languages/css#css-modules) 来阻止样式应用于原始站点。
 
-Additionally, content script CSS resolves links to the site they are injected into, so you won't be able to reference local assets. You should [inline your bundles](</languages/css#url()>) to resolve this issue.
+此外，内容脚本 CSS 会解析指向它们被注入的站点的链接，因此您将无法引用本地资产。你应该 [inline your bundles](</languages/css#url()>) 来解决这个问题。
 
 {% sample %}
 {% samplefile "content-script.css" %}
@@ -120,19 +121,19 @@ Additionally, content script CSS resolves links to the site they are injected in
 {% endsamplefile %}
 {% endsample %}
 
-Lastly, hot reload may not work when adding or removing CSS linked from inside an `import()` in content scripts, while synchronous `import` has no such issues. This is a known limitation and will be fixed in a future version.
+最后，当从内容脚本的`import()`中添加或删除链接的 CSS 时，热重装可能无法工作，而同步`import`没有这样的问题。这是一个已知的限制，将在未来的版本中予以修正。
 
 ### `web_accessible_resources`
-Any resources you use in a content script will automatically be added into `web_accessible_resources`, so you don't usually need to specify anything in `web_accessible_resources` at all. For example, the following content script will work without issues:
 
+你在内容脚本中使用的任何资源都会自动添加到`web_accessible_resources`中，所以你通常不需要在`web_accessible_resources`中指定任何内容。例如，下面的内容脚本可以正常工作:
 
 {% sample %}
 {% samplefile "content-script.js" %}
 
 ```js
-import myImage from 'url:./image.png';
+import myImage from "url:./image.png";
 
-const injectedImage = document.createElement('img');
+const injectedImage = document.createElement("img");
 injectedImage.src = myImage;
 document.body.appendChild(injectedImage);
 ```
@@ -140,4 +141,4 @@ document.body.appendChild(injectedImage);
 {% endsamplefile %}
 {% endsample %}
 
-However, if you actually want resources from your extension to be accessible from other extensions or websites, you can specify file paths or globs within `web_accessible_resources`. Note that Parcel treats entries in `web_accessible_resources` like Unix globs (as in, `examples/*.png` will retrieve every PNG in the examples folder, and `examples/**.png` will do it recursively). This is different from the globbing in Chrome, which is always recursive.
+但是，如果您确实希望其他扩展程序或网站可以访问您的扩展程序中的资源，您可以在 `web_accessible_resources` 中指定文件路径或 glob。请注意，Parcel 将 `web_accessible_resources` 中的条目视为 Unix glob（例如，`examples/*.png` 将检索示例文件夹中的每个 PNG，而 `examples/**.png` 将递归执行此操作）。这与 Chrome 中的 globbing 不同，后者始终是递归的。

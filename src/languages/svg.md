@@ -7,17 +7,17 @@ eleventyNavigation:
   order: 3
 ---
 
-SVG is a vector-based 2D graphics format based on XML, with support for interactivity and animation. Parcel includes support for SVG as a separate file, embedded in HTML, or imported as JSX in a JavaScript file.
+SVG 是一种基于 XML 的基于矢量的 2D 图形格式，支持交互性和动画。 Parcel 支持将 SVG 作为单独的文件、嵌入在 HTML 中或作为 JSX 导入到 JavaScript 文件中。
 
 ## Dependencies
 
-Parcel detects most references in SVG to other files (such as `<script>`, `<image>`, and `<use>`) and processes them as well. These references are rewritten so that they link to the correct output files.
+Parcel 检测 SVG 中对其他文件的大多数引用（例如 `<script>`、`<image>` 和 `<use>`）并处理它们。这些引用被重写，以便它们链接到正确的输出文件。
 
-File names are resolved relative to the current SVG file, but you can also use [absolute](/features/dependency-resolution/#absolute-specifiers) and [tilde](/features/dependency-resolution/#tilde-specifiers) specifiers. See [Dependency resolution](/features/dependency-resolution/) for details.
+文件名相对于当前 SVG 文件进行解析，但您也可以使用 [absolute](/features/dependency-resolution/#absolute-specifiers) 和 [tilde](/features/dependency-resolution/#tilde-specifiers) 说明符.详见[依赖解析 Dependency resolution](/features/dependency-resolution/)。
 
 ### Stylesheets
 
-External stylesheets can be referenced via the `xml-stylesheet` processing instruction in an SVG document. You can reference a CSS file, or any other file that compiles to CSS such as [SASS](/languages/sass/), [Less](/languages/less/), or [Stylus](/languages/stylus).
+外部样式表可以通过 SVG 文档中的 `xml-stylesheet` 处理指令来引用。您可以引用 CSS 文件或任何其他可编译为 CSS 的文件，例如 [SASS](/languages/sass/)、[Less](/languages/less/) 或 [Stylus](/languages/stylus)。
 
 {% sample %}
 {% samplefile "example.svg" %}
@@ -41,17 +41,17 @@ text {
 {% endsamplefile %}
 {% endsample %}
 
-See the [CSS](/languages/css/) docs for details on how CSS is processed by Parcel.
+有关 Parcel 如何处理 CSS 的详细信息，请参阅 [CSS](/languages/css/) 文档。
 
 ### Scripts
 
-The `<script>` element can be used to reference a script file from SVG. You can reference a JavaScript file, or any other file that compiles to JavaScript such as [TypeScript](/languages/typescript/), [JSX](/languages/javascript/#jsx), or [CoffeeScript](/languages/coffeescript/).
+`<script>` 元素可用于从 SVG 引用脚本文件。您可以引用 JavaScript 文件或任何其他编译为 JavaScript 的文件，例如 [TypeScript](/languages/typescript/)、[JSX](/languages/javascript/#jsx) 或 [CoffeeScript](/languages/coffeescript /)。
 
-The `type="module"` attribute should be used to indicate that a file is an [ES module](/languages/javascript/#es-modules) or [CommonJS](/languages/javascript/#commonjs) file. If it is omitted, then the referenced file is treated as a classic script. See [Classic scripts](/languages/javascript/#classic-scripts) for more information about this. ES modules are not yet supported natively in SVG, so Parcel compiles all JavaScript to classic scripts even if authored as a module.
+`type="module"` 属性应该用于指示文件是 [ES 模块](/languages/javascript/#es-modules) 或 [CommonJS](/languages/javascript/#commonjs) 文件。如果省略，则将引用的文件视为经典脚本。有关这方面的更多信息，请参阅 [Classic scripts](/languages/javascript/#classic-scripts)。 SVG 中尚不支持 ES 模块，因此 Parcel 将所有 JavaScript 编译为经典脚本，即使是作为模块编写的。
 
 {% note %}
 
-**Note**: SVG uses the `href` attribute rather than the `src` attribute for `<script>` elements.
+**注意**：SVG 对 `<script>` 元素使用 `href` 属性而不是 `src` 属性。
 
 {% endnote %}
 
@@ -69,26 +69,26 @@ The `type="module"` attribute should be used to indicate that a file is an [ES m
 {% samplefile "interactions.js" %}
 
 ```javascript
-let circle = document.querySelector('circle');
-circle.addEventListener('click', () => {
-  circle.setAttribute('fill', 'blue');
+let circle = document.querySelector("circle");
+circle.addEventListener("click", () => {
+  circle.setAttribute("fill", "blue");
 });
 ```
 
 {% endsamplefile %}
 {% endsample %}
 
-See the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/script) for the `<script>` element for more info, and the [JavaScript](/languages/javascript/) docs for details on how Parcel processes JavaScript.
+有关 `<script>` 元素的更多信息，请参阅 [MDN 文档](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/script)，以及 [JavaScript](/languages/javascript/) 文档了解 Parcel 如何处理 JavaScript 的详细信息。
 
 ### Images
 
-Raster images or other SVGs can be embedded in an SVG file using the [`<image>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/image) element. Parcel recognizes the `href` and `xlink:href` attributes.
+可以使用 [`<image>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/image) 元素将光栅图像或其他 SVG 嵌入到 SVG 文件中。 Parcel 识别 `href` 和 `xlink:href` 属性。
 
 ```xml
 <image href="image.jpg" width="100" height="50" />
 ```
 
-Parcel’s image transformer can also be used to resize and convert images by using [Query parameters](/features/dependency-resolution/#query-parameters).
+Parcel 的图像转换器还可以通过使用 [Query parameters](/features/dependency-resolution/#query-parameters) 来调整图像大小和转换图像。
 
 ```xml
 <image href="image.jpg?as=webp" width="100" height="50" />
@@ -96,15 +96,15 @@ Parcel’s image transformer can also be used to resize and convert images by us
 
 {% note %}
 
-**Note**: SVGs referenced via the `<image>` element do not load external resources such as stylesheets, fonts, and other images, and scripting and interactivity is disabled.
+**注意**：通过 `<image>` 元素引用的 SVG 不会加载外部资源，例如样式表、字体和其他图像，并且脚本和交互性被禁用。
 
 {% endnote %}
 
-See the [Image](/recipes/image/) docs for details on how Parcel processes images.
+有关 Parcel 如何处理图像的详细信息，请参阅 [Image](/recipes/image/) 文档。
 
 ### Links
 
-SVG files can link to other web pages or files using the [`<a>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/a) element. Parcel supports the `href` and `xlink:href` attributes.
+SVG 文件可以使用 [`<a>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/a) 元素链接到其他网页或文件。 Parcel 支持 `href` 和 `xlink:href` 属性。
 
 ```xml
 <a href="circle.html">
@@ -112,11 +112,11 @@ SVG files can link to other web pages or files using the [`<a>`](https://develop
 </a>
 ```
 
-While other assets referenced from an SVG file will include a [content hash](/features/production/#content-hashing) in their compiled filename by default, files referenced by an `<a>` element will not. That's because these URLs are typically human readable, and need to have a stable name over time. Bundle naming can be overridden by [Namer plugins](/plugin-system/namer/).
+默认情况下，从 SVG 文件引用的其他资产将在其编译文件名中包含 [content hash](/features/production/#content-hashing)，而由 `<a>` 元素引用的文件不会。这是因为这些 URL 通常是人类可读的，并且随着时间的推移需要有一个稳定的名称。 Bundle 命名可以被[Namer plugins](/plugin-system/namer/)覆盖。
 
-### External references
+### 外部参考 External references
 
-Parcel supports external references via the `href` and `xlink:href` attributes on many other elements. See the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/href) for more details.
+Parcel 通过许多其他元素的 `href` 和 `xlink:href` 属性支持外部引用。有关详细信息，请参阅 [MDN 文档](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/href)。
 
 ```xml/0,2
 <use href="fox.svg#path" stroke="red" />
@@ -127,17 +127,17 @@ Parcel supports external references via the `href` and `xlink:href` attributes o
 </text>
 ```
 
-External resources referenced via the `url()` function in presentation attributes such as `fill`, `stroke`, `clip-path`, and many others are also supported.
+通过`url()`函数在表示属性(如`fill`, `stroke`, `clip-path`)中引用的外部资源，以及其他许多其他属性也受到支持。
 
 ```xml
-<circle 
+<circle
   cx="50" cy="40" r="35"
   fill="url(external.svg#gradient)" />
 ```
 
-## Inline scripts and styles
+## 内联脚本和样式
 
-`<script>` and `<style>` tags with text content are also processed just like standalone files, and the generated bundles are inserted back into the SVG file. Use the `type="module"` attribute as described above to enable importing other modules from an inline script.
+带有文本内容的 `<script>` 和 `<style>` 标签也像独立文件一样被处理，并且生成的包被插入回 SVG 文件中。使用如上所述的 `type="module"` 属性来启用从内联脚本导入其他模块。
 
 {% sample %}
 {% samplefile "example.svg" %}
@@ -172,8 +172,8 @@ circle {
 
 ```typescript
 export function setup(element: SVGElement) {
-  element.addEventListener('click', () => {
-    element.setAttribute('fill', 'red');
+  element.addEventListener("click", () => {
+    element.setAttribute("fill", "red");
   });
 }
 ```
@@ -181,52 +181,52 @@ export function setup(element: SVGElement) {
 {% endsamplefile %}
 {% endsample %}
 
-CSS files referenced via `@import`, and JavaScript referenced via `import` will be bundled into the compiled SVG file. See [Stylesheets](#stylesheets) and [Scripts](#scripts) for how to reference an external file.
+通过 `@import` 引用的 CSS 文件和通过 `import` 引用的 JavaScript 将被捆绑到编译后的 SVG 文件中。有关如何引用外部文件的信息，请参阅 [Stylesheets](#stylesheets) 和 [Scripts](#scripts)。
 
-## Inline `style` attribute
+## 内联`style`属性
 
-The [`style`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/style) attribute can be used on any SVG element to define CSS styles. Parcel will process the inline CSS, and insert the result back into the `style` attribute. This includes following referenced URLs, as well as transforming modern CSS for your target browsers.
+[`style`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/style) 属性可用于任何 SVG 元素来定义 CSS 样式。 Parcel 将处理内联 CSS，并将结果重新插入到 `style` 属性中。这包括以下引用的 URL，以及为您的目标浏览器转换现代 CSS。
 
 ```xml
-<circle 
-  cx="50" cy="40" r="35" 
+<circle
+  cx="50" cy="40" r="35"
   style="fill: url(external.svg#gradient)" />
 ```
 
-## SVG in HTML
+## HTML 中的 SVG
 
-SVG in HTML can either be referenced as an external file, or embedded directly into an HTML document.
+HTML 中的 SVG 既可以作为外部文件引用，也可以直接嵌入到 HTML 文档中。
 
-### External SVG
+### 外部 SVG
 
-SVG files can be referenced from HTML in several ways. The simplest is to use the `<img>` element, and reference the SVG file using the `src` attribute. Parcel will follow the reference and process the SVG and all of its dependencies as well.
+可以通过多种方式从 HTML 引用 SVG 文件。最简单的是使用 `<img>` 元素，并使用 `src` 属性引用 SVG 文件。 Parcel 将遵循参考并处理 SVG 及其所有依赖项。
 
 ```html
 <img src="logo.svg" alt="logo" />
 ```
 
-This approach works great if your SVG is static. If the SVG references external resources such as other SVGs, images, fonts, stylesheets, or scripts, or contains any interactivity, it won’t work. You also cannot alter the styling of the SVG via CSS in the HTML page or manipulate the DOM of the SVG with JavaScript, and any text in the SVG cannot be selected by the user.
+如果您的 SVG 是静态的，这种方法非常有效。如果 SVG 引用了外部资源，例如其他 SVG、图像、字体、样式表或脚本，或者包含任何交互性，它将无法工作。您也无法通过 HTML 页面中的 CSS 更改 SVG 的样式或使用 JavaScript 操作 SVG 的 DOM，并且用户无法选择 SVG 中的任何文本。
 
-The [`<object>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object) element can be used to embed an external SVG in HTML and enable external references, scripting, interactivity, and text selection. Use the `data` attribute to reference the SVG file.
+[`<object>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object) 元素可用于在 HTML 中嵌入外部 SVG 并启用外部引用、脚本、交互性和文本选择。使用 `data` 属性来引用 SVG 文件。
 
 ```html
 <object data="interactive.svg" title="Interactive SVG"></object>
 ```
 
-This also allows you to get access to the SVG DOM via the `getSVGDocument()` method on the `<object>` element.
+这也允许您通过 `<object>` 元素上的 `getSVGDocument()` 方法访问 SVG DOM。
 
 ```javascript
-let object = document.querySelector('object');
+let object = document.querySelector("object");
 let svg = object.getSVGDocument();
-let circle = svg.querySelector('circle');
-circle.setAttribute('fill', 'red');
+let circle = svg.querySelector("circle");
+circle.setAttribute("fill", "red");
 ```
 
-However, SVGs embedded using the `<object>` element cannot be styled by CSS on the HTML page.
+但是，使用 `<object>` 元素嵌入的 SVG 无法通过 HTML 页面上的 CSS 设置样式。
 
-### Inline SVG
+### 内联 SVG
 
-SVG can be inlined into HTML directly rather than referenced as a separate file. This allows CSS on the HTML page to style the SVG elements. Parcel supports external references within embedded SVG the same way it does when the SVG is in a separate file.
+SVG 可以直接内联到 HTML 中，而不是作为单独的文件引用。这允许 HTML 页面上的 CSS 设置 SVG 元素的样式。 Parcel 在嵌入的 SVG 中支持外部引用，就像 SVG 位于单独的文件中时一样。
 
 ```html/3-5
 <!DOCTYPE html>
@@ -248,31 +248,31 @@ SVG can be inlined into HTML directly rather than referenced as a separate file.
 </html>
 ```
 
-## SVG in CSS
+## CSS 中的 SVG
 
-SVG can be referenced from CSS files using the `url()` function. As with the `<img>` element, SVGs in background images do not support external resources such as stylesheets, and scripting and interactivity is disabled.
+可以使用 `url()` 函数从 CSS 文件中引用 SVG。与 `<img>` 元素一样，背景图像中的 SVG 不支持样式表等外部资源，并且禁用了脚本和交互性。
 
 ```css
 .logo {
-  background: url('logo.svg');
+  background: url("logo.svg");
 }
 ```
 
-You can also embed small SVGs in a CSS file using data URLs. Use the `data-url:` scheme to do this, and Parcel will build the SVG and inline the result into the compiled CSS. See [Bundle inlining](/features/bundle-inlining/) for more details.
+您还可以使用数据 URL 将小型 SVG 嵌入到 CSS 文件中。使用 `data-url:` 方案来执行此操作，Parcel 将构建 SVG 并将结果内联到已编译的 CSS 中。有关详细信息，请参阅 [Bundle inlining](/features/bundle-inlining/)。
 
 ```css
 .logo {
-  background: url('data-url:logo.svg');
+  background: url("data-url:logo.svg");
 }
 ```
 
 ## SVG in JavaScript
 
-SVG files can either be referenced as an external URL from JavaScript, inlined as a string, or converted to JSX for rendering in a framework like React.
+SVG 文件既可以作为 JavaScript 的外部 URL 引用，也可以作为字符串内联，或者转换为 JSX 以在 React 等框架中呈现。
 
 ### URL references
 
-Parcel supports referencing SVG files using the `URL` constructor. This example uses the result to render an `<img>` element using JSX. This works the same way as described in [External SVG](#external-svg) above. You can use an `<object>` element instead if the SVG is interactive or has external resources.
+Parcel 支持使用`URL`构造函数引用 SVG 文件。这个示例使用结果使用 JSX 渲染一个`<img>`元素。这与上面的[External SVG](#external-svg)中描述的方法相同。如果 SVG 是交互式的或者有外部资源，则可以使用`<object>`元素。
 
 ```jsx/0
 const logo = new URL('logo.svg', import.meta.url);
@@ -282,11 +282,11 @@ export function Logo() {
 }
 ```
 
-See [URL dependencies](/languages/javascript/#url-dependencies) in the JavaScript docs for more details.
+有关更多详细信息，请参阅 JavaScript 文档中的 [URL dependencies](/languages/javascript/#url-dependencies)。
 
-### Inlining as a string
+### 内联为字符串
 
-SVG can be inlined as a string in JavaScript by importing it using the `bundle-text:` scheme.
+SVG 可以通过使用 `bundle-text:` 方案导入，在 JavaScript 中作为字符串内联。
 
 ```javascript/0
 import svg from 'bundle-text:./logo.svg';
@@ -296,19 +296,19 @@ logo.innerHTML = svg;
 document.body.appendChild(logo);
 ```
 
-See [Bundle inlining](/features/bundle-inlining/) for more details.
+有关详细信息，请参阅 [Bundle inlining](/features/bundle-inlining/)。
 
-### Importing as a React component
+### 作为 React 组件导入
 
-The `@parcel/transformer-svg-react` plugin can be used to import an SVG file as a React component. This uses [SVGR](https://react-svgr.com) to transform the SVG file into JSX. It also uses [SVGO](https://github.com/svg/svgo) to optimize the SVG to reduce file size.
+`@parcel/transformer-svg-react` 插件可用于将 SVG 文件作为 React 组件导入。这使用 [SVGR](https://react-svgr.com) 将 SVG 文件转换为 JSX。它还使用 [SVGO](https://github.com/svg/svgo) 来优化 SVG 以减小文件大小。
 
-This plugin is not included in the default Parcel config, so you'll need to install it and add it to your `.parcelrc`.
+此插件不包含在默认 Parcel 配置中，因此您需要安装它并将其添加到您的 `.parcelrc` 中。
 
 ```shell
 yarn add @parcel/transformer-svg-react --dev
 ```
 
-You can either configure your `.parcelrc` to convert all SVGs to JSX, or use a named pipeline to create a URL scheme that you can reference from a JavaScript import statement. This approach allows SVG files referenced from JavaScript to be converted to JSX, but SVGs referenced elsewhere to be kept as SVG files. Use the `"..."` syntax to run the default SVG transformer first before converting the SVG to JSX.
+您可以配置 `.parcelrc` 以将所有 SVG 转换为 JSX，或者使用命名管道创建可以从 JavaScript 导入语句引用的 URL 方案。这种方法允许从 JavaScript 引用的 SVG 文件转换为 JSX，但在其他地方引用的 SVG 保存为 SVG 文件。在将 SVG 转换为 JSX 之前，首先使用 `"..."` 语法运行默认的 SVG 转换器。
 
 {% sample %}
 {% samplefile ".parcelrc" %}
@@ -336,13 +336,13 @@ export const App = () => <Icon />;
 
 ## Production
 
-In production mode, Parcel includes optimizations to reduce the file size of your code. See [Production](/features/production/) for more details about how this works.
+在生产模式下，Parcel 包括优化以减少代码的文件大小。有关其工作原理的更多详细信息，请参阅 [Production](/features/production/)。
 
-### Minification
+### 缩小 Minification
 
-In production mode, Parcel automatically minifies your code to reduce the file sizes of your bundles. By default, Parcel uses [SVGO](https://github.com/svg/svgo) to perform SVG minification.
+在生产模式下，Parcel 会自动缩小您的代码以减小打包的文件大小。默认情况下，Parcel 使用 [SVGO](https://github.com/svg/svgo) 来执行 SVG 缩小。
 
-To configure SVGO, you can create a `svgo.config.json` file in your project root directory. To see all the available configuration options for SVGO, see the [official documentation](https://github.com/svg/svgo#configuration).
+要配置 SVGO，您可以在项目根目录中创建一个 `svgo.config.json` 文件。要查看 SVGO 的所有可用配置选项，请参阅 [官方文档](https://github.com/svg/svgo#configuration)。
 
 {% sample %}
 {% samplefile "svgo.config.json" %}
@@ -367,7 +367,6 @@ To configure SVGO, you can create a `svgo.config.json` file in your project root
 
 {% warning %}
 
-**Note**: `svgo.config.js` is also supported for JavaScript-based configuration, but should be avoided when possible because it reduces the effectiveness of Parcel's caching. Use a JSON based configuration format instead.
+**注意**：基于 JavaScript 的配置也支持 `svgo.config.js`，但应尽可能避免，因为它会降低 Parcel 缓存的有效性。请改用基于 JSON 的配置格式。
 
 {% endwarning %}
-

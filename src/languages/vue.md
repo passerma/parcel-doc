@@ -7,15 +7,15 @@ eleventyNavigation:
   order: 9
 ---
 
-[Vue.js](https://v3.vuejs.org) is a progressive, incrementally-adoptable JavaScript framework for building UI on the web. Parcel supports Vue automatically using the `@parcel/transformer-vue` plugin. When a `.vue` file is detected, it will be installed into your project automatically.
+[Vue.js](https://v3.vuejs.org) 是一个渐进式、可增量采用的 JavaScript 框架，用于在 Web 上构建 UI。 Parcel 使用 `@parcel/transformer-vue` 插件自动支持 Vue。当检测到 `.vue` 文件时，它会自动安装到您的项目中。
 
 {% note %}
 
-**Note**: Parcel does not support using SFCs with Vue 2, you must use [Vue 3](https://github.com/vuejs/core) or later.
+**注意**：Parcel 不支持在 Vue 2 中使用 SFC，您必须使用 [Vue 3](https://github.com/vuejs/core) 或更高版本。
 
 {% endnote %}
 
-## Example usage
+## 示例用法
 
 {% sample %}
 {% samplefile "index.html" %}
@@ -61,11 +61,11 @@ app.mount("#app");
 
 ## HMR
 
-Parcel uses the official Vue SFC compiler, which supports HMR out of the box so you'll have a fast, reactive development experience. See [Hot reloading](/features/development/#hot-reloading) for more details about HMR in Parcel.
+Parcel 使用官方 Vue SFC 编译器，它支持开箱即用的 HMR，因此您将获得快速、反应式的开发体验。有关 Parcel 中 HMR 的更多详细信息，请参阅 [热重载 Hot reloading](/features/development/#hot-reloading)。
 
-## Vue 3 Features
+## Vue 3 功能
 
-Since Parcel uses Vue 3, you can use all Vue 3 features, such as the [Composition API](https://vuejs.org/guide/extras/composition-api-faq.html).
+由于 Parcel 使用 Vue 3，您可以使用所有 Vue 3 功能，例如 [Composition API](https://vuejs.org/guide/extras/composition-api-faq.html)。
 
 {% sample %}
 {% samplefile "App.vue" %}
@@ -104,13 +104,13 @@ Since Parcel uses Vue 3, you can use all Vue 3 features, such as the [Compositio
 {% endsamplefile %}
 {% endsample %}
 
-## Language Support
+## 语言支持
 
-Parcel supports [JavaScript](/languages/javascript/), [TypeScript](/languages/typescript/), and [CoffeeScript](/languages/coffeescript/) as scripting languages in Vue.
+Parcel 支持 [JavaScript](/languages/javascript/)、[TypeScript](/languages/typescript/) 和 [CoffeeScript](/languages/coffeescript/) 作为 Vue 中的脚本语言。
 
-Almost any templating language (all those supported by [consolidate](https://www.npmjs.com/package/consolidate)) can be used.
+几乎可以使用任何模板语言（[consolidate](https://www.npmjs.com/package/consolidate) 支持的所有模板语言）。
 
-For styling, [Less](/languages/less), [Sass](/languages/sass), and [Stylus](/languages/stylus) are supported. In addition, [CSS Modules](/languages/css/#css-modules) and [scoped style](https://vue-loader.vuejs.org/guide/scoped-css.html) can be used with the `module` and `scoped` modifiers.
+对于样式，支持 [Less](/languages/less)、[Sass](/languages/sass) 和 [Stylus](/languages/stylus)。此外，[CSS Modules](/languages/css/#css-modules) 和 [scoped style](https://vue-loader.vuejs.org/guide/scoped-css.html) 可以与 ` module` 和 `scoped` 修饰符。
 
 {% sample %}
 {% samplefile "App.vue" %}
@@ -148,9 +148,9 @@ For styling, [Less](/languages/less), [Sass](/languages/sass), and [Stylus](/lan
 {% endsamplefile %}
 {% endsample %}
 
-## Custom Blocks
+## 自定义块 Custom Blocks
 
-You can use custom blocks in your Vue components, but must configure Vue with `.vuerc`, `vue.config.js`, etc. to define how you will preprocess those blocks.
+您可以在 Vue 组件中使用自定义块，但必须使用 `.vuerc`、`vue.config.js` 等配置 Vue 来定义如何预处理这些块。
 
 {% sample %}
 {% samplefile ".vuerc" %}

@@ -7,15 +7,15 @@ eleventyNavigation:
   order: 11
 ---
 
-Parcel supports importing JSON and [JSON5](https://json5.org) files into JavaScript out of the box.
+Parcel 支持将 JSON 和 [JSON5](https://json5.org) 文件导入到 JavaScript 中。
 
-## Example usage
+## 示例用法
 
 {% sample %}
 {% samplefile "app.js" %}
 
 ```js
-import data from './data.json';
+import data from "./data.json";
 console.log(data.hello[0]);
 // => "world"
 ```
@@ -25,10 +25,7 @@ console.log(data.hello[0]);
 
 ```json
 {
-  "hello": [
-    "world",
-    "computer"
-  ]
+  "hello": ["world", "computer"]
 }
 ```
 

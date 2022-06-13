@@ -7,15 +7,15 @@ eleventyNavigation:
   order: 12
 ---
 
-Parcel supports importing TOML files from JavaScript using the `@parcel/transformer-toml` plugin. When a `.toml` file is detected, it will be installed into your project automatically.
+Parcel 支持使用 `@parcel/transformer-toml` 插件从 JavaScript 导入 TOML 文件。 当检测到 `.toml` 文件时，它会自动安装到您的项目中。
 
-## Example usage
+## 示例用法
 
 {% sample %}
 {% samplefile "app.js" %}
 
 ```js
-import data from './data.toml';
+import data from "./data.toml";
 console.log(data.hello[0]);
 // => "world"
 ```

@@ -7,38 +7,38 @@ eleventyNavigation:
   order: 6
 ---
 
-Parcel supports [Sass](https://sass-lang.com/) files automatically using the `@parcel/transformer-sass` plugin. When a `.sass` or `.scss` file is detected, it will be installed into your project automatically.
+Parcel 使用 `@parcel/transformer-sass` 插件自动支持 [Sass](https://sass-lang.com/) 文件。当检测到 `.sass` 或 `.scss` 文件时，它会自动安装到您的项目中。
 
-Compiled Sass files are also processed the same way as [CSS](/languages/css/), which means it is compiled for your browser targets, and any [PostCSS](/languages/css/#postcss) plugins are also applied. [CSS modules](/languages/css/#css-modules) can also be used by naming your file with the `.module.scss` extension.
+编译后的 Sass 文件也以与 [CSS](/languages/css/) 相同的方式处理，这意味着它是为您的浏览器目标编译的，并且任何 [PostCSS](/languages/css/#postcss) 插件也适用。 [CSS 模块](/languages/css/#css-modules) 也可以通过使用 `.module.scss` 扩展名命名您的文件来使用。
 
-## Example usage
+## 示例用法
 
-Referencing an SCSS file in an HTML file:
+在 HTML 文件中引用 SCSS 文件：
 
 ```html
 <link rel="stylesheet" href="style.scss" />
 ```
 
-Importing a Sass/SCSS file as a CSS module in JavaScript or TypeScript:
+在 JavaScript 或 TypeScript 中将 Sass/SCSS 文件作为 CSS 模块导入：
 
 ```js
-import * as classes from './style.module.scss';
+import * as classes from "./style.module.scss";
 
 document.body.className = classes.body;
 ```
 
-Directly compiling Sass/SCSS using the Parcel CLI:
+使用 Parcel CLI 直接编译 Sass/SCSS：
 
 ```
 parcel build style.scss
 ```
 
-## Configuration
+## 配置
 
-To configure Sass, create a `.sassrc` or `.sassrc.json` file. For a list of all options that you can define in these configuration files you can have a look at the official [Sass documentation](https://sass-lang.com/documentation/js-api#options)
+要配置 Sass，请创建一个 `.sassrc` 或 `.sassrc.json` 文件。有关您可以在这些配置文件中定义的所有选项的列表，您可以查看官方 [Sass 文档](https://sass-lang.com/documentation/js-api#options)
 
 {% warning %}
 
-**Note**: `.sassrc.js` is also supported for JavaScript-based configuration, but should be avoided when possible because it reduces the effectiveness of Parcel's caching. Use a JSON based configuration format (e.g. `.sassrc.json`) instead.
+**注意**：基于 JavaScript 的配置也支持 `.sassrc.js`，但应尽可能避免，因为它会降低 Parcel 缓存的有效性。请改用基于 JSON 的配置格式（例如 `.sassrc.json`）。
 
 {% endwarning %}

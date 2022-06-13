@@ -7,9 +7,9 @@ eleventyNavigation:
   order: 10
 ---
 
-You can import [Elm](https://elm-lang.org/) files like any another JavaScript files.
+您可以像导入任何其他 JavaScript 文件一样导入 [Elm](https://elm-lang.org/) 文件。
 
-The npm package `elm` needs to be manually installed beforehand. You'll also need a `elm.json` configuration file (run `yarn elm init` to get started and modify it if necessary).
+npm 包 `elm` 需要事先手动安装。您还需要一个 `elm.json` 配置文件（运行 `yarn elm init` 开始并在必要时对其进行修改）。
 
 {% sample null, "column" %}
 {% samplefile "index.html" %}
@@ -75,6 +75,6 @@ view model =
 
 {% endsample %}
 
-## Time-travelling debugger
+## 时间旅行调试器 Time-travelling debugger
 
-Elm's debug mode is automatically enabled when not building for production (it is disabled automatically with `parcel build`). You can set the environment variable `PARCEL_ELM_NO_DEBUG=1` to disable it even in development mode.
+Elm 的调试模式在不为生产而构建时会自动启用（使用 `parcel build` 会自动禁用）。即使在开发模式下，您也可以设置环境变量 `PARCEL_ELM_NO_DEBUG=1` 来禁用它。

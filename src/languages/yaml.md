@@ -7,15 +7,15 @@ eleventyNavigation:
   order: 13
 ---
 
-Parcel supports importing YAML files from JavaScript using the `@parcel/transformer-yaml` plugin. When a `.yaml` file is detected, it will be installed into your project automatically.
+Parcel 支持使用 `@parcel/transformer-yaml` 插件从 JavaScript 导入 YAML 文件。 当检测到 `.yaml` 文件时，它会自动安装到您的项目中。
 
-## Example usage
+## 示例用法
 
 {% sample %}
 {% samplefile "app.js" %}
 
 ```js
-import data from './data.yaml';
+import data from "./data.yaml";
 console.log(data.hello[0]);
 // => "world"
 ```

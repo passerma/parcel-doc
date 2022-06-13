@@ -7,11 +7,11 @@ eleventyNavigation:
   order: 14
 ---
 
-Parcel supports importing [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) shaders using the `@parcel/transformer-glsl` plugin. When a `.glsl`, `.vert` or `.frag` file is detected, it will be installed into your project automatically.
+Parcel 支持使用 `@parcel/transformer-glsl` 插件导入 [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) 着色器。当检测到 `.glsl`、`.vert` 或 `.frag` 文件时，它会自动安装到您的项目中。
 
-## Example usage
+## 示例用法
 
-GLSL files are imported into JavaScript as a string, which you can load into a WebGL context.
+GLSL 文件作为字符串导入 JavaScript，您可以将其加载到 WebGL 上下文中。
 
 ```js
 import frag from './shader.frag'
@@ -21,9 +21,9 @@ gl.shaderSource(..., frag);
 // ...
 ```
 
-### Dependencies
+### 依赖项
 
-Parcel also supports dependencies within GLSL files using a pragma, including from libraries in node_modules. These are bundled together into a single shader that you can load into a WebGL context.
+Parcel 还使用编译指示支持 GLSL 文件中的依赖关系，包括来自 node_modules 中的库。这些被捆绑到一个着色器中，您可以将其加载到 WebGL 上下文中。
 
 {% sample %}
 {% samplefile "app.js" %}

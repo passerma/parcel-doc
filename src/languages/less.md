@@ -7,19 +7,19 @@ eleventyNavigation:
   order: 8
 ---
 
-Parcel supports [Less](https://lesscss.org/) files automatically using the `@parcel/transformer-less` plugin. When a `.less` file is detected, it will be installed into your project automatically.
+Parcel 使用 `@parcel/transformer-less` 插件自动支持 [Less](https://lesscss.org/) 文件。当检测到 `.less` 文件时，它会自动安装到您的项目中。
 
-Compiled Less files are also processed the same way as [CSS](/languages/css/), which means it is compiled for your browser targets, and any [PostCSS](/languages/css/#postcss) plugins are also applied. [CSS modules](/languages/css/#css-modules) can also be used by naming your file with the `.module.less` extension.
+编译的 Less 文件的处理方式也与 [CSS](/languages/css/) 相同，这意味着它是为您的浏览器目标编译的，并且任何 [PostCSS](/languages/css/#postcss) 插件也适用。 [CSS 模块](/languages/css/#css-modules) 也可以通过使用 `.module.less` 扩展名命名您的文件来使用。
 
-## Example usage
+## 示例用法
 
-Referencing a Less file in an HTML file:
+在 HTML 文件中引用 Less 文件：
 
 ```html
 <link rel="stylesheet" href="style.less" />
 ```
 
-Importing a Less file as a CSS module in JavaScript or TypeScript:
+在 JavaScript 或 TypeScript 中将 Less 文件作为 CSS 模块导入：
 
 ```js
 import * as classes './style.module.less';
@@ -27,18 +27,18 @@ import * as classes './style.module.less';
 document.body.className = classes.body;
 ```
 
-Directly compiling Less using the Parcel CLI
+使用 Parcel CLI 直接编译 Less
 
 ```
 parcel build style.less
 ```
 
-## Configuration
+## 配置
 
-To configure Less, create a `.lessrc` file. To see the available options to configure Less see the official [Less documentation](http://lesscss.org/usage/#less-options).
+要配置 Less，请创建一个 `.lessrc` 文件。要查看配置 Less 的可用选项，请参阅官方 [Less 文档](http://lesscss.org/usage/#less-options)。
 
 {% warning %}
 
-**Note**: `.lessrc.js` is also supported for JavaScript-based configuration, but should be avoided when possible because it reduces the effectiveness of Parcel's caching. Use a JSON based configuration format (e.g. `.lessrc`) instead.
+**注意**：基于 JavaScript 的配置也支持 `.lessrc.js`，但应尽可能避免，因为它会降低 Parcel 缓存的有效性。请改用基于 JSON 的配置格式（例如 `.lessrc`）。
 
 {% endwarning %}

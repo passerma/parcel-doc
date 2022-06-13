@@ -7,23 +7,23 @@ eleventyNavigation:
   order: 16
 ---
 
-[MDX](https://mdxjs.com) is a variant of [Markdown](https://daringfireball.net/projects/markdown/) that compiles to JSX, and supports embedding interactive components inside Markdown documents. Parcel supports MDX automatically using the `@parcel/transformer-mdx` plugin. When a `.mdx` file is detected, it will be installed into your project automatically.
+[MDX](https://mdxjs.com) 是 [Markdown](https://daringfireball.net/projects/markdown/) 的变体，编译为 JSX，支持在 Markdown 文档中嵌入交互组件。 Parcel 使用 `@parcel/transformer-mdx` 插件自动支持 MDX。当检测到 `.mdx` 文件时，它会自动安装到您的项目中。
 
-## Example usage
+## 示例用法
 
-First, install `@mdx-js/react`. This is needed to render MDX files as React components.
+首先，安装`@mdx-js/react`。这是将 MDX 文件呈现为 React 组件所必需的。
 
 ```shell
 yarn add @mdx-js/react@^1
 ```
 
-Then, you can import a `.mdx` file into your JavaScript and render it using React:
+然后，您可以将 `.mdx` 文件导入 JavaScript 并使用 React 渲染它：
 
 {% sample %}
 {% samplefile "app.js" %}
 
 ```js
-import Hello from './hello.mdx';
+import Hello from "./hello.mdx";
 
 export function App() {
   return <Hello />;

@@ -7,19 +7,19 @@ eleventyNavigation:
   order: 7
 ---
 
-Parcel supports [Stylus](https://stylus-lang.com/) files automatically using the `@parcel/transformer-stylus` plugin. When a `.styl` file is detected, it will be installed into your project automatically.
+Parcel 使用 `@parcel/transformer-stylus` 插件自动支持 [Stylus](https://stylus-lang.com/) 文件。当检测到 `.styl` 文件时，它会自动安装到您的项目中。
 
-Compiled Stylus files are also processed the same way as [CSS](/languages/css/), which means it is compiled for your browser targets, and any [PostCSS](/languages/css/#postcss) plugins are also applied. [CSS modules](/languages/css/#css-modules) can also be used by naming your file with the `.module.styl` extension.
+编译后的 Stylus 文件也以与 [CSS](/languages/css/) 相同的方式处理，这意味着它是为您的浏览器目标编译的，并且还应用了任何 [PostCSS](/languages/css/#postcss) 插件。 [CSS 模块](/languages/css/#css-modules) 也可以通过使用 `.module.styl` 扩展名命名您的文件来使用。
 
-## Example usage
+## 示例用法
 
-Referencing a Stylus file in an HTML file:
+在 HTML 文件中引用 Stylus 文件：
 
 ```html
 <link rel="stylesheet" href="style.styl" />
 ```
 
-Importing a Stylus file as a CSS module in JavaScript or TypeScript:
+在 JavaScript 或 TypeScript 中将 Stylus 文件作为 CSS 模块导入：
 
 ```js
 import * as classes './style.module.styl';
@@ -27,18 +27,18 @@ import * as classes './style.module.styl';
 document.body.className = classes.body;
 ```
 
-Directly compiling Stylus using the Parcel CLI
+使用 Parcel CLI 直接编译 Stylus
 
 ```
 parcel build style.styl
 ```
 
-## Configuration
+## 配置
 
-To configure Stylus, create a `.stylusrc` file. To see the available options to configure stylus see the official [Stylus documentation](https://stylus-lang.com/docs/js.html).
+要配置 Stylus，请创建一个 `.stylusrc` 文件。要查看配置手写笔的可用选项，请参阅官方 [Stylus 文档](https://stylus-lang.com/docs/js.html)。
 
 {% warning %}
 
-**Note**: `.stylusrc.js` is also supported for JavaScript-based configuration, but should be avoided when possible because it reduces the effectiveness of Parcel's caching. Use a JSON based configuration format (e.g. `.stylusrc`) instead.
+**注意**：基于 JavaScript 的配置也支持 `.stylusrc.js`，但应尽可能避免，因为它会降低 Parcel 缓存的有效性。请改用基于 JSON 的配置格式（例如 `.stylusrc`）。
 
 {% endwarning %}

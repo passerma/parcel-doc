@@ -7,44 +7,45 @@ eleventyNavigation:
   order: 17
 ---
 
-Parcel supports transforming [RSS](https://en.wikipedia.org/wiki/RSS) and [Atom](https://en.wikipedia.org/wiki/Atom_(Web_standard)) feeds defined in XML files using the `@parcel/transformer-xml` plugin. When a `.xml`, `.rss`, or `.atom` file is detected, it will be installed into your project automatically.
+Parcel 支持使用`@parcel/transformer-xml` 插件转换 XML 文件中定义的[RSS](https://en.wikipedia.org/wiki/RSS)和[Atom](<https://en.wikipedia.org/wiki/atom_(web_standard)>)提要。如果检测到 `.xml`，`.rss`或`.atom`文件，它将自动安装到您的项目中。
 
-## Dependencies
+## 依赖
 
-Parcel transforms URL references within RSS and Atom feeds to match the final name and [public URL](/features/targets/#publicurl), including [content hashes](/features/production/#content-hashing) where appropriate.
+Parcel 转换 RSS 和 Atom 提要中的 URL 引用以匹配最终名称和 [public URL](/features/targets/#publicurl)，包括 [content hashes](/features/production/#content-hashing) 在适当的地方。
 
-In RSS this includes:
+在 RSS 中，这包括：
 
-* `<link>`
-* `<url>`
-* `<comments>`
-* `<enclosure>`
+- `<link>`
+- `<url>`
+- `<comments>`
+- `<enclosure>`
 
-In Atom this includes:
+在 Atom 中，这包括：
 
-* `<link>`
-* `<icon>`
-* `<logo>`
+- `<link>`
+- `<icon>`
+- `<logo>`
 
-## Embedded HTML
+## 嵌入式 HTML
 
-Embedded HTML and XHTML content inside RSS and Atom feeds is also transformed as described in [HTML](/languages/html/). All URL references within embedded HTML will also be transformed, and the referenced files will be processed with the relevant Parcel pipelines.
+RSS 和 Atom 提要中嵌入的 HTML 和 XHTML 内容也会按照 [HTML](/languages/html/) 中的说明进行转换。嵌入 HTML 中的所有 URL 引用也将被转换，并且引用的文件将使用相关的 Parcel 管道进行处理。
 
-## HTML references
+## HTML 引用
 
-RSS and Atom feeds can be referenced from an HTML file using the `<link>` element. Use the `application/rss+xml` or `application/atom+xml` mime type as appropriate. Parcel will ensure that XML files referenced this way do not receive a content hash and have a consistent URL over time.
+可以使用 `<link>` 元素从 HTML 文件中引用 RSS 和 Atom 提要。根据需要使用 `application/rss+xml` 或 `application/atom+xml` mime 类型。 Parcel 将确保以这种方式引用的 XML 文件不会收到内容哈希，并且随着时间的推移具有一致的 URL。
 
 ```html
 <link
   href="feed.xml"
   rel="alternate"
   type="application/rss+xml"
-  title="Blog RSS feed" />
+  title="Blog RSS feed"
+/>
 ```
 
-## Example
+## 例子
 
-This example shows an Atom feed containing a single entry. The URL references in the two `<link>` elements will be rewritten to include the public URL, and the image referenced in the content of the post will be processed and content hashed.
+此示例显示了一个包含单个条目的 Atom 提要。两个 `<link>` 元素中的 URL 引用将被重写以包含公共 URL，并且帖子内容中引用的图像将被处理和内容散列。
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>

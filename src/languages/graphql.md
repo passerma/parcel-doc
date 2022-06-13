@@ -7,17 +7,17 @@ eleventyNavigation:
   order: 13
 ---
 
-Parcel supports importing [GraphQL](https://graphql.org) queries defined in a separate file into JavaScript via the `@parcel/transformer-graphql` plugin.  When a `.graphql` or `.gql` file is detected, it will be installed into your project automatically.
+Parcel 支持通过 `@parcel/transformer-graphql` 插件将在单独文件中定义的 [GraphQL](https://graphql.org) 查询导入 JavaScript。当检测到 `.graphql` 或 `.gql` 文件时，它会自动安装到您的项目中。
 
-## Example usage
+## 示例用法
 
-GraphQL files are imported into JavaScript as a string, which you can send to a server directly or use with whatever GraphQL library you like.
+GraphQL 文件作为字符串导入 JavaScript，您可以直接将其发送到服务器或与您喜欢的任何 GraphQL 库一起使用。
 
 {% sample %}
 {% samplefile "app.js" %}
 
 ```js
-import query from './query.graphql';
+import query from "./query.graphql";
 ```
 
 {% endsamplefile %}
@@ -26,7 +26,7 @@ import query from './query.graphql';
 ```graphql
 {
   user(id: 5) {
-    firstName,
+    firstName
     lastName
   }
 }
@@ -35,24 +35,24 @@ import query from './query.graphql';
 {% endsamplefile %}
 {% endsample %}
 
-### Dependencies
+### 依赖项
 
-Parcel also supports importing fragments defined in separate files into another GraphQL file using a special comment syntax. These will be bundled together into a single GraphQL query and returned to your code as a string.
+Parcel 还支持使用特殊的注释语法将单独文件中定义的片段导入另一个 GraphQL 文件。这些将被捆绑到一个单一的 GraphQL 查询中，并作为字符串返回到您的代码中。
 
-You can either import all fragments from a file:
+您可以从文件中导入所有片段：
 
 ```graphql
 # import "fragments.graphql"
 # import * from "fragments.graphql"
 ```
 
-or list the specific fragments you wish to import:
+或列出您要导入的特定片段：
 
 ```graphql
 # import UserFragment, AddressFragment from "fragments.graphql"
 ```
 
-Here is a full example showing how to use imports as part of a larger GraphQL query:
+下面是一个完整示例，展示了如何将导入用作更大的 GraphQL 查询的一部分：
 
 {% sample %}
 {% samplefile "query.graphql" %}

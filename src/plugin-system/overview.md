@@ -1,11 +1,11 @@
 ---
 layout: layout.njk
-title: Plugin System Overview
+title: 插件系统概述
 eleventyNavigation:
   key: plugin-system-overview
-  title: Overview
+  title: 概述
   order: 1
-summary: A high-level overview over the plugin system
+summary: 插件系统的高级概述
 ---
 
 <figure>
@@ -14,56 +14,47 @@ summary: A high-level overview over the plugin system
   </a>
 </figure>
 
-## Parcel Architecture
+## Parcel 架构
 
-Even if you aren't doing anything that complex, if you are going to use Parcel
-a lot it makes sense to take some time and understand how it works.
+即使您没有做任何复杂的事情，如果您要使用 Parcel，花一些时间并了解它的工作原理是很有意义的。
 
-### Phases of Parcel
+### Phases 的阶段
 
-At a high level Parcel runs through several phases:
+概括地说，Parcel 经历了几个阶段：
 
-- Resolving
-- Transforming
-- Bundling
-- Naming
-- Packaging
-- Optimizing
-- Compressing
+- Resolving - 解决
+- Transforming - 转型
+- Bundling - 捆绑
+- Naming - 命名
+- Packaging - 打包
+- Optimizing - 优化
+- Compressing - 压缩
 
-The **resolving** and **transforming** phases work together in parallel to
-build a graph of all your assets.
+**resolving** 和 **transforming** 阶段并行工作以构建所有资产的图表。
 
-The asset graph gets translated into bundles in the **bundling** phase. The output filename of each bundle is determined in the **naming** phase.
+资产图在 **bundling** 阶段被转换为捆绑包。每个包的输出文件名在**Naming**阶段确定。
 
-Then, the **packaging**, **optimizing**, and **compressing** phases work together to generate the final contents of every bundle, in parallel.
+然后，**Packaging**、**Optimizing**和**Compressing**阶段协同工作以并行生成每个包的最终内容。
 
-The **packaging** phase merges the assets in each bundle together into output files.
+**packaging**阶段将每个捆绑包中的资产合并到输出文件中。
 
-The **optimizing** phase transforms the contents of each bundle. When this is done, Parcel determines the content hashes of each bundle, which are applied to the final output filenames.
+**optimizing**阶段转换每个包的内容。完成后，Parcel 确定每个包的内容哈希，这些哈希将应用于最终输出文件名。
 
-Finally, the **compressing** phase generates one or more encodings for each output file as they are being written to the file system.
+最后，**Compressing**阶段为每个输出文件生成一个或多个编码，因为它们被写入文件系统。
 
-### Asset Graph
+### 资产图 Asset Graph
 
-During the resolving and transforming phases, Parcel discovers all the assets
-in your app or program. Every asset can have its own dependencies on other
-assets which Parcel will pull in.
+在解析和转换阶段，Parcel 会发现您的应用程序或程序中的所有资产。每个资产都可以对 Parcel 将引入的其他资产有自己的依赖关系。
 
-The data structure that represents all of these assets and their dependencies
-on one another is called the "Asset Graph".
+表示所有这些资产及其相互依赖关系的数据结构称为“资产图”。
 
-### Bundle Graph
+### 捆绑图
 
-Once Parcel has built the entire Asset Graph, it begins turning it into
-"bundles". These bundles are groupings of assets that get placed together in a
-single file. Bundles will (generally) contain only assets in the same language.
+一旦 Parcel 构建了整个 Asset Graph，它就会开始将其变成“捆绑包”。这些捆绑包是放在一个文件中的资产分组。捆绑包将（通常）仅包含相同语言的资产。
 
-Some assets are considered "entry" points into your app, and will stay as
-separate bundles. For example, if your `index.html` file links to an
-`about.html` file, they won't be merged together.
+某些资产被视为您应用程序的“入口”点，并将作为单独的捆绑包保留。例如，如果您的 `index.html` 文件链接到 `about.html` 文件，它们不会被合并在一起。
 
-### Complete List of Plugin Types
+### 插件类型的完整列表
 
 - [Transformer](/plugin-system/transformer): Converts an asset (into another asset) <br>
   _Example: convert Typescript to JavaScript (per file)_
